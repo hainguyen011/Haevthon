@@ -3,14 +3,15 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  CheckCircle2, X, Zap, Shield, Sparkles, Users, ChevronDown, Cpu, Network, Globe 
+import {
+  CheckCircle2, X, Zap, Shield, Sparkles, Users, ChevronDown, Cpu, Network, Globe
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 // --- Custom Select Component (with Editable support) ---
-const CustomSelect = ({ value, onChange, options, placeholder, label, error, isEditable = false }) => {
+const CustomSelect = ({ value, onChange, options, placeholder, label, error, isEditable = true }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const containerRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -24,34 +25,44 @@ const CustomSelect = ({ value, onChange, options, placeholder, label, error, isE
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const selectedOption = options.find(opt => opt.value === value);
-  const displayValue = selectedOption ? selectedOption.label : value;
+  // Sync searchTerm with value when closed
+  useEffect(() => {
+    if (!isOpen) {
+      const selectedOption = options.find(opt => opt.value === value);
+      setSearchTerm(selectedOption ? selectedOption.label : value || '');
+    }
+  }, [value, isOpen, options]);
+
+  const filteredOptions = options.filter(opt => 
+    opt.label.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="custom-select-container" ref={containerRef} style={{ position: 'relative', width: '100%' }}>
-      <label style={{
-        display: 'block',
-        marginBottom: '6px',
-        fontSize: '0.65rem',
-        fontWeight: 700,
-        color: 'rgba(255,255,255,0.4)',
-        textTransform: 'uppercase',
-        letterSpacing: '1px',
-      }}>{label}</label>
-      
-      <div 
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+        <label style={{
+          fontSize: '0.65rem',
+          fontWeight: 700,
+          color: 'rgba(255,255,255,0.4)',
+          textTransform: 'uppercase',
+          letterSpacing: '1px',
+        }}>{label}</label>
+        {error && <span style={{ color: '#ff4d4d', fontSize: '0.6rem', fontWeight: 600 }}>{error.message}</span>}
+      </div>
+
+      <div
         onClick={() => {
           setIsOpen(!isOpen);
           if (isEditable && inputRef.current) inputRef.current.focus();
         }}
         style={{
           width: '100%',
-          height: '42px',
-          padding: '0 14px',
+          height: '38px',
+          padding: '0 12px',
           borderRadius: '8px',
           backgroundColor: 'rgba(255,255,255,0.02)',
-          border: `1px solid ${isOpen ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.08)'}`,
-          color: displayValue ? 'white' : 'rgba(255,255,255,0.3)',
+          border: `1px solid ${error ? 'rgba(255, 77, 77, 0.5)' : (isOpen ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.08)')}`,
+          color: value || searchTerm ? 'white' : 'rgba(255,255,255,0.3)',
           fontSize: '0.85rem',
           cursor: isEditable ? 'text' : 'pointer',
           display: 'flex',
@@ -64,8 +75,12 @@ const CustomSelect = ({ value, onChange, options, placeholder, label, error, isE
           <input
             ref={inputRef}
             type="text"
-            value={value || ''}
-            onChange={(e) => onChange(e.target.value)}
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              onChange(e.target.value);
+              setIsOpen(true);
+            }}
             placeholder={placeholder}
             onFocus={() => setIsOpen(true)}
             style={{
@@ -80,17 +95,17 @@ const CustomSelect = ({ value, onChange, options, placeholder, label, error, isE
             onClick={(e) => e.stopPropagation()}
           />
         ) : (
-          <span style={{ 
-            overflow: 'hidden', 
-            textOverflow: 'ellipsis', 
+          <span style={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             marginRight: '8px'
           }}>
-            {displayValue || placeholder}
+            {searchTerm || placeholder}
           </span>
         )}
-        <motion.div 
-          animate={{ rotate: isOpen ? 180 : 0 }} 
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           style={{ display: 'flex', alignItems: 'center' }}
         >
@@ -99,7 +114,7 @@ const CustomSelect = ({ value, onChange, options, placeholder, label, error, isE
       </div>
 
       <AnimatePresence>
-        {isOpen && (
+        {isOpen && filteredOptions.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: -4, scale: 0.98 }}
             animate={{ opacity: 1, y: 4, scale: 1 }}
@@ -114,39 +129,40 @@ const CustomSelect = ({ value, onChange, options, placeholder, label, error, isE
               borderRadius: '12px',
               border: '1px solid rgba(255,255,255,0.1)',
               boxShadow: '0 20px 40px rgba(0,0,0,0.8)',
-              zIndex: 100,
+              zIndex: 9999,
               overflowY: 'auto',
               maxHeight: '200px',
               marginTop: '4px',
               padding: '6px'
             }}
           >
-            {options.map((option) => (
+            {filteredOptions.map((option) => (
               <div
                 key={option.value}
                 onClick={() => {
-                  onChange(isEditable ? option.label : option.value);
+                  onChange(option.value);
+                  setSearchTerm(option.label);
                   setIsOpen(false);
                 }}
                 style={{
                   padding: '10px 12px',
                   borderRadius: '6px',
                   fontSize: '0.8rem',
-                  color: (value === option.value || value === option.label) ? '#fff' : 'rgba(255,255,255,0.5)',
-                  backgroundColor: (value === option.value || value === option.label) ? 'rgba(255,255,255,0.08)' : 'transparent',
+                  color: (value === option.value) ? '#fff' : 'rgba(255,255,255,0.5)',
+                  backgroundColor: (value === option.value) ? 'rgba(255,255,255,0.08)' : 'transparent',
                   cursor: 'pointer',
                   transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                   display: 'flex',
                   alignItems: 'center',
                 }}
                 onMouseEnter={(e) => {
-                  if (value !== option.value && value !== option.label) {
+                  if (value !== option.value) {
                     e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.03)';
                     e.currentTarget.style.color = 'rgba(255,255,255,0.8)';
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (value !== option.value && value !== option.label) {
+                  if (value !== option.value) {
                     e.currentTarget.style.backgroundColor = 'transparent';
                     e.currentTarget.style.color = 'rgba(255,255,255,0.5)';
                   }
@@ -158,22 +174,37 @@ const CustomSelect = ({ value, onChange, options, placeholder, label, error, isE
           </motion.div>
         )}
       </AnimatePresence>
-      {error && <p style={{ color: '#ff4d4d', fontSize: '0.65rem', marginTop: '4px', fontWeight: 500, paddingLeft: '4px' }}>{error.message}</p>}
     </div>
   );
 };
 
 const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
   const { t } = useLanguage();
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+  const [currentStep, setCurrentStep] = useState(0); // 0: Survey, 1: Registration
   const [regType, setRegType] = useState('individual'); // 'individual' or 'team'
-
   const registrationSchema = z.object({
+    // Survey Fields
+    hasParticipated: z.string().min(1, 'Required'),
+    foundVia: z.string().min(1, 'Required'),
+    mainGoal: z.string().min(1, 'Required'),
+    teamStatus: z.string().min(1, 'Required'),
+    primaryRole: z.string().min(1, 'Required'),
+    techInterest: z.string().min(2, 'Required'),
+    vibeLevel: z.string().min(1, 'Required'),
+    aevummasLevel: z.string().min(1, 'Required'),
+    // Registration Fields
     fullName: z.string().min(2, t('err_name_min')),
     email: z.string().email(t('err_email_invalid')),
     discord: z.string().min(2, t('err_discord_required')),
     linkedin: z.string().url(t('err_linkedin_invalid')).optional().or(z.literal('')),
-    github: z.string().url(t('err_github_invalid')).optional().or(z.literal('')),
+    github: z.string().url(t('err_github_invalid')),
+    facebook: z.string().url(t('err_facebook_invalid')).optional().or(z.literal('')),
+    country: z.string().min(1, 'Required'),
+    age: z.string().min(1, 'Required'),
+    gender: z.string().min(1, 'Required'),
+    city: z.string().min(1, 'Required'),
+    residence: z.string().optional().or(z.literal('')),
     teamName: regType === 'team' ? z.string().min(2, t('err_team_required')) : z.string().optional(),
     role: z.string().min(1, t('err_role_required')),
     experience: z.string().min(1, t('err_experience_required')),
@@ -186,31 +217,68 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    trigger,
     reset,
   } = useForm({
     resolver: zodResolver(registrationSchema),
     defaultValues: {
+      hasParticipated: '',
+      foundVia: '',
+      mainGoal: '',
+      teamStatus: '',
+      primaryRole: '',
+      techInterest: '',
+      vibeLevel: '',
+      aevummasLevel: '',
+      country: 'vietnam',
+      age: '',
+      gender: '',
       role: '',
       experience: '',
-    }
+    },
+    shouldUnregister: false
   });
 
-  const onSubmit = async (data) => {
-    console.log('Form Submitted:', { ...data, regType });
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSuccess(true);
+  const nextStep = async () => {
+    const fieldsToValidate = ['hasParticipated', 'foundVia', 'mainGoal', 'teamStatus', 'primaryRole', 'techInterest', 'vibeLevel', 'aevummasLevel'];
+    const isValid = await trigger(fieldsToValidate);
+    if (isValid) {
+      setCurrentStep(1);
+    }
   };
 
-  const handleClose = () => {
-    setIsSuccess(false);
-    reset();
-    onClose();
+  const onSubmit = async (data) => {
+    try {
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyriWoj8wUJg9YNbhOqWBr_BJLSfTN-HijIv_Ilqp8eC1LnAlF7jR45mwC8n3NKpeaNuw/exec';
+      const formData = new FormData();
+      Object.keys(data).forEach(key => {
+        formData.append(key, data[key]);
+      });
+      formData.append('regType', regType);
+
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData,
+      });
+
+      setToast({
+        show: true,
+        message: t('reg_success_title'),
+        type: 'success'
+      });
+      
+      reset();
+    } catch (error) {
+      console.error('Registration Error:', error);
+      alert('Đã có lỗi xảy ra. Vui lòng thử lại sau!');
+    }
   };
 
   const inputStyle = {
     width: '100%',
-    height: '42px',
-    padding: '0 14px',
+    height: '38px',
+    padding: '0 12px',
     borderRadius: '8px',
     backgroundColor: 'rgba(255,255,255,0.02)',
     border: '1px solid rgba(255,255,255,0.08)',
@@ -220,26 +288,22 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
     transition: 'all 0.3s ease',
   };
 
+  const inputErrorStyle = {
+    ...inputStyle,
+    borderColor: 'rgba(255, 77, 77, 0.5)',
+    backgroundColor: 'rgba(255, 77, 77, 0.02)',
+    boxShadow: '0 0 0 1px rgba(255, 77, 77, 0.1)',
+  };
+
   const labelStyle = {
     display: 'block',
-    marginBottom: '6px',
+    marginBottom: '4px',
     fontSize: '0.65rem',
     fontWeight: 700,
     color: 'rgba(255,255,255,0.4)',
     textTransform: 'uppercase',
     letterSpacing: '1px',
   };
-
-  const successContent = (
-    <div style={{ textAlign: 'center', padding: '40px' }}>
-      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} style={{ color: '#fff', marginBottom: '20px' }}>
-        <CheckCircle2 size={56} strokeWidth={1} />
-      </motion.div>
-      <h2 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: '12px' }}>{t('reg_success_title')}</h2>
-      <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem', marginBottom: '24px' }}>{t('reg_success_desc')}</p>
-      <button onClick={handleClose} className="btn-primary" style={{ margin: '0 auto' }}>{t('reg_btn_close')}</button>
-    </div>
-  );
 
   const formContent = (
     <motion.div
@@ -248,14 +312,15 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
       exit={{ y: 20, opacity: 0 }}
       style={{
         width: '100%',
-        maxWidth: '1200px',
+        maxWidth: '1150px',
+        minHeight: '500px',
+        height: 'auto',
         backgroundColor: '#000',
         background: 'linear-gradient(180deg, rgba(255,255,255,0.02) 0%, #000 100%)',
         borderRadius: '24px',
         border: '1px solid rgba(255,255,255,0.1)',
         position: 'relative',
         boxShadow: '0 50px 100px rgba(0,0,0,0.9)',
-        overflow: 'hidden',
         display: 'flex',
         flexDirection: 'row',
       }}
@@ -267,13 +332,137 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
         </button>
       )}
 
-      {isSuccess ? successContent : (
-        <>
-          {/* Left Side: Information */}
-          <div style={{ 
-            width: '28%', 
-            padding: '48px', 
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.03), transparent)',
+      {/* Aevum Success Popup */}
+      <AnimatePresence>
+        {toast.show && (
+          <div style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 10000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setToast(prev => ({ ...prev, show: false }))}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                backdropFilter: 'blur(20px)'
+              }}
+            />
+
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+              style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '380px',
+                backgroundColor: '#050505',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                padding: '40px 32px',
+                textAlign: 'center',
+                boxShadow: '0 40px 80px rgba(0,0,0,1)',
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div style={{
+                marginBottom: '32px',
+                display: 'flex',
+                justifyContent: 'center',
+                position: 'relative'
+              }}>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  style={{
+                    width: '72px',
+                    height: '72px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <img 
+                    src="/assets/aevum-logo.png" 
+                    alt="Aevum Logo" 
+                    style={{
+                      width: '64px',
+                      height: '64px',
+                      objectFit: 'contain'
+                    }} 
+                  />
+                </motion.div>
+              </div>
+
+              <h3 style={{
+                fontSize: '1.6rem',
+                fontWeight: 900,
+                color: '#fff',
+                marginBottom: '12px',
+                letterSpacing: '-1px',
+                textTransform: 'uppercase'
+              }}>
+                {t('reg_success_title')}
+              </h3>
+              
+              <p style={{
+                color: 'rgba(255,255,255,0.4)',
+                fontSize: '0.85rem',
+                lineHeight: 1.6,
+                marginBottom: '32px',
+                fontWeight: 300,
+                letterSpacing: '0.3px',
+                padding: '0 10px'
+              }}>
+                {t('reg_success_desc')}
+              </p>
+
+              <motion.button
+                onClick={() => setToast(prev => ({ ...prev, show: false }))}
+                style={{
+                  width: '100%',
+                  height: '48px',
+                  borderRadius: '8px',
+                  backgroundColor: 'rgba(255,255,255,0.95)',
+                  color: '#000',
+                  border: 'none',
+                  fontSize: '0.75rem',
+                  fontWeight: 900,
+                  letterSpacing: '1.5px',
+                  cursor: 'pointer',
+                  textTransform: 'uppercase'
+                }}
+              >
+                {t('reg_btn_close')}
+              </motion.button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <div className="registration-container" style={{
+        display: 'flex',
+        width: '100%',
+        height: 'auto',
+        position: 'relative',
+        alignItems: 'stretch'
+      }}>
+        {/* Left Side: Information */}
+          <div style={{
+            width: '24%',
+            padding: '40px',
+            background: 'transparent',
             borderRight: '1px solid rgba(255,255,255,0.05)',
             display: 'flex',
             flexDirection: 'column',
@@ -283,59 +472,393 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
               <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                 <Zap size={18} color="#000" fill="#000" />
               </div>
-              <h2 style={{ fontSize: '2.2rem', fontWeight: 900, lineHeight: 1.1, marginBottom: '16px', letterSpacing: '-1.5px' }}>
+              <h2 style={{ fontSize: '1.8rem', fontWeight: 900, lineHeight: 1.1, marginBottom: '12px', letterSpacing: '-1px' }}>
                 IGNITE THE <span style={{ color: 'rgba(255,255,255,0.3)' }}>AGENTIC ERA</span>
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300 }}>
                 Join Haevthon to architect the next generation of autonomous intelligence and agentic systems.
               </p>
             </div>
-            
-            
           </div>
 
           {/* Right Side: The Form */}
-          <div style={{ width: '72%', padding: '48px 64px' }}>
-            
-            <div style={{ display: 'flex', backgroundColor: 'rgba(255,255,255,0.03)', padding: '4px', borderRadius: '12px', marginBottom: '32px', width: 'fit-content', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <button type="button" onClick={() => setRegType('individual')} style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', backgroundColor: regType === 'individual' ? 'rgba(255,255,255,0.08)' : 'transparent', color: regType === 'individual' ? '#fff' : 'rgba(255,255,255,0.4)', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.3s ease' }}>
-                {t('reg_type_individual')}
-              </button>
-              <button type="button" onClick={() => setRegType('team')} style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', backgroundColor: regType === 'team' ? 'rgba(255,255,255,0.08)' : 'transparent', color: regType === 'team' ? '#fff' : 'rgba(255,255,255,0.4)', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.3s ease' }}>
-                {t('reg_type_team')}
-              </button>
-            </div>
+          <div style={{ 
+            width: '76%',
+            padding: '40px 48px',
+            display: 'flex',
+            flexDirection: 'column',
+            height: 'auto'
+          }}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%', height: '100%' }}>
+              <AnimatePresence mode="wait">
+                {currentStep === 0 ? (
+                  <motion.div
+                    key="survey"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
+                >
+                  <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div>
+                      <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', marginBottom: '2px', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
+                        {t('reg_survey_title') || 'PRE-REGISTRATION SURVEY'}
+                      </h3>
+                      <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem' }}>
+                        {t('reg_survey_subtitle') || 'Please answer a few quick questions to help us prepare.'}
+                      </p>
+                    </div>
+                    <div style={{ 
+                      fontSize: '0.65rem', 
+                      fontWeight: 900, 
+                      color: '#fff', 
+                      backgroundColor: 'rgba(255,255,255,0.04)', 
+                      padding: '3px 10px', 
+                      borderRadius: '4px',
+                      letterSpacing: '2px',
+                      border: '1px solid rgba(255,255,255,0.05)'
+                    }}>
+                      01 <span style={{ color: 'rgba(255,255,255,0.2)' }}>/ 02</span>
+                    </div>
+                  </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '24px' }}>
+                  <Controller
+                    name="hasParticipated"
+                    control={control}
+                    render={({ field }) => (
+                      <CustomSelect
+                        {...field}
+                        label={t('reg_survey_q1')}
+                        placeholder={t('reg_placeholder_select_answer')}
+                        options={[
+                          { value: 'yes', label: t('reg_survey_q1_yes') },
+                          { value: 'no', label: t('reg_survey_q1_no') },
+                        ]}
+                        error={errors.hasParticipated}
+                      />
+                    )}
+                  />
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <Controller
+                      name="foundVia"
+                      control={control}
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          label={t('reg_survey_q2')}
+                          placeholder={t('reg_placeholder_select_source')}
+                          options={[
+                            { value: 'social', label: t('reg_survey_q2_social') },
+                            { value: 'friend', label: t('reg_survey_q2_friend') },
+                            { value: 'community', label: t('reg_survey_q2_community') },
+                            { value: 'other', label: t('reg_survey_q2_other') },
+                          ]}
+                          error={errors.foundVia}
+                        />
+                      )}
+                    />
+
+                    <Controller
+                      name="mainGoal"
+                      control={control}
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          label={t('reg_survey_q3')}
+                          placeholder={t('reg_placeholder_select_goal')}
+                          options={[
+                            { value: 'learn', label: t('reg_survey_q3_learn') },
+                            { value: 'net', label: t('reg_survey_q3_net') },
+                            { value: 'prize', label: t('reg_survey_q3_prize') },
+                            { value: 'job', label: t('reg_survey_q3_job') },
+                          ]}
+                          error={errors.mainGoal}
+                        />
+                      )}
+                    />
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <Controller
+                      name="teamStatus"
+                      control={control}
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          label={t('reg_survey_q4_label')}
+                          placeholder={t('reg_placeholder_select_status')}
+                          options={[
+                            { value: 'looking', label: t('reg_survey_q4_yes') },
+                            { value: 'has_team', label: t('reg_survey_q4_no') },
+                            { value: 'solo', label: t('reg_survey_q4_solo') },
+                          ]}
+                          error={errors.teamStatus}
+                        />
+                      )}
+                    />
+
+                    <Controller
+                      name="primaryRole"
+                      control={control}
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          label={t('reg_survey_q5_label')}
+                          placeholder={t('reg_placeholder_select_role')}
+                          options={[
+                            { value: 'dev', label: t('reg_survey_q5_dev') },
+                            { value: 'ai', label: t('reg_survey_q5_ai') },
+                            { value: 'design', label: t('reg_survey_q5_design') },
+                            { value: 'biz', label: t('reg_survey_q5_biz') },
+                          ]}
+                          error={errors.primaryRole}
+                        />
+                      )}
+                    />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <label style={labelStyle}>{t('reg_survey_q8_label')}</label>
+                      {errors.techInterest && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.techInterest.message}</span>}
+                    </div>
+                    <input 
+                      {...register('techInterest')} 
+                      placeholder="OpenAI, LangChain, Autogen..." 
+                      style={errors.techInterest ? inputErrorStyle : inputStyle} 
+                      className="minimal-input" 
+                    />
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <Controller
+                      name="vibeLevel"
+                      control={control}
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          label={t('reg_survey_q9_label')}
+                          placeholder={t('reg_placeholder_select_level')}
+                          options={[
+                            { value: 'new', label: t('reg_survey_q9_new') },
+                            { value: 'exploring', label: t('reg_survey_q9_exploring') },
+                            { value: 'coder', label: t('reg_survey_q9_coder') },
+                            { value: 'master', label: t('reg_survey_q9_master') },
+                          ]}
+                          error={errors.vibeLevel}
+                        />
+                      )}
+                    />
+
+                    <Controller
+                      name="aevummasLevel"
+                      control={control}
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          label={t('reg_survey_q10_label')}
+                          placeholder={t('reg_placeholder_select_level')}
+                          options={[
+                            { value: 'new', label: t('reg_survey_q10_new') },
+                            { value: 'fan', label: t('reg_survey_q10_fan') },
+                            { value: 'true', label: t('reg_survey_q10_true') },
+                          ]}
+                          error={errors.aevummasLevel}
+                        />
+                      )}
+                    />
+                  </div>
+
+                  <button 
+                    type="button" 
+                    onClick={nextStep} 
+                    className="btn-primary" 
+                    style={{ width: '100%', justifyContent: 'center', height: '46px', marginTop: '12px' }}
+                  >
+                    {t('reg_btn_next')}
+                  </button>
+                    </motion.div>
+                  ) : (
+                    <motion.div 
+                      key="reg-step"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.4 }}
+                      style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+                    >
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between', 
+                    marginBottom: '12px',
+                    height: '24px' 
+                  }}>
+                    <button 
+                      type="button" 
+                      onClick={() => setCurrentStep(0)}
+                      style={{ 
+                        background: 'none', 
+                        border: 'none', 
+                        color: 'rgba(255,255,255,0.4)', 
+                        cursor: 'pointer', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '4px',
+                        fontSize: '0.65rem', 
+                        fontWeight: 900,
+                        padding: 0,
+                        transition: 'color 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = '#fff'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.4)'}
+                    >
+                      <ChevronDown size={14} style={{ transform: 'rotate(90deg)' }} />
+                      {t('reg_btn_back_survey')}
+                    </button>
+                    <div style={{ 
+                      fontSize: '0.65rem', 
+                      fontWeight: 900, 
+                      color: 'rgba(255,255,255,0.6)', 
+                      backgroundColor: 'rgba(255,255,255,0.03)', 
+                      padding: '4px 10px', 
+                      borderRadius: '5px',
+                      letterSpacing: '2px',
+                      border: '1px solid rgba(255,255,255,0.05)'
+                    }}>
+                      02 <span style={{ color: 'rgba(255,255,255,0.15)' }}>/ 02</span>
+                    </div>
+                  </div>
+                  <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(255,255,255,0.05)', marginBottom: '16px' }} />
+
+                  <div style={{ display: 'flex', backgroundColor: 'rgba(255,255,255,0.03)', padding: '4px', borderRadius: '12px', marginBottom: '20px', width: 'fit-content', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <button type="button" onClick={() => setRegType('individual')} style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', backgroundColor: regType === 'individual' ? 'rgba(255,255,255,0.08)' : 'transparent', color: regType === 'individual' ? '#fff' : 'rgba(255,255,255,0.4)', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.3s ease' }}>
+                      {t('reg_type_individual')}
+                    </button>
+                    <button type="button" onClick={() => setRegType('team')} style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', backgroundColor: regType === 'team' ? 'rgba(255,255,255,0.08)' : 'transparent', color: regType === 'team' ? '#fff' : 'rgba(255,255,255,0.4)', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.3s ease' }}>
+                      {t('reg_type_team')}
+                    </button>
+                  </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
                 <div className="form-group">
-                  <label style={labelStyle}>{t('reg_label_name')}</label>
-                  <input {...register('fullName')} placeholder={t('reg_placeholder_name')} style={inputStyle} className="minimal-input" />
-                  {errors.fullName && <p className="error-msg">{errors.fullName.message}</p>}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label style={labelStyle}>{t('reg_label_name')}</label>
+                    {errors.fullName && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.fullName.message}</span>}
+                  </div>
+                  <input {...register('fullName')} placeholder={t('reg_placeholder_name')} style={errors.fullName ? inputErrorStyle : inputStyle} className="minimal-input" />
                 </div>
                 <div className="form-group">
-                  <label style={labelStyle}>{t('reg_label_email')}</label>
-                  <input {...register('email')} placeholder={t('reg_placeholder_email')} style={inputStyle} className="minimal-input" />
-                  {errors.email && <p className="error-msg">{errors.email.message}</p>}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label style={labelStyle}>{t('reg_label_email')}</label>
+                    {errors.email && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.email.message}</span>}
+                  </div>
+                  <input {...register('email')} placeholder={t('reg_placeholder_email')} style={errors.email ? inputErrorStyle : inputStyle} className="minimal-input" />
                 </div>
                 <div className="form-group">
-                  <label style={labelStyle}>{t('reg_discord_label')}</label>
-                  <input {...register('discord')} placeholder={t('reg_discord_ph')} style={inputStyle} className="minimal-input" />
-                  {errors.discord && <p className="error-msg">{errors.discord.message}</p>}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label style={labelStyle}>{t('reg_discord_label')}</label>
+                    {errors.discord && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.discord.message}</span>}
+                  </div>
+                  <input {...register('discord')} placeholder={t('reg_discord_ph')} style={errors.discord ? inputErrorStyle : inputStyle} className="minimal-input" />
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
                 <div className="form-group">
-                  <label style={labelStyle}>{t('reg_linkedin_label')}</label>
-                  <input {...register('linkedin')} placeholder="linkedin.com/in/..." style={inputStyle} className="minimal-input" />
-                  {errors.linkedin && <p className="error-msg">{errors.linkedin.message}</p>}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label style={labelStyle}>{t('reg_age_label')}</label>
+                    {errors.age && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.age.message}</span>}
+                  </div>
+                  <input {...register('age')} placeholder="18, 20, 25..." style={errors.age ? inputErrorStyle : inputStyle} className="minimal-input" />
+                </div>
+                <Controller
+                  name="gender"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomSelect
+                      {...field}
+                      label={t('reg_gender_label')}
+                      placeholder={t('reg_placeholder_select')}
+                      options={[
+                        { value: 'male', label: t('reg_gender_male') },
+                        { value: 'female', label: t('reg_gender_female') },
+                        { value: 'other', label: t('reg_gender_other') },
+                      ]}
+                      error={errors.gender}
+                    />
+                  )}
+                />
+                <Controller
+                  name="country"
+                  control={control}
+                  defaultValue="vietnam"
+                  render={({ field }) => (
+                    <CustomSelect
+                      {...field}
+                      label={t('reg_country_label')}
+                      placeholder={t('reg_placeholder_select_country')}
+                      options={[
+                        { value: 'vietnam', label: 'Việt Nam' },
+                        { value: 'international', label: 'International' },
+                      ]}
+                      error={errors.country}
+                    />
+                  )}
+                />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '16px' }}>
+                <Controller
+                  name="city"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomSelect
+                      {...field}
+                      label={t('reg_city_label')}
+                      placeholder={t('reg_placeholder_select_city')}
+                      isEditable={true}
+                      options={[
+                        { value: 'hcm', label: 'TP. Hồ Chí Minh' },
+                        { value: 'hanoi', label: 'Hà Nội' },
+                        { value: 'danang', label: 'Đà Nẵng' },
+                        { value: 'cantho', label: 'Cần Thơ' },
+                        { value: 'haiphong', label: 'Hải Phòng' },
+                        { value: 'other', label: 'Khác' },
+                      ]}
+                      error={errors.city}
+                    />
+                  )}
+                />
+                <div className="form-group">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label style={labelStyle}>{t('reg_location_label')}</label>
+                    {errors.residence && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.residence.message}</span>}
+                  </div>
+                  <input {...register('residence')} placeholder={t('reg_placeholder_residence')} style={errors.residence ? inputErrorStyle : inputStyle} className="minimal-input" />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+                <div className="form-group">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label style={labelStyle}>{t('reg_linkedin_label')}</label>
+                    {errors.linkedin && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.linkedin.message}</span>}
+                  </div>
+                  <input {...register('linkedin')} placeholder="linkedin.com/in/..." style={errors.linkedin ? inputErrorStyle : inputStyle} className="minimal-input" />
                 </div>
                 <div className="form-group">
-                  <label style={labelStyle}>{t('reg_github_label')}</label>
-                  <input {...register('github')} placeholder="github.com/..." style={inputStyle} className="minimal-input" />
-                  {errors.github && <p className="error-msg">{errors.github.message}</p>}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label style={labelStyle}>{t('reg_github_label')}</label>
+                    {errors.github && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.github.message}</span>}
+                  </div>
+                  <input {...register('github')} placeholder="github.com/..." style={errors.github ? inputErrorStyle : inputStyle} className="minimal-input" />
+                </div>
+                <div className="form-group">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label style={labelStyle}>{t('reg_facebook_label')}</label>
+                    {errors.facebook && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.facebook.message}</span>}
+                  </div>
+                  <input {...register('facebook')} placeholder="facebook.com/..." style={errors.facebook ? inputErrorStyle : inputStyle} className="minimal-input" />
                 </div>
               </div>
 
@@ -349,12 +872,12 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                       label={t('reg_label_role')}
                       placeholder={t('reg_placeholder_role')}
                       isEditable={true}
-                        options={[
-                          { value: 'ai_engineer', label: 'AI Engineer' },
-                          { value: 'fullstack', label: 'Fullstack Developer' },
-                          { value: 'product_designer', label: 'Product Designer' },
-                          { value: 'product_manager', label: 'Product Manager' },
-                        ]}
+                      options={[
+                        { value: 'ai_engineer', label: t('reg_role_ai') },
+                        { value: 'fullstack', label: t('reg_role_fullstack') },
+                        { value: 'product_designer', label: t('reg_role_designer') },
+                        { value: 'product_manager', label: t('reg_role_manager') },
+                      ]}
                       error={errors.role}
                     />
                   )}
@@ -369,13 +892,13 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                       placeholder={t('reg_placeholder_experience')}
                       isEditable={true}
                       options={[
-                        { value: 'student_hs', label: 'Student (High School)' },
-                        { value: 'student_uni', label: 'Student (University)' },
-                        { value: 'fresher', label: 'Fresher / New Grad' },
-                        { value: 'junior', label: 'Junior (1-2 years)' },
-                        { value: 'mid', label: 'Mid-level (3-5 years)' },
-                        { value: 'senior', label: 'Senior (5+ years)' },
-                        { value: 'expert', label: 'Lead / Expert' },
+                        { value: 'student_hs', label: t('reg_exp_student_hs') },
+                        { value: 'student_uni', label: t('reg_exp_student_uni') },
+                        { value: 'fresher', label: t('reg_exp_fresher') },
+                        { value: 'junior', label: t('reg_exp_junior') },
+                        { value: 'mid', label: t('reg_exp_mid') },
+                        { value: 'senior', label: t('reg_exp_senior') },
+                        { value: 'expert', label: t('reg_exp_expert') },
                       ]}
                       error={errors.experience}
                     />
@@ -383,54 +906,60 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                 />
                 <div className="form-group">
                   <label style={labelStyle}>{t('reg_skills_label')}</label>
-                  <input {...register('skills')} placeholder="React, Python, GPT-4..." style={inputStyle} className="minimal-input" />
+                  <input {...register('skills')} placeholder="React, Python, GPT-4..." style={errors.skills ? inputErrorStyle : inputStyle} className="minimal-input" />
                 </div>
               </div>
 
               <AnimatePresence mode="wait">
                 {regType === 'team' && (
                   <motion.div key="team" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="form-group">
-                    <label style={labelStyle}>{t('reg_team_label')}</label>
-                    <input {...register('teamName')} placeholder="Nhập tên đội của bạn..." style={inputStyle} className="minimal-input" />
-                    {errors.teamName && <p className="error-msg">{errors.teamName.message}</p>}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <label style={labelStyle}>{t('reg_team_label')}</label>
+                      {errors.teamName && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.teamName.message}</span>}
+                    </div>
+                    <input {...register('teamName')} placeholder={t('reg_placeholder_name')} style={errors.teamName ? inputErrorStyle : inputStyle} className="minimal-input" />
                   </motion.div>
                 )}
               </AnimatePresence>
 
               <div className="form-group">
-                <label style={labelStyle}>{t('reg_bio_label')}</label>
-                <textarea 
-                  {...register('interest')} 
-                  placeholder={t('reg_placeholder_interest')} 
-                  rows="2" 
-                  style={{ 
-                    ...inputStyle, 
-                    height: 'auto',
-                    minHeight: '100px',
-                    padding: '16px 18px',
-                    lineHeight: '1.6',
-                    resize: 'none' 
-                  }} 
-                  className="minimal-input custom-scrollbar" 
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <label style={labelStyle}>{t('reg_bio_label')}</label>
+                  {errors.interest && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.interest.message}</span>}
+                </div>
+                <textarea
+                  {...register('interest')}
+                  placeholder={t('reg_placeholder_interest')}
+                  rows="2"
+                  style={{
+                    ...(errors.interest ? inputErrorStyle : inputStyle),
+                    height: '60px',
+                    padding: '8px 12px',
+                    lineHeight: '1.4',
+                    resize: 'none'
+                  }}
+                  className="minimal-input custom-scrollbar"
                 />
-                {errors.interest && <p className="error-msg">{errors.interest.message}</p>}
               </div>
 
-              <button type="submit" disabled={isSubmitting} className="btn-primary" style={{ 
-                width: '100%', 
-                justifyContent: 'center', 
-                height: '52px', 
-                marginTop: '8px', 
-                fontSize: '0.9rem', 
+              <button type="submit" disabled={isSubmitting} className="btn-primary" style={{
+                width: '100%',
+                justifyContent: 'center',
+                height: '46px',
+                marginTop: '4px',
+                fontSize: '0.9rem',
                 fontWeight: 800,
                 fontFamily: 'inherit' // Ensure it uses the Vietnamese-friendly font from body
               }}>
                 {isSubmitting ? t('reg_btn_submitting') : t('reg_btn_submit')}
               </button>
-            </form>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </form>
           </div>
-        </>
-      )}
+        </div>
+
 
       <style dangerouslySetInnerHTML={{
         __html: `

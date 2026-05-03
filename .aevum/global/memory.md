@@ -20,3 +20,8 @@ The transition to a data-driven landing page was successful, allowing for zero-c
 ### [LEARN] - 5/3/2026, 11:06:06 PM
 [LEARNING FROM modernize_event_roadmap_ui_plan.md]
 The zig-zag layout with a central axis significantly enhances the visual narrative for linear event sequences. Using subtle background index numbers (01, 02) effectively adds depth without cluttering the UI. Pulsing nodes serve as micro-animations that make the page feel 'alive' and high-tech. The CSS media query override was necessary to ensure the complex grid collapses gracefully on mobile into a left-aligned vertical list.
+
+
+### [LEARN] - 5/4/2026, 5:13:28 AM
+[LEARNING FROM DASHBOARD_OPTIMIZATION_FINAL]
+When refactoring huge React components into high-density grids, use a single source of truth for layout constants (like gap and padding) to ensure visual consistency. Avoid partial rewrites that can break syntax; full variable rewrites are safer when structural changes are major.

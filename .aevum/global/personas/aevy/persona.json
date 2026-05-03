@@ -25,7 +25,7 @@
   "is_default": true,
   "user_modified": true,
   "level": 4,
-  "exp": 210,
+  "exp": 260,
   "energy": {
     "provider": "Groq",
     "model": "openai/gpt-oss-120b",
@@ -61,6 +61,12 @@
       "timestamp": "2026-05-03T16:06:06.154Z",
       "note": "Gained 50 EXP.",
       "reason": "Completed plan: modernize_event_roadmap_ui_plan.md"
+    },
+    {
+      "level": 4,
+      "timestamp": "2026-05-03T22:13:28.465Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: DASHBOARD_OPTIMIZATION_FINAL"
     }
   ],
   "skills_matrix": {}
