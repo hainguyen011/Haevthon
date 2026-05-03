@@ -1,0 +1,97 @@
+{
+  "version": "1.7.0",
+  "project": "Haevthon",
+  "domains": [
+    {
+      "id": "builder_resources",
+      "name": "Builder Resources",
+      "path": ".aevum/domains/builder_resources",
+      "plans": [],
+      "features": []
+    },
+    {
+      "id": "public_site",
+      "name": "Public Site",
+      "path": ".aevum/domains/public_site",
+      "plans": [],
+      "features": [
+        {
+          "id": "landing_page",
+          "name": "Landing Page",
+          "path": ".aevum/domains/public_site/features/landing_page",
+          "plans": [
+            {
+              "name": "initialize_landing_page_with_vite_and_react_plan.md",
+              "status": "todo",
+              "updatedAt": "2026-05-03T13:41:06.022Z"
+            },
+            {
+              "name": "modernize_landing_page_ui_plan.md",
+              "status": "todo",
+              "updatedAt": "2026-05-03T15:59:20.383Z"
+            }
+          ]
+        },
+        {
+          "id": "timeline-page",
+          "name": "Timeline Page",
+          "path": ".aevum/domains/public_site/features/timeline-page",
+          "plans": []
+        },
+        {
+          "id": "timeline_page",
+          "name": "Timeline Page",
+          "path": ".aevum/domains/public_site/features/timeline_page",
+          "plans": [
+            {
+              "name": "modernize_event_roadmap_ui_plan.md",
+              "status": "done",
+              "updatedAt": "2026-05-03T16:06:06.131Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "registration_portal",
+      "name": "Registration Portal",
+      "path": ".aevum/domains/registration_portal",
+      "plans": [],
+      "features": [
+        {
+          "id": "individual-registration-flow",
+          "name": "Individual Registration Flow",
+          "path": ".aevum/domains/registration_portal/features/individual-registration-flow",
+          "plans": [
+            {
+              "name": "modernize_registration_portal_flow_plan.md",
+              "status": "todo",
+              "updatedAt": "2026-05-03T16:01:24.581Z"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "global": {
+    "architecture": "global/architecture.md",
+    "conventions": "global/conventions.md",
+    "agent_rules": "global/agent_rules.md",
+    "tech_stack": "global/tech_stack.md",
+    "dictionary": "global/dictionary.md",
+    "memory": "global/memory.md",
+    "developer_profile": "global/developer_profile.md",
+    "companion_persona": "global/companion_persona.json",
+    "evolution_report": "global/evolution_report.md",
+    "knowledge_rules": "Every active persona has a dedicated knowledge folder in `.aevum/global/personas/<id>/knowledge/`. Log project-specific patterns and agent-exclusive wisdom there."
+  },
+  "agents": [
+    {
+      "id": "ENG-AN-7B9F1D",
+      "name": "An",
+      "capability": "Context Optimization",
+      "level": 4,
+      "knowledgePath": ".aevum/global/personas/an/knowledge"
+    }
+  ]
+}
