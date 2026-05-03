@@ -115,7 +115,8 @@ const CustomSelect = ({ value, onChange, options, placeholder, label, error, isE
               border: '1px solid rgba(255,255,255,0.1)',
               boxShadow: '0 20px 40px rgba(0,0,0,0.8)',
               zIndex: 100,
-              overflow: 'hidden',
+              overflowY: 'auto',
+              maxHeight: '200px',
               marginTop: '4px',
               padding: '6px'
             }}
@@ -170,13 +171,13 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
   const registrationSchema = z.object({
     fullName: z.string().min(2, t('err_name_min')),
     email: z.string().email(t('err_email_invalid')),
-    discord: z.string().min(2, 'Vui lòng nhập Discord ID'),
-    linkedin: z.string().url('LinkedIn URL không hợp lệ').optional().or(z.literal('')),
-    github: z.string().url('Github/Portfolio URL không hợp lệ').optional().or(z.literal('')),
-    teamName: regType === 'team' ? z.string().min(2, 'Vui lòng nhập tên đội') : z.string().optional(),
+    discord: z.string().min(2, t('err_discord_required')),
+    linkedin: z.string().url(t('err_linkedin_invalid')).optional().or(z.literal('')),
+    github: z.string().url(t('err_github_invalid')).optional().or(z.literal('')),
+    teamName: regType === 'team' ? z.string().min(2, t('err_team_required')) : z.string().optional(),
     role: z.string().min(1, t('err_role_required')),
     experience: z.string().min(1, t('err_experience_required')),
-    skills: z.string().min(2, 'Vui lòng nhập kỹ năng chính'),
+    skills: z.string().min(2, t('err_skills_required')),
     interest: z.string().min(10, t('err_interest_min')),
   });
 
@@ -248,7 +249,8 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
       style={{
         width: '100%',
         maxWidth: '1200px',
-        backgroundColor: '#050505',
+        backgroundColor: '#000',
+        background: 'linear-gradient(180deg, rgba(255,255,255,0.02) 0%, #000 100%)',
         borderRadius: '24px',
         border: '1px solid rgba(255,255,255,0.1)',
         position: 'relative',
@@ -289,18 +291,7 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
               </p>
             </div>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {[
-                { icon: Cpu, text: 'Advanced Agentic Frameworks' },
-                { icon: Network, text: 'Multi-Agent Orchestration' },
-                { icon: Globe, text: 'Global Builder Community' }
-              ].map((item, idx) => (
-                <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <item.icon size={12} color="rgba(255,255,255,0.2)" />
-                  <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>{item.text}</span>
-                </div>
-              ))}
-            </div>
+            
           </div>
 
           {/* Right Side: The Form */}
@@ -308,10 +299,10 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
             
             <div style={{ display: 'flex', backgroundColor: 'rgba(255,255,255,0.03)', padding: '4px', borderRadius: '12px', marginBottom: '32px', width: 'fit-content', border: '1px solid rgba(255,255,255,0.05)' }}>
               <button type="button" onClick={() => setRegType('individual')} style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', backgroundColor: regType === 'individual' ? 'rgba(255,255,255,0.08)' : 'transparent', color: regType === 'individual' ? '#fff' : 'rgba(255,255,255,0.4)', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.3s ease' }}>
-                CÁ NHÂN
+                {t('reg_type_individual')}
               </button>
               <button type="button" onClick={() => setRegType('team')} style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', backgroundColor: regType === 'team' ? 'rgba(255,255,255,0.08)' : 'transparent', color: regType === 'team' ? '#fff' : 'rgba(255,255,255,0.4)', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.3s ease' }}>
-                ĐĂNG KÝ ĐỘI
+                {t('reg_type_team')}
               </button>
             </div>
 
@@ -319,30 +310,30 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '24px' }}>
                 <div className="form-group">
-                  <label style={labelStyle}>HỌ VÀ TÊN</label>
-                  <input {...register('fullName')} placeholder="Nguyễn Văn A" style={inputStyle} className="minimal-input" />
+                  <label style={labelStyle}>{t('reg_label_name')}</label>
+                  <input {...register('fullName')} placeholder={t('reg_placeholder_name')} style={inputStyle} className="minimal-input" />
                   {errors.fullName && <p className="error-msg">{errors.fullName.message}</p>}
                 </div>
                 <div className="form-group">
-                  <label style={labelStyle}>EMAIL</label>
-                  <input {...register('email')} placeholder="an@haevthon.com" style={inputStyle} className="minimal-input" />
+                  <label style={labelStyle}>{t('reg_label_email')}</label>
+                  <input {...register('email')} placeholder={t('reg_placeholder_email')} style={inputStyle} className="minimal-input" />
                   {errors.email && <p className="error-msg">{errors.email.message}</p>}
                 </div>
                 <div className="form-group">
-                  <label style={labelStyle}>DISCORD ID</label>
-                  <input {...register('discord')} placeholder="username#1234" style={inputStyle} className="minimal-input" />
+                  <label style={labelStyle}>{t('reg_discord_label')}</label>
+                  <input {...register('discord')} placeholder={t('reg_discord_ph')} style={inputStyle} className="minimal-input" />
                   {errors.discord && <p className="error-msg">{errors.discord.message}</p>}
                 </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
                 <div className="form-group">
-                  <label style={labelStyle}>LINKEDIN URL</label>
+                  <label style={labelStyle}>{t('reg_linkedin_label')}</label>
                   <input {...register('linkedin')} placeholder="linkedin.com/in/..." style={inputStyle} className="minimal-input" />
                   {errors.linkedin && <p className="error-msg">{errors.linkedin.message}</p>}
                 </div>
                 <div className="form-group">
-                  <label style={labelStyle}>GITHUB / PORTFOLIO</label>
+                  <label style={labelStyle}>{t('reg_github_label')}</label>
                   <input {...register('github')} placeholder="github.com/..." style={inputStyle} className="minimal-input" />
                   {errors.github && <p className="error-msg">{errors.github.message}</p>}
                 </div>
@@ -355,15 +346,15 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                   render={({ field }) => (
                     <CustomSelect
                       {...field}
-                      label="VAI TRÒ"
-                      placeholder="Chọn hoặc nhập..."
+                      label={t('reg_label_role')}
+                      placeholder={t('reg_placeholder_role')}
                       isEditable={true}
-                      options={[
-                        { value: 'developer', label: 'Developer' },
-                        { value: 'designer', label: 'Designer' },
-                        { value: 'product', label: 'Product' },
-                        { value: 'business', label: 'Business' },
-                      ]}
+                        options={[
+                          { value: 'ai_engineer', label: 'AI Engineer' },
+                          { value: 'fullstack', label: 'Fullstack Developer' },
+                          { value: 'product_designer', label: 'Product Designer' },
+                          { value: 'product_manager', label: 'Product Manager' },
+                        ]}
                       error={errors.role}
                     />
                   )}
@@ -374,21 +365,24 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                   render={({ field }) => (
                     <CustomSelect
                       {...field}
-                      label="KINH NGHIỆM"
-                      placeholder="Chọn hoặc nhập..."
+                      label={t('reg_label_experience')}
+                      placeholder={t('reg_placeholder_experience')}
                       isEditable={true}
                       options={[
-                        { value: 'junior', label: 'Junior' },
-                        { value: 'mid', label: 'Mid' },
-                        { value: 'senior', label: 'Senior' },
-                        { value: 'expert', label: 'Expert' },
+                        { value: 'student_hs', label: 'Student (High School)' },
+                        { value: 'student_uni', label: 'Student (University)' },
+                        { value: 'fresher', label: 'Fresher / New Grad' },
+                        { value: 'junior', label: 'Junior (1-2 years)' },
+                        { value: 'mid', label: 'Mid-level (3-5 years)' },
+                        { value: 'senior', label: 'Senior (5+ years)' },
+                        { value: 'expert', label: 'Lead / Expert' },
                       ]}
                       error={errors.experience}
                     />
                   )}
                 />
                 <div className="form-group">
-                  <label style={labelStyle}>SKILLS / TECH STACK</label>
+                  <label style={labelStyle}>{t('reg_skills_label')}</label>
                   <input {...register('skills')} placeholder="React, Python, GPT-4..." style={inputStyle} className="minimal-input" />
                 </div>
               </div>
@@ -396,7 +390,7 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
               <AnimatePresence mode="wait">
                 {regType === 'team' && (
                   <motion.div key="team" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="form-group">
-                    <label style={labelStyle}>TÊN ĐỘI / DỰ ÁN</label>
+                    <label style={labelStyle}>{t('reg_team_label')}</label>
                     <input {...register('teamName')} placeholder="Nhập tên đội của bạn..." style={inputStyle} className="minimal-input" />
                     {errors.teamName && <p className="error-msg">{errors.teamName.message}</p>}
                   </motion.div>
@@ -404,10 +398,10 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
               </AnimatePresence>
 
               <div className="form-group">
-                <label style={labelStyle}>ĐỊNH HƯỚNG DỰ ÁN / GIỚI THIỆU BẢN THÂN</label>
+                <label style={labelStyle}>{t('reg_bio_label')}</label>
                 <textarea 
                   {...register('interest')} 
-                  placeholder="Chia sẻ ngắn gọn về ý tưởng hoặc kỹ năng bạn muốn đóng góp..." 
+                  placeholder={t('reg_placeholder_interest')} 
                   rows="2" 
                   style={{ 
                     ...inputStyle, 
@@ -422,8 +416,16 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                 {errors.interest && <p className="error-msg">{errors.interest.message}</p>}
               </div>
 
-              <button type="submit" disabled={isSubmitting} className="btn-primary" style={{ width: '100%', justifyContent: 'center', height: '52px', marginTop: '8px', fontSize: '0.9rem', fontWeight: 800 }}>
-                {isSubmitting ? 'ĐANG XỬ LÝ...' : 'XÁC NHẬN ĐĂNG KÝ'}
+              <button type="submit" disabled={isSubmitting} className="btn-primary" style={{ 
+                width: '100%', 
+                justifyContent: 'center', 
+                height: '52px', 
+                marginTop: '8px', 
+                fontSize: '0.9rem', 
+                fontWeight: 800,
+                fontFamily: 'inherit' // Ensure it uses the Vietnamese-friendly font from body
+              }}>
+                {isSubmitting ? t('reg_btn_submitting') : t('reg_btn_submit')}
               </button>
             </form>
           </div>

@@ -17,7 +17,7 @@ export const sponsorsData = [
     id: 'unikorn',
     name: 'Unikorn',
     logo: '/assets/unikorn-logo.png',
-    url: '#',
+    url: 'https://i2flabs.unikorn.vn/',
     featured: true
   },
   {

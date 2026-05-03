@@ -521,20 +521,20 @@ const Sponsors = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', color: 'rgba(255,255,255,0.7)', marginBottom: '24px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <Mail size={20} />
-                <span style={{ fontSize: '1rem', fontWeight: 500 }}>partnership@i2flabs.io</span>
+                <span style={{ fontSize: '1rem', fontWeight: 500 }}>{t('contact_email')}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <Phone size={20} />
-                <span style={{ fontSize: '1rem', fontWeight: 500 }}>+84 (0) 90 123 4567</span>
+                <span style={{ fontSize: '1rem', fontWeight: 500 }}>{t('contact_phone')}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <MapPin size={20} />
-                <span style={{ fontSize: '1rem', fontWeight: 500 }}>District 1, Ho Chi Minh City, Vietnam</span>
+                <span style={{ fontSize: '1rem', fontWeight: 500 }}>{t('contact_address')}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <Globe size={20} />
-                <a href="https://i2flabs.io" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontSize: '1rem', fontWeight: 500 }}>
-                  www.i2flabs.io
+                <a href={`https://${t('contact_website')}`} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontSize: '1rem', fontWeight: 500 }}>
+                  {t('contact_website')}
                 </a>
               </div>
             </div>

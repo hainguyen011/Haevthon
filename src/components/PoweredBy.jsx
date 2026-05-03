@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 const PoweredBy = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,15 +31,15 @@ const PoweredBy = () => {
       animate={{
         opacity: 1,
         y: 0,
-        width: isExpanded ? 160 : 32,
+        width: isExpanded ? 240 : 42,
       }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
       style={{
         position: 'fixed',
-        bottom: '24px',
-        right: '24px',
+        bottom: '28px',
+        right: '40px',
         zIndex: 2000,
-        height: '32px',
+        height: '42px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -50,6 +50,7 @@ const PoweredBy = () => {
         background: '#000'
       }}
       whileHover={{ scale: 1.1 }}
+      onClick={() => window.open('https://open-vsx.org/extension/I2FLabs/aevum/reviews', '_blank')}
     >
       <AnimatePresence mode="wait">
         {!isExpanded ? (
@@ -64,14 +65,14 @@ const PoweredBy = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '32px',
-              height: '32px'
+              width: '42px',
+              height: '42px'
             }}
           >
             <img
               src="/assets/aevum-logo.png"
               alt="Aevum"
-              style={{ width: '22px', height: '22px', objectFit: 'contain' }}
+              style={{ width: '28px', height: '28px', objectFit: 'contain' }}
               onError={(e) => e.target.style.display = 'none'}
             />
           </motion.div>
@@ -91,15 +92,32 @@ const PoweredBy = () => {
               width: '100%'
             }}
           >
-            <span style={{
-              fontSize: '0.65rem',
-              fontWeight: 800,
-              color: 'var(--primary-white)',
-              letterSpacing: '1px',
-              textTransform: 'uppercase'
-            }}>
-              {t('powered_by')}
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{
+                fontSize: '0.45rem',
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.4)',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                fontFamily: 'Inter, sans-serif'
+              }}>
+                {language === 'vi' ? 'PHÁT TRIỂN BỞI' : 'POWERED BY'}
+              </span>
+              <div style={{ width: '1px', height: '10px', background: 'rgba(255,255,255,0.1)' }} />
+              <span style={{
+                fontSize: '0.75rem',
+                fontWeight: 900,
+                letterSpacing: '5px',
+                textTransform: 'uppercase',
+                background: 'linear-gradient(180deg, #fff 0%, #888 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                fontFamily: "'Outfit', sans-serif",
+                marginRight: '-5px' // Offset the last letter spacing
+              }}>
+                AEVUM
+              </span>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -191,6 +191,22 @@ export const homeData = {
         locationKey: 'timeline_phase3_location',
         status: 'upcoming',
         itemsKey: 'timeline_phase3_items'
+      },
+      {
+        titleKey: 'timeline_phase4_title',
+        descKey: 'timeline_phase4_desc',
+        dateKey: 'timeline_phase4_date',
+        locationKey: 'timeline_phase4_location',
+        status: 'upcoming',
+        itemsKey: 'timeline_phase4_items'
+      },
+      {
+        titleKey: 'timeline_phase5_title',
+        descKey: 'timeline_phase5_desc',
+        dateKey: 'timeline_phase5_date',
+        locationKey: 'timeline_phase5_location',
+        status: 'upcoming',
+        itemsKey: 'timeline_phase5_items'
       }
     ]
   }

@@ -56,8 +56,7 @@ const VisionSection = () => {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="glass-card tech-border"
-            style={{ padding: '50px', position: 'relative', overflow: 'hidden' }}
+            style={{ padding: '20px 0', position: 'relative' }}
           >
             <h3 style={{ fontSize: '2rem', marginBottom: '32px' }}>{t('vision_scoring_title')}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

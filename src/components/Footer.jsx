@@ -48,8 +48,8 @@ const Footer = () => {
               <a href="#" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.7)'}>
                 X (Twitter)
               </a>
-              <a href="mailto:partnership@i2flabs.io" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.7)'}>
-                partnership@i2flabs.io
+              <a href={`mailto:${t('contact_email')}`} style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.7)'}>
+                {t('contact_email')}
               </a>
             </div>
           </div>
@@ -59,13 +59,13 @@ const Footer = () => {
       <div style={{
         maxWidth: '1200px', margin: '60px auto 0',
         paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.05)',
-        display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px',
+        display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', gap: '40px',
         color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem'
       }}>
         <div>© 2026 I2FLabs. All rights reserved.</div>
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</a>
-          <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Terms of Service</a>
+        <div style={{ display: 'flex', gap: '24px' }}>
+          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = 'rgba(255,255,255,0.6)'} onMouseOut={e => e.target.style.color = 'inherit'}>Privacy Policy</a>
+          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = 'rgba(255,255,255,0.6)'} onMouseOut={e => e.target.style.color = 'inherit'}>Terms of Service</a>
         </div>
       </div>
     </footer>
