@@ -78,7 +78,6 @@ const TracksSection = () => {
                 boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
               }}
               whileHover={{ 
-                y: -12,
                 backgroundColor: 'rgba(255,255,255,0.03)',
                 borderColor: 'rgba(255,255,255,0.15)',
                 boxShadow: '0 30px 60px rgba(0,0,0,0.8)'
@@ -190,7 +189,7 @@ const TracksSection = () => {
 
       <style dangerouslySetInnerHTML={{ __html: `
         .card-image { transform: scale(1); filter: grayscale(20%); }
-        div:hover > div > .card-image { transform: scale(1.1); filter: grayscale(0%); opacity: 0.9 !important; }
+        div:hover > div > .card-image { filter: grayscale(0%); opacity: 0.9 !important; }
       `}} />
     </section>
   );

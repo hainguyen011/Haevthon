@@ -88,20 +88,17 @@ const IncentivesSection = () => {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '12px 24px',
-                borderRadius: '100px',
-                border: activeTab === tab.id ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(255,255,255,0.05)',
-                backgroundColor: activeTab === tab.id ? 'rgba(255,255,255,0.05)' : 'transparent',
-                color: activeTab === tab.id ? '#fff' : 'rgba(255,255,255,0.4)',
+                background: 'none',
+                border: 'none',
+                color: '#fff',
                 cursor: 'pointer',
-                fontSize: '0.85rem',
-                fontWeight: 700,
-                transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
+                fontSize: '0.75rem',
+                fontWeight: 800,
+                letterSpacing: '2px',
                 textTransform: 'uppercase',
-                letterSpacing: '1px'
+                padding: '8px 16px',
+                opacity: activeTab === tab.id ? 1 : 0.3,
+                transition: 'opacity 0.3s ease'
               }}
             >
               {tab.label}
@@ -113,10 +110,10 @@ const IncentivesSection = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
               style={{ 
                 display: 'grid', 
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
@@ -126,8 +123,9 @@ const IncentivesSection = () => {
               {filteredPrizes.map((prize, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05, duration: 0.5 }}
                   whileHover={{ 
                     background: 'rgba(255,255,255,0.06)',
                     borderColor: 'rgba(255,255,255,0.15)'

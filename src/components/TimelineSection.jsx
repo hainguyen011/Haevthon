@@ -155,11 +155,11 @@ const TimelineSection = () => {
                       borderRadius: '24px',
                       position: 'relative',
                       overflow: 'hidden',
-                      boxShadow: isActive ? '0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 255, 255, 0.05)' : 'none',
+                      boxShadow: isActive ? '0 30px 60px rgba(0, 0, 0, 0.5)' : 'none',
                       border: '1px solid rgba(255,255,255,0.05)',
                     }}
                   >
-                    {/* Silver Electron Border */}
+                    {/* Active Border Effect (Silver Electron) */}
                     {isActive && (
                       <div style={{
                         position: 'absolute',
@@ -192,7 +192,7 @@ const TimelineSection = () => {
                           textTransform: 'uppercase',
                           letterSpacing: '1px'
                         }}>
-                          {isActive ? t('timeline_status_active') : isDone ? t('timeline_status_done') : t('timeline_status_upcoming')}
+                          {isActive ? t('status_active') : isDone ? t('status_done') : t('status_upcoming')}
                         </div>
                       </div>
 

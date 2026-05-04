@@ -261,10 +261,8 @@ const FeatureShowcase = () => {
         .feature-card-hover:hover {
           background: rgba(255,255,255,0.03) !important;
           border-color: rgba(255,255,255,0.12) !important;
-          transform: translateY(-10px);
         }
         .feature-card-hover:hover .feature-img {
-          transform: scale(1.1);
           opacity: 0.8 !important;
         }
         .nav-btn:hover {

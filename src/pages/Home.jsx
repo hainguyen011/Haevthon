@@ -7,6 +7,7 @@ import VisionSection from '../components/VisionSection';
 import TracksSection from '../components/TracksSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import IncentivesSection from '../components/IncentivesSection';
+import ScrollTimeline from '../components/ScrollTimeline';
 import { motion } from 'framer-motion';
 
 const Home = () => {
@@ -17,15 +18,16 @@ const Home = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <HeroSection />
-      <AboutHaevthon />
-      <PartnersMarquee />
-      <FeatureShowcase />
-      <InnovationSection />
-      <VisionSection />
-      <TracksSection />
-      <TestimonialsSection />
-      <IncentivesSection />
+      <ScrollTimeline />
+      <div id="hero"><HeroSection /></div>
+      <div id="about"><AboutHaevthon /></div>
+      <div id="partners"><PartnersMarquee /></div>
+      <div id="features"><FeatureShowcase /></div>
+      <div id="innovation"><InnovationSection /></div>
+      <div id="vision"><VisionSection /></div>
+      <div id="tracks"><TracksSection /></div>
+      <div id="testimonials"><TestimonialsSection /></div>
+      <div id="incentives"><IncentivesSection /></div>
     </motion.div>
   );
 };

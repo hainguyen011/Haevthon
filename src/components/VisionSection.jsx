@@ -39,13 +39,23 @@ const VisionSection = () => {
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '32px' }}>
               {t('vision_desc').split('**').map((part, i) => i % 2 === 1 ? <strong key={i} style={{color: 'var(--primary-white)'}}>{part}</strong> : part)}
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
               {principles.map((p, i) => (
-                <div key={i} style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-                  <div style={{ color: 'var(--primary-white)', marginTop: '4px' }}>{p.icon}</div>
-                  <div>
-                    <h4 style={{ fontSize: '1rem', marginBottom: '4px' }}>{p.title}</h4>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{p.desc}</p>
+                <div key={i} style={{ display: 'flex', gap: '0px', alignItems: 'center' }}>
+                  <div 
+                    className="number-gradient" 
+                    style={{ 
+                      fontSize: '3rem', 
+                      minWidth: '80px',
+                      textAlign: 'center',
+                      opacity: 0.6
+                    }}
+                  >
+                    0{i + 1}
+                  </div>
+                  <div className="vision-text-block" style={{ paddingLeft: '20px' }}>
+                    <h4 style={{ fontSize: '1.1rem', marginBottom: '8px', color: '#fff', textTransform: 'uppercase' }}>{p.title}</h4>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.5, maxWidth: '400px' }}>{p.desc}</p>
                   </div>
                 </div>
               ))}

@@ -363,21 +363,56 @@ const Sponsors = () => {
               {t('sponsors_obj_desc')}
             </p>
           </motion.div>
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            style={{ display: 'flex', flexDirection: 'column', gap: '60px' }}
+          >
             {[
               { title: t('sponsors_obj_list1_title'), desc: t('sponsors_obj_list1_desc'), num: '01' },
               { title: t('sponsors_obj_list2_title'), desc: t('sponsors_obj_list2_desc'), num: '02' },
               { title: t('sponsors_obj_list3_title'), desc: t('sponsors_obj_list3_desc'), num: '03' }
             ].map((item, i) => (
-              <div key={i} style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
-                <div style={{ color: 'rgba(255,255,255,0.15)', fontSize: '3rem', fontWeight: 900, lineHeight: 0.8, letterSpacing: '-2px' }}>
+              <motion.div 
+                key={i} 
+                variants={itemVariants}
+                style={{ display: 'flex', gap: '0px', alignItems: 'center' }}
+              >
+                <div 
+                  className="number-gradient" 
+                  style={{ 
+                    fontSize: '5rem', 
+                    minWidth: '120px',
+                    textAlign: 'center',
+                    opacity: 0.8
+                  }}
+                >
                   {item.num}
                 </div>
-                <div>
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '8px' }}>{item.title}</h3>
-                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '1rem', lineHeight: 1.6, fontWeight: 300 }}>{item.desc}</p>
+                <div className="vision-text-block">
+                  <h3 style={{ 
+                    fontSize: '1.4rem', 
+                    fontWeight: 800, 
+                    marginBottom: '12px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    color: '#fff'
+                  }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ 
+                    color: 'rgba(255,255,255,0.4)', 
+                    fontSize: '1rem', 
+                    lineHeight: 1.6, 
+                    fontWeight: 300,
+                    maxWidth: '450px'
+                  }}>
+                    {item.desc}
+                  </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
@@ -423,7 +458,6 @@ const Sponsors = () => {
                 whileHover={{ 
                   backgroundColor: 'rgba(255,255,255,0.03)',
                   borderColor: 'rgba(255,255,255,0.15)',
-                  y: -10,
                   boxShadow: '0 20px 40px rgba(0,0,0,0.5)'
                 }}
               >
@@ -462,14 +496,6 @@ const Sponsors = () => {
                 </div>
 
                 <div style={{ padding: '40px', flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 2 }}>
-                  <div style={{ 
-                    width: '56px', height: '56px', borderRadius: '12px',
-                    backgroundColor: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: '#fff', marginBottom: '24px', border: '1px solid rgba(255,255,255,0.1)'
-                  }}>
-                    {item.icon}
-                  </div>
-                  
                   <div style={{ fontSize: '3.5rem', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1, marginBottom: '8px' }}>
                     {item.num}
                   </div>
@@ -655,7 +681,6 @@ const Sponsors = () => {
       <style dangerouslySetInnerHTML={{__html: `
         .sponsor-card:hover .sponsor-logo {
           opacity: 1 !important;
-          transform: scale(1.1);
         }
         .sponsor-card:hover .sponsor-name {
           color: #fff !important;
