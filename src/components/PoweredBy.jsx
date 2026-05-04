@@ -47,7 +47,6 @@ const PoweredBy = () => {
         borderRadius: '100px',
         cursor: 'pointer',
         overflow: 'hidden',
-        background: '#000'
       }}
       whileHover={{ scale: 1.1 }}
       onClick={() => window.open('https://open-vsx.org/extension/I2FLabs/aevum/reviews', '_blank')}
@@ -101,7 +100,7 @@ const PoweredBy = () => {
                 textTransform: 'uppercase',
                 fontFamily: 'Inter, sans-serif'
               }}>
-                {language === 'vi' ? 'PHÁT TRIỂN BỞI' : 'POWERED BY'}
+                {t('powered_by_prefix')}
               </span>
               <div style={{ width: '1px', height: '10px', background: 'rgba(255,255,255,0.1)' }} />
               <span style={{

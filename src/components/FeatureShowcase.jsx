@@ -24,9 +24,15 @@ const FeatureShowcase = () => {
   ];
 
   useEffect(() => {
-    if (carousel.current) {
-      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-    }
+    const updateWidth = () => {
+      if (carousel.current) {
+        setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+      }
+    };
+    
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
   const nextSlide = () => {
@@ -81,13 +87,13 @@ const FeatureShowcase = () => {
               lineHeight: 1,
               color: '#fff'
             }}>
-              THE AEVUM EDGE
+              THE AEVUM
             </h2>
           </motion.div>
 
           {/* Navigation Controls */}
           <div style={{ display: 'flex', gap: '16px' }}>
-            <button 
+            <button
               onClick={prevSlide}
               style={{
                 width: '56px',
@@ -106,7 +112,7 @@ const FeatureShowcase = () => {
             >
               <ChevronLeft size={24} />
             </button>
-            <button 
+            <button
               onClick={nextSlide}
               style={{
                 width: '56px',
@@ -129,16 +135,19 @@ const FeatureShowcase = () => {
         </div>
       </div>
 
-      <motion.div 
+      <motion.div
         ref={carousel}
-        style={{ 
+        style={{
           cursor: 'grab',
           paddingLeft: 'max(20px, calc((100% - 1200px) / 2))',
           paddingRight: '20px'
         }}
       >
-        <motion.div 
-          animate={{ x: -index * 382 }} 
+        <motion.div
+          drag="x"
+          dragConstraints={{ right: 0, left: -width }}
+          whileTap={{ cursor: 'grabbing' }}
+          animate={{ x: -index * 382 }}
           transition={{ type: 'spring', damping: 25, stiffness: 120 }}
           style={{
             display: 'flex',
@@ -173,8 +182,8 @@ const FeatureShowcase = () => {
                 WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
                 backgroundColor: 'rgba(255,255,255,0.02)'
               }}>
-                <img 
-                  src={featureImages[i] || featureImages[0]} 
+                <img
+                  src={featureImages[i] || featureImages[0]}
                   alt={t(feature.titleKey)}
                   style={{
                     width: '100%',
@@ -218,16 +227,16 @@ const FeatureShowcase = () => {
                 }}>
                   {t(feature.descKey)}
                 </p>
-                
-                <div style={{ 
-                  marginTop: 'auto', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '12px', 
-                  color: 'rgba(255,255,255,0.15)', 
-                  fontSize: '0.7rem', 
-                  fontWeight: 800, 
-                  letterSpacing: '2px' 
+
+                <div style={{
+                  marginTop: 'auto',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  color: 'rgba(255,255,255,0.15)',
+                  fontSize: '0.7rem',
+                  fontWeight: 800,
+                  letterSpacing: '2px'
                 }}>
                   <div style={{ width: '24px', height: '1px', background: 'currentColor' }} />
                   AEVUM PROTOCOL v1.5

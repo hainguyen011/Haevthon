@@ -11,7 +11,7 @@ export const homeData = {
     subtitleKey: "hero_subtitle",
     cta_primary_key: "hero_cta_register",
     cta_secondary_key: "hero_cta_explore",
-    logo: "/assets/I2FLabs-logo.png",
+    logo: "/assets/haevthon-logo.png",
     stats: [
       { labelKey: 'stats_prizepool', value: '$10,000+' },
       { labelKey: 'stats_format', valueKey: 'stats_format_val' },

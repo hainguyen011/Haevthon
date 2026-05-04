@@ -22,46 +22,77 @@ const HeroSection = () => {
       position: 'relative',
       backgroundColor: '#000000'
     }}>
-      {/* Small Logo & Label */}
+      {/* Integrated Logo Headline (Logo replaces 'V') */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        style={{ marginBottom: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-      >
-        <img
-          src={hero.logo}
-          alt="Aevum"
-          style={{ width: '128px', height: '128px', objectFit: 'contain', marginBottom: '16px' }}
-          onError={(e) => e.target.style.display = 'none'}
-        />
-        <p style={{
-          letterSpacing: '4px',
-          fontSize: '0.8rem',
-          color: 'rgba(255,255,255,0.5)',
-          textTransform: 'uppercase',
-          fontWeight: 700
-        }}>
-          {hero.badge}
-        </p>
-      </motion.div>
-
-      {/* Main Headline */}
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        style={{
-          fontSize: 'clamp(4rem, 15vw, 10rem)',
-          fontWeight: 900,
-          margin: '0 0 24px 0',
-          letterSpacing: '-4px',
-          lineHeight: 0.85
+        style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          gap: 'clamp(0.5rem, 2vw, 1.5rem)',
+          marginBottom: '32px',
         }}
-        className="metallic-text"
       >
-        {t(hero.titleKey)}
-      </motion.h1>
+        <h1
+          style={{
+            fontSize: 'clamp(3.5rem, 14vw, 8.5rem)',
+            fontWeight: 900,
+            margin: 0,
+            letterSpacing: '-4px',
+            lineHeight: 1,
+            textAlign: 'right'
+          }}
+          className="metallic-text"
+        >
+          HAE
+        </h1>
+
+        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+          <svg 
+            width="clamp(2.5rem, 10vw, 6rem)" 
+            height="auto"
+            viewBox="0 0 48 46" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ 
+              marginTop: '0.1em',
+              filter: 'brightness(1.2)'
+            }}
+          >
+            <path 
+              fill="#863BFF" 
+              d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z" 
+            />
+            <path 
+              d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z" 
+              fill="url(#logo-gradient-v)" 
+              fillOpacity="0.4"
+            />
+            <defs>
+              <linearGradient id="logo-gradient-v" x1="24" y1="0" x2="24" y2="46" gradientUnits="userSpaceOnUse">
+                <stop stopColor="white" />
+                <stop offset="1" stopColor="white" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <h1
+          style={{
+            fontSize: 'clamp(3.5rem, 14vw, 8.5rem)',
+            fontWeight: 900,
+            margin: 0,
+            letterSpacing: '-4px',
+            lineHeight: 1,
+            textAlign: 'left'
+          }}
+          className="metallic-text"
+        >
+          THON
+        </h1>
+      </motion.div>
 
       {/* Mission Statement */}
       <motion.p
@@ -69,12 +100,12 @@ const HeroSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
         style={{
-          fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)',
+          fontSize: 'clamp(1rem, 2vw, 1.25rem)',
           maxWidth: '750px',
           margin: '0 auto 48px',
-          color: 'rgba(255,255,255,0.7)',
+          color: 'rgba(255,255,255,0.6)',
           fontWeight: 400,
-          lineHeight: 1.4,
+          lineHeight: 1.5,
           letterSpacing: '0.5px'
         }}
       >
@@ -96,32 +127,31 @@ const HeroSection = () => {
         <button
           onClick={() => navigate('/register')}
           style={{
-            padding: '18px 48px',
-            fontSize: '1rem',
+            padding: '16px 44px',
+            fontSize: '0.95rem',
             fontWeight: 800,
             backgroundColor: 'var(--primary-white)',
             color: '#000000',
             border: 'none',
             cursor: 'pointer',
-            borderRadius: '2px',
+            borderRadius: '12px',
             textTransform: 'uppercase',
             letterSpacing: '2px',
             transition: 'all 0.3s',
-            boxShadow: '0 4px 15px rgba(255,255,255,0.1)'
           }}
         >
           {t(hero.cta_primary_key)}
         </button>
         <button
           style={{
-            padding: '18px 48px',
-            fontSize: '1rem',
+            padding: '16px 44px',
+            fontSize: '0.95rem',
             fontWeight: 800,
             backgroundColor: 'transparent',
             color: 'var(--primary-white)',
-            border: '2px solid rgba(255,255,255,0.2)',
+            border: '1px solid rgba(255,255,255,0.2)',
             cursor: 'pointer',
-            borderRadius: '2px',
+            borderRadius: '12px',
             textTransform: 'uppercase',
             letterSpacing: '2px',
             transition: 'all 0.3s'

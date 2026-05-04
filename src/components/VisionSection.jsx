@@ -71,10 +71,10 @@ const VisionSection = () => {
             <h3 style={{ fontSize: '2rem', marginBottom: '32px' }}>{t('vision_scoring_title')}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {[
-                { label: 'Execution', val: '40%' },
-                { label: 'Product Thinking', val: '25%' },
-                { label: 'Aevum Utilization', val: '20%' },
-                { label: 'Innovation', val: '15%' }
+                { label: t('vision_score_exec'), val: '40%' },
+                { label: t('vision_score_product'), val: '25%' },
+                { label: t('vision_score_util'), val: '20%' },
+                { label: t('vision_score_innov'), val: '15%' }
               ].map((item, i) => (
                 <div key={i}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.8rem', fontWeight: 700 }}>

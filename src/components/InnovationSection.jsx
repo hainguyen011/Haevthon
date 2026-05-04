@@ -51,7 +51,7 @@ const InnovationSection = () => {
               marginBottom: '32px',
               letterSpacing: '-2px'
             }}>
-              DRIVING THE <span style={{ color: 'rgba(255,255,255,0.3)' }}>INNOVATION</span> WAVE
+              {t('innovation_title_part1')} <span style={{ color: 'rgba(255,255,255,0.3)' }}>{t('innovation_title_part2')}</span> {t('innovation_title_part3')}
             </h2>
             
             <p style={{ 
@@ -62,14 +62,14 @@ const InnovationSection = () => {
               fontWeight: 300,
               maxWidth: '540px'
             }}>
-              Vietnam is rapidly emerging as a global hub for AI development. Haevthon is designed to empower local talent to build world-class Agentic Solutions that redefine autonomy.
+              {t('innovation_desc_main')}
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
               {[
-                { icon: <Cpu size={20} />, title: "CATALYZING GROWTH", desc: "Hackathons are the engine of rapid prototyping, turning wild ideas into viable startups." },
-                { icon: <Zap size={20} />, title: "VIETNAM'S AI ERA", desc: "With a booming tech ecosystem, Vietnam is rapidly becoming Southeast Asia's powerhouse." },
-                { icon: <Globe size={20} />, title: "BUILDING THE FUTURE", desc: "Haevthon is a movement to empower the next generation of global builders." }
+                { icon: <Cpu size={20} />, titleKey: "innovation_item1_title", descKey: "innovation_item1_desc" },
+                { icon: <Zap size={20} />, titleKey: "innovation_item2_title", descKey: "innovation_item2_desc" },
+                { icon: <Globe size={20} />, titleKey: "innovation_item3_title", descKey: "innovation_item3_desc" }
               ].map((item, index) => (
                 <div key={index} style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
                   <div style={{ 
@@ -85,8 +85,8 @@ const InnovationSection = () => {
                     {item.icon}
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '6px', letterSpacing: '0.5px' }}>{item.title}</h4>
-                    <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.6 }}>{item.desc}</p>
+                    <h4 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '6px', letterSpacing: '0.5px' }}>{t(item.titleKey)}</h4>
+                    <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.6 }}>{t(item.descKey)}</p>
                   </div>
                 </div>
               ))}
@@ -128,25 +128,6 @@ const InnovationSection = () => {
               pointerEvents: 'none'
             }} />
 
-            {/* Floating Glass Stat */}
-            <div style={{
-              position: 'absolute',
-              bottom: '40px',
-              left: '40px',
-              right: '40px',
-              padding: '32px',
-              backgroundColor: 'rgba(255,255,255,0.02)',
-              backdropFilter: 'blur(24px)',
-              WebkitBackdropFilter: 'blur(24px)',
-              borderRadius: '24px',
-              border: '1px solid rgba(255,255,255,0.1)',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '4.5rem', fontWeight: 900, color: 'white', lineHeight: 1, marginBottom: '8px' }}>92%</div>
-              <p style={{ fontSize: '0.8rem', fontWeight: 700, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '2px' }}>
-                Agree AI Agents are the Future of Tech
-              </p>
-            </div>
           </motion.div>
 
         </div>

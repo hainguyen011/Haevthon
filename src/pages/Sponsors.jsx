@@ -137,17 +137,19 @@ const Sponsors = () => {
 
           <h1 style={{
             fontSize: 'clamp(3.5rem, 8vw, 7rem)', fontWeight: 900,
-            lineHeight: 0.9, letterSpacing: '-4px', marginBottom: '24px',
+            lineHeight: 1.1, letterSpacing: '-2px', marginBottom: '24px',
             textTransform: 'uppercase'
           }}>
-            {t('sponsors_hero_title1')}<br />
+            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>{t('sponsors_hero_title1')}</span>
             <span style={{ 
+              display: 'block',
+              whiteSpace: 'nowrap',
               background: 'linear-gradient(to right, #fff, rgba(255,255,255,0.3))',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
-            }}>{t('sponsors_hero_title2')}</span><br />
-            {t('sponsors_hero_title3')}
+            }}>{t('sponsors_hero_title2')}</span>
+            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>{t('sponsors_hero_title3')}</span>
           </h1>
 
           <p style={{

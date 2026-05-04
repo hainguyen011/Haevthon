@@ -19,19 +19,24 @@ const Footer = () => {
         <div style={{ flex: '1 1 300px' }}>
           <h2 style={{ fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: '16px' }}>HAEVTHON 2026</h2>
           <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.95rem', lineHeight: 1.6, maxWidth: '300px' }}>
-            Empowering the next generation of autonomous AI systems. Built by builders, for builders.
+            {t('footer_desc')}
           </p>
         </div>
 
         <div style={{ display: 'flex', gap: '60px', flexWrap: 'wrap' }}>
           <div>
             <h4 style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginBottom: '20px' }}>
-              Explore
+              {t('footer_explore')}
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {['Home', 'Timeline', 'Register', 'Sponsors'].map(link => (
-                <a key={link} href={`/${link.toLowerCase() === 'home' ? '' : link.toLowerCase()}`} style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.7)'}>
-                  {link}
+              {[
+                { label: t('nav_home'), path: '/' },
+                { label: t('nav_timeline'), path: '/timeline' },
+                { label: t('nav_register'), path: '/register' },
+                { label: t('nav_sponsors'), path: '/sponsors' }
+              ].map(link => (
+                <a key={link.label} href={link.path} style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.7)'}>
+                  {link.label}
                 </a>
               ))}
             </div>
@@ -39,7 +44,7 @@ const Footer = () => {
           
           <div>
             <h4 style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginBottom: '20px' }}>
-              Connect
+              {t('footer_connect')}
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <a href="#" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.7)'}>
@@ -62,10 +67,10 @@ const Footer = () => {
         display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', gap: '40px',
         color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem'
       }}>
-        <div>© 2026 I2FLabs. All rights reserved.</div>
+        <div>© 2026 I2FLabs. {t('footer_rights')}</div>
         <div style={{ display: 'flex', gap: '24px' }}>
-          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = 'rgba(255,255,255,0.6)'} onMouseOut={e => e.target.style.color = 'inherit'}>Privacy Policy</a>
-          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = 'rgba(255,255,255,0.6)'} onMouseOut={e => e.target.style.color = 'inherit'}>Terms of Service</a>
+          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = 'rgba(255,255,255,0.6)'} onMouseOut={e => e.target.style.color = 'inherit'}>{t('footer_privacy')}</a>
+          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={e => e.target.style.color = 'rgba(255,255,255,0.6)'} onMouseOut={e => e.target.style.color = 'inherit'}>{t('footer_terms')}</a>
         </div>
       </div>
     </footer>
