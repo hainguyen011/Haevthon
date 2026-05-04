@@ -16,7 +16,6 @@ function App() {
     <LanguageProvider>
       <Router>
         <Navbar />
-        <LanguageToggle />
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<Home />} />

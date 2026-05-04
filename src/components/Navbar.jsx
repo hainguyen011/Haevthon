@@ -80,11 +80,10 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', paddingBottom: '20px' }}>
           <button onClick={toggleLanguage} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 800 }}>
             {language.toUpperCase()}
           </button>
-          <img src="/assets/aevum-logo.png" alt="Aevum" style={{ width: '40px', opacity: 0.5, filter: 'brightness(0) invert(1)' }} />
         </div>
       </motion.nav>
     );
@@ -213,10 +212,9 @@ const Navbar = () => {
               ))}
             </div>
 
-            <div style={{ marginTop: 'auto', textAlign: 'center' }}>
-              <img src="/assets/aevum-logo.png" alt="Aevum" style={{ width: '60px', opacity: 0.3, filter: 'brightness(0) invert(1)' }} />
-              <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.7rem', marginTop: '12px', letterSpacing: '2px' }}>
-                POWERED BY AEVUM
+            <div style={{ marginTop: 'auto', textAlign: 'center', paddingBottom: '40px' }}>
+              <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.7rem', letterSpacing: '2px' }}>
+                HAEVTHON 2026
               </p>
             </div>
           </motion.div>
