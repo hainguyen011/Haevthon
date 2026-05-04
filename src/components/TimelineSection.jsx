@@ -77,6 +77,13 @@ const TimelineSection = () => {
   const { t } = useLanguage();
   const { timeline } = homeData;
   const [expandedItem, setExpandedItem] = useState(null); // format: "phaseIndex-itemIndex"
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const getStatusStyle = (status) => {
     switch (status) {
@@ -123,7 +130,12 @@ const TimelineSection = () => {
 
 
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '150px' }}>
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: isMobile ? '80px' : '150px',
+          overflow: 'visible' 
+        }}>
           {timeline.phases.map((phase, phaseIdx) => {
             const isActive = phase.status === 'active';
             const isDone = phase.status === 'done';
@@ -134,21 +146,22 @@ const TimelineSection = () => {
                 key={phaseIdx}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '5.5fr 4.5fr',
-                  gap: '80px',
+                  gridTemplateColumns: isMobile ? '1fr' : '5.5fr 4.5fr',
+                  gap: isMobile ? '40px' : '80px',
                   alignItems: 'flex-start',
-                  position: 'relative'
+                  position: 'relative',
+                  overflow: 'visible'
                 }}
               >
                 {/* LEFT: Sticky Phase Info */}
-                <div style={{ position: 'sticky', top: '120px' }}>
+                <div style={{ position: isMobile ? 'relative' : 'sticky', top: isMobile ? '0' : '120px' }}>
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8 }}
                     style={{
-                      padding: '48px',
+                      padding: isMobile ? '32px 24px' : '48px',
                       backgroundColor: 'rgba(10, 10, 10, 0.9)',
                       backdropFilter: 'blur(20px)',
                       WebkitBackdropFilter: 'blur(20px)',
@@ -197,10 +210,10 @@ const TimelineSection = () => {
                       </div>
 
                       <h3 style={{
-                        fontSize: '2rem',
+                        fontSize: isMobile ? '1.5rem' : '2rem',
                         fontWeight: 900,
                         color: isActive ? '#fff' : isDone ? 'rgba(255,255,255,0.4)' : '#fff',
-                        marginBottom: '20px',
+                        marginBottom: isMobile ? '16px' : '20px',
                         letterSpacing: '-1px',
                         lineHeight: 1.1
                       }}>
@@ -221,7 +234,7 @@ const TimelineSection = () => {
 
                 {/* RIGHT: Scrolling Events */}
                 <div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '32px' : '48px', paddingLeft: isMobile ? '24px' : '0' }}>
                     {Array.isArray(items) && items.map((item, itemIdx) => {
                       const itemKey = `${phaseIdx}-${itemIdx}`;
                       const isExpanded = expandedItem === itemKey;
@@ -249,7 +262,7 @@ const TimelineSection = () => {
 
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
                                   <h4 style={{
-                                    fontSize: '1.4rem',
+                                    fontSize: isMobile ? '1.1rem' : '1.4rem',
                                     color: (item.status === 'active') ? '#fff' : 'rgba(255,255,255,0.3)',
                                     fontWeight: 700,
                                     letterSpacing: '-0.5px',
@@ -351,14 +364,6 @@ const TimelineSection = () => {
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
-        }
-
-        @media (max-width: 992px) {
-          section { padding: 60px 20px !important; }
-          div[style*="left: 50%"] { left: 20px !important; transform: none !important; }
-          div[style*="justify-content"] { justify-content: flex-start !important; padding-left: 40px !important; }
-          div[style*="width: calc(50% - 60px)"] { width: 100% !important; padding: 32px !important; }
-          div[style*="left: 50%"][style*="zIndex: 2"] { left: -7px !important; transform: none !important; }
         }
       `}} />
     </section>

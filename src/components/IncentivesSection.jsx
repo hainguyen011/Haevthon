@@ -6,6 +6,13 @@ import { useLanguage } from '../context/LanguageContext';
 const IncentivesSection = () => {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('main');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const tabs = [
     { id: 'main', label: t('tab_main_prizes') || 'Main Prizes' },
@@ -69,10 +76,10 @@ const IncentivesSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '48px' }}
+          style={{ textAlign: 'center', marginBottom: isMobile ? '32px' : '48px' }}
         >
-          <h2 className="metallic-text" style={{ fontSize: '3.5rem', marginBottom: '16px', fontWeight: 900 }}>{t('incentives_title')}</h2>
-          <p style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.9rem' }}>{t('incentives_subtitle')}</p>
+          <h2 className="metallic-text" style={{ fontSize: isMobile ? '2.2rem' : '3.5rem', marginBottom: '16px', fontWeight: 900 }}>{t('incentives_title')}</h2>
+          <p style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '2px', fontSize: isMobile ? '0.7rem' : '0.9rem' }}>{t('incentives_subtitle')}</p>
         </motion.div>
 
         {/* Tab Switcher */}
@@ -116,10 +123,19 @@ const IncentivesSection = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
               style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-                gap: '24px' 
+                display: isMobile ? 'flex' : 'grid', 
+                gridTemplateColumns: isMobile ? 'none' : 'repeat(auto-fit, minmax(320px, 1fr))', 
+                gap: isMobile ? '16px' : '24px',
+                overflowX: isMobile ? 'auto' : 'visible',
+                paddingBottom: isMobile ? '20px' : '0',
+                paddingLeft: isMobile ? '4px' : '0',
+                paddingRight: isMobile ? '4px' : '0',
+                scrollSnapType: isMobile ? 'x mandatory' : 'none',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                WebkitOverflowScrolling: 'touch'
               }}
+              className="prizes-container"
             >
               {filteredPrizes.map((prize, i) => (
                 <motion.div
@@ -132,7 +148,9 @@ const IncentivesSection = () => {
                     borderColor: 'rgba(255,255,255,0.15)'
                   }}
                   style={{ 
-                    padding: '40px 24px', 
+                    flex: isMobile ? '0 0 280px' : '1',
+                    scrollSnapAlign: 'center',
+                    padding: isMobile ? '32px 20px' : '40px 24px', 
                     background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%)',
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',
@@ -167,9 +185,9 @@ const IncentivesSection = () => {
                   </div>
                   <div style={{ position: 'relative', zIndex: 1 }}>
                     <h3 style={{ 
-                      fontSize: '1.2rem', 
+                      fontSize: isMobile ? '1rem' : '1.2rem', 
                       fontWeight: 800, 
-                      marginBottom: '16px', 
+                      marginBottom: isMobile ? '12px' : '16px', 
                       color: '#fff',
                       textTransform: 'uppercase',
                       letterSpacing: '1.5px'
@@ -178,7 +196,7 @@ const IncentivesSection = () => {
                     </h3>
                     <p style={{ 
                       color: 'rgba(255,255,255,0.5)', 
-                      fontSize: '0.9rem', 
+                      fontSize: isMobile ? '0.8rem' : '0.9rem', 
                       lineHeight: 1.6 
                     }}>
                       {prize.desc}
@@ -196,20 +214,27 @@ const IncentivesSection = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
           style={{ 
-            marginTop: '80px', 
+            marginTop: isMobile ? '40px' : '80px', 
             textAlign: 'center', 
-            padding: '60px 40px', 
+            padding: isMobile ? '40px 20px' : '60px 40px', 
             backgroundColor: 'rgba(255,255,255,0.01)',
             borderRadius: '24px',
             border: '1px dashed rgba(255,255,255,0.1)'
           }}
         >
-          <Award size={48} style={{ color: '#fff', marginBottom: '24px', opacity: 0.5 }} />
-          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px' }}>{t('cta_compete_title')}</h3>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '32px', maxWidth: '600px', margin: '0 auto 32px' }}>{t('cta_compete_desc')}</p>
+          <Award size={isMobile ? 32 : 48} style={{ color: '#fff', marginBottom: '24px', opacity: 0.5 }} />
+          <h3 style={{ fontSize: isMobile ? '1.4rem' : '1.8rem', fontWeight: 800, marginBottom: '16px' }}>{t('cta_compete_title')}</h3>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '32px', maxWidth: '600px', margin: '0 auto 32px', fontSize: isMobile ? '0.85rem' : '1rem' }}>{t('cta_compete_desc')}</p>
           <button className="btn-primary" onClick={() => window.location.href = '/register'}>{t('cta_apply_now')}</button>
         </motion.div>
       </div>
+
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        .prizes-container::-webkit-scrollbar {
+          display: none;
+        }
+      `}} />
     </section>
   );
 };

@@ -183,6 +183,13 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
   const [currentStep, setCurrentStep] = useState(0); // 0: Survey, 1: Registration
   const [regType, setRegType] = useState('individual'); // 'individual' or 'team'
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const registrationSchema = z.object({
     // Survey Fields
     hasParticipated: z.string().min(1, 'Required'),
@@ -201,7 +208,7 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
     github: z.string().url(t('err_github_invalid')),
     facebook: z.string().url(t('err_facebook_invalid')).optional().or(z.literal('')),
     country: z.string().min(1, 'Required'),
-    age: z.string().min(1, 'Required'),
+    age: z.string().min(1, 'Required').regex(/^\d+$/, t('err_age_numeric')),
     gender: z.string().min(1, 'Required'),
     city: z.string().min(1, 'Required'),
     residence: z.string().optional().or(z.literal('')),
@@ -313,16 +320,17 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
       style={{
         width: '100%',
         maxWidth: '1150px',
-        minHeight: '500px',
-        height: 'auto',
-        backgroundColor: '#000',
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.02) 0%, #000 100%)',
-        borderRadius: '24px',
-        border: '1px solid rgba(255,255,255,0.1)',
+        minHeight: isMobile ? 'auto' : '500px',
+        height: isMobile ? 'auto' : 'auto',
+        backgroundColor: isMobile ? 'transparent' : '#000',
+        background: isMobile ? 'none' : 'linear-gradient(180deg, rgba(255,255,255,0.02) 0%, #000 100%)',
+        borderRadius: isMobile ? '0' : '24px',
+        border: isMobile ? 'none' : '1px solid rgba(255,255,255,0.1)',
         position: 'relative',
-        boxShadow: '0 50px 100px rgba(0,0,0,0.9)',
+        boxShadow: isMobile ? 'none' : '0 50px 100px rgba(0,0,0,0.9)',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: isMobile ? 'column' : 'row',
+        overflowY: isMobile ? 'visible' : 'visible',
       }}
       onClick={(e) => e.stopPropagation()}
     >
@@ -456,6 +464,7 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
 
       <div className="registration-container" style={{
         display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
         width: '100%',
         height: 'auto',
         position: 'relative',
@@ -463,33 +472,42 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
       }}>
         {/* Left Side: Information */}
           <div style={{
-            width: '24%',
-            padding: '40px',
+            width: isMobile ? '100%' : '24%',
+            padding: isMobile ? '20px 24px' : '40px',
             background: 'transparent',
-            borderRight: '1px solid rgba(255,255,255,0.05)',
+            borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.05)',
+            borderBottom: isMobile ? '1px solid rgba(255,255,255,0.05)' : 'none',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center'
+            justifyContent: isMobile ? 'flex-start' : 'center',
+            textAlign: isMobile ? 'center' : 'left'
           }}>
-            <div style={{ marginBottom: '32px' }}>
-              <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+            <div style={{ marginBottom: isMobile ? '0' : '32px' }}>
+              <div style={{ 
+                width: '36px', 
+                height: '36px', 
+                borderRadius: '10px', 
+                backgroundColor: '#fff', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                marginBottom: isMobile ? '16px' : '20px',
+                margin: isMobile ? '0 auto 16px' : '0 0 20px'
+              }}>
                 <svg width="20" height="19" viewBox="0 0 48 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#000" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z" />
                 </svg>
               </div>
-              <h2 style={{ fontSize: '1.8rem', fontWeight: 900, lineHeight: 1.1, marginBottom: '12px', letterSpacing: '-1px' }}>
+              <h2 style={{ fontSize: isMobile ? '1.2rem' : '1.8rem', fontWeight: 900, lineHeight: 1.1, marginBottom: '12px', letterSpacing: '-1px' }}>
                 IGNITE THE <span style={{ color: 'rgba(255,255,255,0.3)' }}>AGENTIC ERA</span>
               </h2>
-              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300 }}>
-                Join Haevthon to architect the next generation of autonomous intelligence and agentic systems.
-              </p>
             </div>
           </div>
 
           {/* Right Side: The Form */}
           <div style={{ 
-            width: '76%',
-            padding: '40px 48px',
+            width: isMobile ? '100%' : '76%',
+            padding: isMobile ? '32px 24px' : '40px 48px',
             display: 'flex',
             flexDirection: 'column',
             height: 'auto'
@@ -504,7 +522,14 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                   exit={{ opacity: 0, x: -20 }}
                   style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
                 >
-                  <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div style={{ 
+                    marginBottom: '24px', 
+                    display: 'flex', 
+                    flexDirection: isMobile ? 'column' : 'row',
+                    justifyContent: isMobile ? 'flex-start' : 'space-between', 
+                    alignItems: isMobile ? 'flex-start' : 'flex-start',
+                    gap: isMobile ? '12px' : '0'
+                  }}>
                     <div>
                       <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', marginBottom: '2px', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
                         {t('reg_survey_title') || 'PRE-REGISTRATION SURVEY'}
@@ -544,7 +569,7 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                     )}
                   />
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
                     <Controller
                       name="foundVia"
                       control={control}
@@ -584,7 +609,7 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                     />
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
                     <Controller
                       name="teamStatus"
                       control={control}
@@ -635,7 +660,7 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                     />
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
                     <Controller
                       name="vibeLevel"
                       control={control}
@@ -694,10 +719,11 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                     >
                   <div style={{ 
                     display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'space-between', 
-                    marginBottom: '12px',
-                    height: '24px' 
+                    flexDirection: isMobile ? 'column' : 'row',
+                    alignItems: isMobile ? 'flex-start' : 'center', 
+                    justifyContent: isMobile ? 'flex-start' : 'space-between', 
+                    marginBottom: '16px',
+                    gap: isMobile ? '12px' : '0'
                   }}>
                     <button 
                       type="button" 
@@ -745,7 +771,7 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                     </button>
                   </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr', gap: '16px' }}>
                 <div className="form-group">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <label style={labelStyle}>{t('reg_label_name')}</label>
@@ -769,13 +795,13 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr', gap: '16px' }}>
                 <div className="form-group">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <label style={labelStyle}>{t('reg_age_label')}</label>
                     {errors.age && <span className="error-msg" style={{ fontSize: '0.6rem', marginBottom: '4px' }}>{errors.age.message}</span>}
                   </div>
-                  <input {...register('age')} placeholder="18, 20, 25..." style={errors.age ? inputErrorStyle : inputStyle} className="minimal-input" />
+                  <input type="number" {...register('age')} placeholder="18, 20, 25..." style={errors.age ? inputErrorStyle : inputStyle} className="minimal-input" />
                 </div>
                 <Controller
                   name="gender"
@@ -977,16 +1003,14 @@ const RegistrationForm = ({ isOpen, onClose, isFullPage = false }) => {
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
         @media (max-width: 950px) {
-          div[style*="flex-direction: row"] { flex-direction: column !important; }
-          div[style*="width: 28%"], div[style*="width: 72%"] { width: 100% !important; padding: 32px !important; }
-          div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+          .registration-container { flex-direction: column !important; }
         }
       `}} />
     </motion.div>
   );
 
   if (isFullPage) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#000', padding: '20px' }}>
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', backgroundColor: '#000' }}>
       {formContent}
     </div>
   );

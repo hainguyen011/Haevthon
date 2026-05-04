@@ -29,17 +29,25 @@ const TestimonialsSection = () => {
     }
   ];
 
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Duplicating for seamless loop
   const duplicatedReviews = [...reviews, ...reviews];
 
   return (
     <section style={{ 
-      padding: '120px 0', 
+      padding: isMobile ? '80px 0' : '120px 0', 
       backgroundColor: '#000000',
       borderTop: '1px solid rgba(255,255,255,0.05)',
       overflow: 'hidden'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', marginBottom: '80px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', marginBottom: isMobile ? '40px' : '80px' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -47,15 +55,15 @@ const TestimonialsSection = () => {
           style={{ textAlign: 'center' }}
         >
           <h2 style={{ 
-            fontSize: '2.5rem', 
+            fontSize: isMobile ? '1.8rem' : '2.5rem', 
             fontWeight: 900, 
             textTransform: 'uppercase', 
-            letterSpacing: '4px',
+            letterSpacing: isMobile ? '2px' : '4px',
             marginBottom: '16px'
           }}>
             {t('testimonial_title')}
           </h2>
-          <div style={{ width: '60px', height: '2px', background: 'var(--primary-white)', margin: '0 auto' }} />
+          <div style={{ width: isMobile ? '40px' : '60px', height: '2px', background: 'var(--primary-white)', margin: '0 auto' }} />
         </motion.div>
       </div>
 
@@ -65,7 +73,7 @@ const TestimonialsSection = () => {
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '200px',
+          width: isMobile ? '50px' : '200px',
           height: '100%',
           background: 'linear-gradient(to right, #000 0%, transparent 100%)',
           zIndex: 2,
@@ -75,7 +83,7 @@ const TestimonialsSection = () => {
           position: 'absolute',
           top: 0,
           right: 0,
-          width: '200px',
+          width: isMobile ? '50px' : '200px',
           height: '100%',
           background: 'linear-gradient(to left, #000 0%, transparent 100%)',
           zIndex: 2,
@@ -90,22 +98,22 @@ const TestimonialsSection = () => {
             x: {
               repeat: Infinity,
               repeatType: "loop",
-              duration: 50,
+              duration: isMobile ? 30 : 50,
               ease: "linear",
             },
           }}
           style={{
             display: 'flex',
-            gap: '30px',
-            padding: '40px 0'
+            gap: isMobile ? '16px' : '30px',
+            padding: isMobile ? '20px 0' : '40px 0'
           }}
         >
           {duplicatedReviews.map((review, index) => (
             <div
               key={index}
               style={{
-                flex: '0 0 500px',
-                padding: '50px',
+                flex: isMobile ? '0 0 300px' : '0 0 500px',
+                padding: isMobile ? '30px' : '50px',
                 backgroundColor: 'rgba(255,255,255,0.02)',
                 borderRadius: '24px',
                 border: '1px solid rgba(255,255,255,0.05)',
@@ -123,12 +131,12 @@ const TestimonialsSection = () => {
               />
               
               <p style={{ 
-                fontSize: '1.25rem', 
+                fontSize: isMobile ? '1rem' : '1.25rem', 
                 fontStyle: 'italic', 
                 lineHeight: 1.6, 
                 color: 'rgba(255,255,255,0.8)',
-                marginBottom: '40px',
-                minHeight: '120px'
+                marginBottom: isMobile ? '24px' : '40px',
+                minHeight: isMobile ? '100px' : '120px'
               }}>
                 "{review.quote}"
               </p>

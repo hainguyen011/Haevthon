@@ -7,18 +7,25 @@ import { homeData } from '../data/homeData.jsx';
 const InnovationSection = () => {
   const { t } = useLanguage();
   const { innovation } = homeData;
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <section style={{ 
-      minHeight: '100vh',
-      padding: '120px 20px', 
+      minHeight: isMobile ? 'auto' : '100vh',
+      padding: isMobile ? '80px 20px' : '120px 20px', 
       backgroundColor: '#000000',
       borderTop: '1px solid rgba(255,255,255,0.05)',
       display: 'flex',
       alignItems: 'center'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '80px', alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.2fr 1fr', gap: isMobile ? '60px' : '80px', alignItems: 'center' }}>
           
           {/* Left Side: Content */}
           <motion.div
@@ -45,20 +52,20 @@ const InnovationSection = () => {
             </div>
             
             <h2 style={{ 
-              fontSize: 'clamp(2.5rem, 4.5vw, 3.5rem)', 
+              fontSize: isMobile ? '2.2rem' : 'clamp(2.5rem, 4.5vw, 3.5rem)', 
               fontWeight: 900, 
               lineHeight: 1.1, 
-              marginBottom: '32px',
+              marginBottom: isMobile ? '24px' : '32px',
               letterSpacing: '-2px'
             }}>
               {t('innovation_title_part1')} <span style={{ color: 'rgba(255,255,255,0.3)' }}>{t('innovation_title_part2')}</span> {t('innovation_title_part3')}
             </h2>
             
             <p style={{ 
-              fontSize: '1.1rem', 
+              fontSize: isMobile ? '0.95rem' : '1.1rem', 
               color: 'rgba(255,255,255,0.5)', 
               lineHeight: 1.7, 
-              marginBottom: '48px',
+              marginBottom: isMobile ? '40px' : '48px',
               fontWeight: 300,
               maxWidth: '540px'
             }}>

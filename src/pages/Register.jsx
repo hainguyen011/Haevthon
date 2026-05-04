@@ -3,6 +3,14 @@ import RegistrationForm from '../components/RegistrationForm';
 import { motion } from 'framer-motion';
 
 const Register = () => {
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -13,8 +21,9 @@ const Register = () => {
         minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
-        background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 80%)',
+        alignItems: isMobile ? 'flex-start' : 'center',
+        padding: isMobile ? '100px 0 60px' : '40px 20px',
+        backgroundColor: '#000'
       }}
     >
       <div style={{ width: '100%', maxWidth: '1200px' }}>

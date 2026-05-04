@@ -16,6 +16,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  max-width: 100%; /* Prevent children from exceeding parents */
+}
+
+html, body {
+  width: 100%;
+  position: relative;
+  /* overflow-x: hidden removed to prevent breaking position: sticky */
 }
 
 body {
@@ -23,10 +30,16 @@ body {
   background-color: #000000;
   color: var(--text-primary);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip; /* Modern lock that doesn't break sticky */
   min-height: 100vh;
-  padding-left: 80px;
-  /* Space for Sidebar */
+  padding-left: 80px; /* Space for Sidebar on Desktop */
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-left: 0;
+    padding-top: 80px; /* Space for Header on Mobile */
+  }
 }
 
 h1,

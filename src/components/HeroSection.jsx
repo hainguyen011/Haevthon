@@ -9,15 +9,22 @@ const HeroSection = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
   const { hero } = homeData;
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <section style={{
-      minHeight: '100vh',
+      minHeight: isMobile ? 'auto' : '100vh',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: '120px 20px',
+      padding: isMobile ? '100px 20px 60px' : '120px 20px',
       textAlign: 'center',
       position: 'relative',
       backgroundColor: '#000000'
@@ -29,20 +36,21 @@ const HeroSection = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
         style={{ 
           display: 'flex', 
+          flexDirection: 'row',
           alignItems: 'center', 
           justifyContent: 'center',
-          gap: 'clamp(0.5rem, 2vw, 1.5rem)',
-          marginBottom: '32px',
+          gap: isMobile ? '0.5rem' : 'clamp(0.5rem, 2vw, 1.5rem)',
+          marginBottom: isMobile ? '16px' : '32px',
         }}
       >
         <h1
           style={{
-            fontSize: 'clamp(3.5rem, 14vw, 8.5rem)',
+            fontSize: isMobile ? 'clamp(1.8rem, 9vw, 3rem)' : 'clamp(2.5rem, 12vw, 8.5rem)',
             fontWeight: 900,
             margin: 0,
-            letterSpacing: '-4px',
+            letterSpacing: isMobile ? '-1px' : '-2px',
             lineHeight: 1,
-            textAlign: 'right'
+            textAlign: isMobile ? 'right' : 'right'
           }}
           className="metallic-text"
         >
@@ -81,12 +89,12 @@ const HeroSection = () => {
 
         <h1
           style={{
-            fontSize: 'clamp(3.5rem, 14vw, 8.5rem)',
+            fontSize: isMobile ? 'clamp(1.8rem, 9vw, 3rem)' : 'clamp(2.5rem, 12vw, 8.5rem)',
             fontWeight: 900,
             margin: 0,
-            letterSpacing: '-4px',
+            letterSpacing: isMobile ? '-1px' : '-2px',
             lineHeight: 1,
-            textAlign: 'left'
+            textAlign: isMobile ? 'left' : 'left'
           }}
           className="metallic-text"
         >
@@ -168,31 +176,34 @@ const HeroSection = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
         style={{
-          marginTop: '100px',
+          marginTop: isMobile ? '40px' : '100px',
           display: 'grid',
-          gridTemplateColumns: '1fr 1.5fr 1fr', // Give middle item (Format) more space
-          gap: '20px',
+          gridTemplateColumns: isMobile ? '1fr 1fr' : '1fr 1.5fr 1fr',
+          gap: isMobile ? '24px' : '20px',
           width: '100%',
           maxWidth: '1000px',
-          padding: '40px 0',
+          padding: isMobile ? '32px 10px' : '40px 20px',
           borderTop: '1px solid rgba(255,255,255,0.05)'
         }}
       >
         {hero.stats.map((stat, index) => (
-          <div key={index} style={{ textAlign: 'center' }}>
+          <div key={index} style={{ 
+            textAlign: 'center',
+            gridColumn: (isMobile && index === 2) ? 'span 2' : 'span 1'
+          }}>
             <span style={{ 
               display: 'block', 
-              color: 'rgba(255,255,255,0.4)', 
-              fontSize: '0.75rem', 
+              color: 'rgba(255,255,255,0.3)', 
+              fontSize: isMobile ? '0.6rem' : '0.75rem', 
               fontWeight: 700, 
               textTransform: 'uppercase', 
-              letterSpacing: '3px', 
-              marginBottom: '12px' 
+              letterSpacing: '2px', 
+              marginBottom: isMobile ? '4px' : '12px' 
             }}>
               {t(stat.labelKey)}
             </span>
             <span style={{ 
-              fontSize: '1.5rem', 
+              fontSize: isMobile ? '1.1rem' : '1.5rem', 
               fontWeight: 900, 
               color: 'var(--primary-white)',
               letterSpacing: '-0.5px'

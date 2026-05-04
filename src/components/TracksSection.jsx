@@ -6,6 +6,13 @@ import { homeData } from '../data/homeData.jsx';
 const TracksSection = () => {
   const { t } = useLanguage();
   const { tracks } = homeData;
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Optimized & More Reliable Thematic Images
   const trackImages = [
@@ -19,7 +26,7 @@ const TracksSection = () => {
 
   return (
     <section style={{ 
-      padding: '120px 20px', 
+      padding: isMobile ? '80px 20px' : '120px 20px', 
       backgroundColor: '#000000',
       position: 'relative'
     }}>
@@ -28,7 +35,7 @@ const TracksSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '80px' }}
+          style={{ textAlign: 'center', marginBottom: isMobile ? '48px' : '80px' }}
         >
           <div style={{ 
             color: 'rgba(255,255,255,0.4)', 
@@ -41,9 +48,9 @@ const TracksSection = () => {
             Discovery Paths
           </div>
           <h2 style={{ 
-            fontSize: 'clamp(2.5rem, 6vw, 4rem)', 
+            fontSize: isMobile ? '2.2rem' : 'clamp(2.5rem, 6vw, 4rem)', 
             fontWeight: 900, 
-            marginBottom: '24px',
+            marginBottom: isMobile ? '16px' : '24px',
             letterSpacing: '-2px',
             color: '#fff'
           }}>
@@ -139,14 +146,14 @@ const TracksSection = () => {
 
               {/* Content Area */}
               <div style={{ 
-                padding: '0 32px 32px', 
+                padding: isMobile ? '0 24px 24px' : '0 32px 32px', 
                 position: 'relative', 
                 zIndex: 2,
-                marginTop: '-20px' 
+                marginTop: isMobile ? '-10px' : '-20px' 
               }}>
                 <h3 style={{ 
-                  marginBottom: '16px', 
-                  fontSize: '1.5rem', 
+                  marginBottom: isMobile ? '12px' : '16px', 
+                  fontSize: isMobile ? '1.25rem' : '1.5rem', 
                   fontWeight: 900,
                   letterSpacing: '-0.5px',
                   textTransform: 'uppercase',
@@ -157,10 +164,10 @@ const TracksSection = () => {
                 </h3>
                 <p style={{ 
                   color: 'rgba(255,255,255,0.4)', 
-                  fontSize: '1rem', 
+                  fontSize: isMobile ? '0.85rem' : '1rem', 
                   lineHeight: 1.6,
                   fontWeight: 300,
-                  maxWidth: '90%'
+                  maxWidth: isMobile ? '100%' : '90%'
                 }}>
                   {t(track.descKey)}
                 </p>
@@ -169,7 +176,7 @@ const TracksSection = () => {
               {/* Interactive Indicator */}
               <div style={{ 
                 marginTop: 'auto',
-                padding: '0 32px 32px',
+                padding: isMobile ? '0 24px 24px' : '0 32px 32px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',

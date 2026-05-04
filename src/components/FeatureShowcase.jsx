@@ -9,7 +9,14 @@ const FeatureShowcase = () => {
   const { features } = homeData;
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const carousel = useRef();
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // High-Fidelity Thematic Images for all 8 Aevum Edge cards
   const featureImages = [
@@ -53,7 +60,7 @@ const FeatureShowcase = () => {
 
   return (
     <section style={{
-      padding: '160px 0',
+      padding: isMobile ? '80px 0' : '160px 0',
       backgroundColor: '#000000',
       position: 'relative',
       overflow: 'hidden'
@@ -91,47 +98,49 @@ const FeatureShowcase = () => {
             </h2>
           </motion.div>
 
-          {/* Navigation Controls */}
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <button
-              onClick={prevSlide}
-              style={{
-                width: '56px',
-                height: '56px',
-                borderRadius: '50%',
-                border: '1px solid rgba(255,255,255,0.1)',
-                backgroundColor: 'rgba(255,255,255,0.02)',
-                color: 'white',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.3s'
-              }}
-              className="nav-btn"
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <button
-              onClick={nextSlide}
-              style={{
-                width: '56px',
-                height: '56px',
-                borderRadius: '50%',
-                border: '1px solid rgba(255,255,255,0.1)',
-                backgroundColor: 'rgba(255,255,255,0.02)',
-                color: 'white',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.3s'
-              }}
-              className="nav-btn"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
+          {/* Navigation Controls - Hidden on Mobile to prioritize dragging */}
+          {!isMobile && (
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <button
+                onClick={prevSlide}
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  backgroundColor: 'rgba(255,255,255,0.02)',
+                  color: 'white',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.3s'
+                }}
+                className="nav-btn"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                onClick={nextSlide}
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  backgroundColor: 'rgba(255,255,255,0.02)',
+                  color: 'white',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.3s'
+                }}
+                className="nav-btn"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -147,27 +156,27 @@ const FeatureShowcase = () => {
           drag="x"
           dragConstraints={{ right: 0, left: -width }}
           whileTap={{ cursor: 'grabbing' }}
-          animate={{ x: -index * 382 }}
+          animate={{ x: isMobile ? -index * 300 : -index * 382 }}
           transition={{ type: 'spring', damping: 25, stiffness: 120 }}
           style={{
             display: 'flex',
-            gap: '32px'
+            gap: isMobile ? '20px' : '32px'
           }}
         >
           {features.map((feature, i) => (
             <motion.div
               key={i}
               style={{
-                minWidth: '350px',
-                maxWidth: '350px',
+                minWidth: isMobile ? '280px' : '350px',
+                maxWidth: isMobile ? '280px' : '350px',
                 background: 'rgba(255,255,255,0.01)',
-                borderRadius: '24px',
+                borderRadius: isMobile ? '20px' : '24px',
                 border: '1px solid rgba(255,255,255,0.06)',
                 position: 'relative',
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
-                height: '560px',
+                height: isMobile ? '450px' : '560px',
                 transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)'
               }}
               className="feature-card-hover"
@@ -206,11 +215,11 @@ const FeatureShowcase = () => {
               </div>
 
               {/* Content */}
-              <div style={{ padding: '40px', flex: 1, display: 'flex', flexDirection: 'column', marginTop: '-30px', position: 'relative', zIndex: 2 }}>
+              <div style={{ padding: isMobile ? '24px' : '40px', flex: 1, display: 'flex', flexDirection: 'column', marginTop: isMobile ? '-20px' : '-30px', position: 'relative', zIndex: 2 }}>
                 <h3 style={{
-                  fontSize: '1.6rem',
+                  fontSize: isMobile ? '1.25rem' : '1.6rem',
                   fontWeight: 900,
-                  marginBottom: '16px',
+                  marginBottom: isMobile ? '12px' : '16px',
                   letterSpacing: '-1px',
                   lineHeight: 1.1,
                   textTransform: 'uppercase',
@@ -222,7 +231,7 @@ const FeatureShowcase = () => {
                 <p style={{
                   color: 'rgba(255,255,255,0.4)',
                   lineHeight: 1.6,
-                  fontSize: '1rem',
+                  fontSize: isMobile ? '0.85rem' : '1rem',
                   fontWeight: 300
                 }}>
                   {t(feature.descKey)}

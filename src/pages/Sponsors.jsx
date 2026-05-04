@@ -51,11 +51,11 @@ const SponsorCard = ({ sponsor }) => {
         {sponsor.logo ? (
           <img
             src={sponsor.logo} alt={sponsor.name}
-            style={{ 
-              maxWidth: sponsor.featured ? '260px' : '200px', 
+            style={{
+              maxWidth: sponsor.featured ? '260px' : '200px',
               maxHeight: '60px', // Tăng tối đa kích thước logo trong giới hạn chiều cao
-              objectFit: 'contain', 
-              opacity: 0.9, 
+              objectFit: 'contain',
+              opacity: 0.9,
               filter: sponsor.id === 'i2flabs' ? 'brightness(0) invert(1)' : 'none',
               transition: 'all 0.3s ease'
             }}
@@ -63,14 +63,14 @@ const SponsorCard = ({ sponsor }) => {
             onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
           />
         ) : null}
-        <span 
+        <span
           className="sponsor-name"
-          style={{ 
-            display: sponsor.logo ? 'none' : 'block', 
-            color: 'rgba(255,255,255,0.4)', 
-            fontSize: '1rem', 
-            fontWeight: 800, 
-            letterSpacing: '3px', 
+          style={{
+            display: sponsor.logo ? 'none' : 'block',
+            color: 'rgba(255,255,255,0.4)',
+            fontSize: '1rem',
+            fontWeight: 800,
+            letterSpacing: '3px',
             textTransform: 'uppercase',
             transition: 'color 0.3s ease'
           }}>
@@ -86,21 +86,23 @@ const Sponsors = () => {
   const whySponsors = getWhySponsors(t);
   const [form, setForm] = useState({ name: '', company: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
   const carouselRef = useRef(null);
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
-    if (carouselRef.current) {
-      setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
-    }
-    
-    // Add window resize listener to recalculate width
     const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
       if (carouselRef.current) {
         setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
       }
     };
+    
+    if (carouselRef.current) {
+      setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
+    }
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -116,10 +118,27 @@ const Sponsors = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      style={{ paddingLeft: '80px', backgroundColor: '#000', color: '#fff', minHeight: '100vh', overflowX: 'hidden' }}
+      style={{ 
+        paddingLeft: isMobile ? '0' : '80px', 
+        backgroundColor: '#000', 
+        color: '#fff', 
+        minHeight: '100vh', 
+        overflowX: 'hidden',
+        paddingBottom: '80px' // Space for fixed marquee
+      }}
     >
       {/* ── HERO ── */}
-      <section style={{ padding: '100px 20px 120px', maxWidth: '1200px', margin: '0 auto', position: 'relative', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '40px', flexWrap: 'wrap' }}>
+      <section style={{ 
+        padding: isMobile ? '80px 24px 60px' : '100px 20px 120px', 
+        maxWidth: '1200px', 
+        margin: '0 auto', 
+        position: 'relative', 
+        display: 'flex', 
+        flexDirection: isMobile ? 'column' : 'row',
+        alignItems: isMobile ? 'flex-start' : 'flex-start', 
+        justifyContent: 'space-between', 
+        gap: isMobile ? '60px' : '40px'
+      }}>
 
         <div style={{ flex: '1 1 300px', position: 'relative', zIndex: 1, paddingTop: '20px' }}>
           <motion.div
@@ -127,84 +146,90 @@ const Sponsors = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
           >
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '10px',
-            color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem', fontWeight: 800,
-            letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '20px'
-          }}>
-            {t('sponsors_partnership_opp')}
-          </div>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '10px',
+              color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem', fontWeight: 800,
+              letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '20px'
+            }}>
+              {t('sponsors_partnership_opp')}
+            </div>
 
-          <h1 style={{
-            fontSize: 'clamp(3.5rem, 8vw, 7rem)', fontWeight: 900,
-            lineHeight: 1.1, letterSpacing: '-2px', marginBottom: '24px',
-            textTransform: 'uppercase'
-          }}>
-            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>{t('sponsors_hero_title1')}</span>
-            <span style={{ 
-              display: 'block',
-              whiteSpace: 'nowrap',
-              background: 'linear-gradient(to right, #fff, rgba(255,255,255,0.3))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>{t('sponsors_hero_title2')}</span>
-            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>{t('sponsors_hero_title3')}</span>
-          </h1>
+            <h1 style={{
+              fontSize: isMobile ? '2.8rem' : 'clamp(3.5rem, 8vw, 7rem)', 
+              fontWeight: 900,
+              lineHeight: 1, 
+              letterSpacing: '-1.5px', 
+              marginBottom: '24px',
+              textTransform: 'uppercase',
+              textAlign: 'left'
+            }}>
+              <span style={{ display: 'block', whiteSpace: 'nowrap' }}>{t('sponsors_hero_title1')}</span>
+              <span style={{
+                display: 'block',
+                whiteSpace: 'nowrap',
+                background: 'linear-gradient(to right, #fff, rgba(255,255,255,0.3))',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>{t('sponsors_hero_title2')}</span>
+              <span style={{ display: 'block', whiteSpace: 'nowrap' }}>{t('sponsors_hero_title3')}</span>
+            </h1>
 
-          <p style={{
-            fontSize: '1.2rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6,
-            maxWidth: '580px', fontWeight: 300, marginBottom: '32px'
-          }}>
-            {t('sponsors_hero_desc')}
-          </p>
+            <p style={{
+              fontSize: '1.2rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6,
+              maxWidth: '580px', fontWeight: 300, marginBottom: '32px'
+            }}>
+              {t('sponsors_hero_desc')}
+            </p>
 
-          <motion.a 
-            href="#contact" 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '12px',
-              padding: '18px 36px',
-              backgroundColor: '#fff', color: '#000',
-              borderRadius: '100px', fontWeight: 800, fontSize: '0.9rem',
-              letterSpacing: '1px', textDecoration: 'none'
-            }}
-          >
-            {t('sponsors_hero_btn')} <ArrowRight size={18} />
-          </motion.a>
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '12px',
+                padding: '18px 36px',
+                backgroundColor: '#fff', color: '#000',
+                borderRadius: '100px', fontWeight: 800, fontSize: '0.9rem',
+                letterSpacing: '1px', textDecoration: 'none'
+              }}
+            >
+              {t('sponsors_hero_btn')} <ArrowRight size={18} />
+            </motion.a>
           </motion.div>
         </div>
 
         {/* Right side: Vector Graphic */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
-          style={{ flex: '1 1 250px', display: 'flex', justifyContent: 'flex-end', position: 'relative', zIndex: 1 }}
-        >
-          <img 
-            src="/assets/rocket.png" 
-            alt="Agentic Revolution Graphic" 
-            style={{ 
-              width: '100%', 
-              maxWidth: '500px', 
-              objectFit: 'contain', 
-              opacity: 0.85,
-              transform: 'scale(1.3)',
-              transformOrigin: 'center center',
-              WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)',
-              maskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)'
-            }} 
-          />
-        </motion.div>
+        {!isMobile && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
+            style={{ flex: '1 1 250px', display: 'flex', justifyContent: 'flex-end', position: 'relative', zIndex: 1 }}
+          >
+            <img
+              src="/assets/rocket.png"
+              alt="Agentic Revolution Graphic"
+              style={{
+                width: '100%',
+                maxWidth: '500px',
+                objectFit: 'contain',
+                opacity: 0.85,
+                transform: 'scale(1.3)',
+                transformOrigin: 'center center',
+                WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)',
+                maskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)'
+              }}
+            />
+          </motion.div>
+        )}
       </section>
 
       {/* ── CURRENT SPONSORS MARQUEE (Auto Sliding) - FIXED BOTTOM ── */}
       <div style={{
         position: 'fixed',
         bottom: 0,
-        left: '80px', // Offset for sidebar (Navbar width)
+        left: isMobile ? '0' : '80px', 
         right: 0,
         zIndex: 9999, // Layer trên cùng
         backgroundColor: 'rgba(0,0,0,0.85)',
@@ -213,7 +238,7 @@ const Sponsors = () => {
         overflow: 'hidden'
       }}>
         <div style={{ maxWidth: '100%', position: 'relative' }}>
-          
+
           {/* Fading Edges */}
           <div style={{
             position: 'absolute', top: 0, left: 0, width: '150px', height: '100%',
@@ -227,10 +252,10 @@ const Sponsors = () => {
           }} />
 
           {/* Marquee Track */}
-          <div 
+          <div
             className="sponsor-marquee-track"
-            style={{ 
-              display: 'flex', 
+            style={{
+              display: 'flex',
               width: 'max-content',
               gap: '60px',
               padding: '10px 0' // Thinner padding for fixed bar
@@ -247,7 +272,7 @@ const Sponsors = () => {
       </div>
 
       {/* ── ORGANIZERS & HOSTS ── */}
-      <section style={{ padding: '100px 60px 0' }}>
+      <section style={{ padding: isMobile ? '60px 24px 0' : '100px 60px 0' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -258,102 +283,139 @@ const Sponsors = () => {
             <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px' }}>
               {t('sponsors_hosted_by')}
             </div>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-2px' }}>
+            <h2 style={{ 
+              fontSize: isMobile ? '1.8rem' : 'clamp(2rem, 4vw, 3rem)', 
+              fontWeight: 900, 
+              letterSpacing: isMobile ? '-1px' : '-2px',
+              lineHeight: 1.1,
+              marginTop: isMobile ? '8px' : '0'
+            }}>
               {t('sponsors_org_committee')}
             </h2>
           </motion.div>
 
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '24px', justifyContent: 'center'
-          }}>
-            {/* Unikorn */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              style={{
-                padding: '48px 40px', backgroundColor: 'transparent',
-                border: 'none',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'
-              }}
-            >
-              <img 
-                src="/assets/unikorn-logo.png" 
-                alt="Unikorn Logo" 
-                style={{ 
-                  maxHeight: '100px', 
-                  marginBottom: '24px',
-                  objectFit: 'contain'
-                }} 
-                onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
-              />
-              <div style={{ display: 'none', width: '80px', height: '80px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', marginBottom: '24px', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 900, fontSize: '1.2rem' }}>UKN</div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '12px' }}>UNIKORN</h3>
-              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300 }}>
-                {t('sponsors_unikorn_desc')}
-              </p>
-            </motion.div>
+          {isMobile ? (
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(3, 1fr)', 
+              gap: '12px',
+              alignItems: 'center',
+              textAlign: 'center'
+            }}>
+              {[
+                { src: "/assets/unikorn-logo.png", name: "UNIKORN" },
+                { src: "/assets/I2FLabs-logo.png", name: "I2FLABS" },
+                { src: "/assets/aevum-logo.png", name: "AEVUM" }
+              ].map((org, i) => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+                  <img src={org.src} alt={org.name} style={{ height: isMobile ? '45px' : '60px', maxWidth: '100%', objectFit: 'contain' }} />
+                  <span style={{ 
+                    fontSize: isMobile ? '0.65rem' : '0.8rem', 
+                    fontWeight: 900, 
+                    color: 'rgba(255,255,255,0.3)', 
+                    letterSpacing: '1.5px' 
+                  }}>{org.name}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{
+              display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '24px', justifyContent: 'center'
+            }}>
+              {/* Unikorn */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                style={{
+                  padding: '48px 40px', backgroundColor: 'transparent',
+                  border: 'none',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'
+                }}
+              >
+                <img
+                  src="/assets/unikorn-logo.png"
+                  alt="Unikorn Logo"
+                  style={{
+                    maxHeight: '100px',
+                    marginBottom: '24px',
+                    objectFit: 'contain'
+                  }}
+                />
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '12px' }}>UNIKORN</h3>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300 }}>
+                  {t('sponsors_unikorn_desc')}
+                </p>
+              </motion.div>
 
-            {/* I2FLabs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              style={{
-                padding: '48px 40px', backgroundColor: 'transparent',
-                border: 'none',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'
-              }}
-            >
-              <img 
-                src="/assets/I2FLabs-logo.png" 
-                alt="I2FLabs Logo" 
-                style={{ 
-                  maxHeight: '100px', 
-                  marginBottom: '24px',
-                  objectFit: 'contain'
-                }} 
-              />
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '12px' }}>I2FLABS</h3>
-              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300 }}>
-                {t('sponsors_i2flabs_desc')}
-              </p>
-            </motion.div>
+              {/* I2FLabs */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                style={{
+                  padding: '48px 40px', backgroundColor: 'transparent',
+                  border: 'none',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'
+                }}
+              >
+                <img
+                  src="/assets/I2FLabs-logo.png"
+                  alt="I2FLabs Logo"
+                  style={{
+                    maxHeight: '100px',
+                    marginBottom: '24px',
+                    objectFit: 'contain'
+                  }}
+                />
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '12px' }}>I2FLABS</h3>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300 }}>
+                  {t('sponsors_i2flabs_desc')}
+                </p>
+              </motion.div>
 
-            {/* Aevum Plan Manager */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              style={{
-                padding: '48px 40px', backgroundColor: 'transparent',
-                border: 'none',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'
-              }}
-            >
-              <img 
-                src="/assets/aevum-logo.png" 
-                alt="Aevum Plan Manager Logo" 
-                style={{ 
-                  maxHeight: '100px', 
-                  marginBottom: '24px',
-                  objectFit: 'contain'
-                }} 
-              />
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '12px' }}>AEVUM PLAN MANAGER</h3>
-              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300 }}>
-                {t('sponsors_aevum_desc')}
-              </p>
-            </motion.div>
-          </div>
+              {/* Aevum Plan Manager */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                style={{
+                  padding: '48px 40px', backgroundColor: 'transparent',
+                  border: 'none',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'
+                }}
+              >
+                <img
+                  src="/assets/aevum-logo.png"
+                  alt="Aevum Plan Manager Logo"
+                  style={{
+                    maxHeight: '100px',
+                    marginBottom: '24px',
+                    objectFit: 'contain'
+                  }}
+                />
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '12px' }}>AEVUM PLAN MANAGER</h3>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300 }}>
+                  {t('sponsors_aevum_desc')}
+                </p>
+              </motion.div>
+            </div>
+          )}
         </div>
       </section>
 
       {/* ── SHARED VISION / OBJECTIVE ── */}
-      <section style={{ padding: '100px 60px', borderTop: '1px solid rgba(255,255,255,0.05)', backgroundColor: 'rgba(255,255,255,0.01)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '80px', alignItems: 'center' }}>
+      <section style={{ padding: isMobile ? '60px 24px' : '100px 60px', borderTop: '1px solid rgba(255,255,255,0.05)', backgroundColor: 'rgba(255,255,255,0.01)' }}>
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto', 
+          display: 'grid', 
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(400px, 1fr))', 
+          gap: isMobile ? '40px' : '80px', 
+          alignItems: 'center' 
+        }}>
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px' }}>
               {t('sponsors_obj_title')}
@@ -365,7 +427,7 @@ const Sponsors = () => {
               {t('sponsors_obj_desc')}
             </p>
           </motion.div>
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -377,26 +439,27 @@ const Sponsors = () => {
               { title: t('sponsors_obj_list2_title'), desc: t('sponsors_obj_list2_desc'), num: '02' },
               { title: t('sponsors_obj_list3_title'), desc: t('sponsors_obj_list3_desc'), num: '03' }
             ].map((item, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 variants={itemVariants}
                 style={{ display: 'flex', gap: '0px', alignItems: 'center' }}
               >
-                <div 
-                  className="number-gradient" 
-                  style={{ 
-                    fontSize: '5rem', 
-                    minWidth: '120px',
+                <div
+                  className="number-gradient"
+                  style={{
+                    fontSize: isMobile ? '3rem' : '5rem',
+                    minWidth: isMobile ? '60px' : '120px',
                     textAlign: 'center',
-                    opacity: 0.8
+                    opacity: 0.6,
+                    fontWeight: 900
                   }}
                 >
                   {item.num}
                 </div>
                 <div className="vision-text-block">
-                  <h3 style={{ 
-                    fontSize: '1.4rem', 
-                    fontWeight: 800, 
+                  <h3 style={{
+                    fontSize: '1.4rem',
+                    fontWeight: 800,
                     marginBottom: '12px',
                     textTransform: 'uppercase',
                     letterSpacing: '1px',
@@ -404,10 +467,10 @@ const Sponsors = () => {
                   }}>
                     {item.title}
                   </h3>
-                  <p style={{ 
-                    color: 'rgba(255,255,255,0.4)', 
-                    fontSize: '1rem', 
-                    lineHeight: 1.6, 
+                  <p style={{
+                    color: 'rgba(255,255,255,0.4)',
+                    fontSize: '1rem',
+                    lineHeight: 1.6,
                     fontWeight: 300,
                     maxWidth: '450px'
                   }}>
@@ -421,7 +484,7 @@ const Sponsors = () => {
       </section>
 
       {/* ── WHY SPONSOR ── */}
-      <section style={{ padding: '100px 60px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <section style={{ padding: isMobile ? '60px 24px' : '100px 60px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -448,16 +511,16 @@ const Sponsors = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                style={{ 
-                  background: 'rgba(255,255,255,0.01)', 
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  borderRadius: '24px',
+                style={{
+                  background: 'rgba(255,255,255,0.01)',
+                  border: '1px solid rgba(255,255,255,0.03)',
+                  borderRadius: '20px',
                   display: 'flex', flexDirection: 'column',
                   position: 'relative', overflow: 'hidden',
-                  minHeight: '380px',
+                  minHeight: isMobile ? '300px' : '380px',
                   transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)'
                 }}
-                whileHover={{ 
+                whileHover={{
                   backgroundColor: 'rgba(255,255,255,0.03)',
                   borderColor: 'rgba(255,255,255,0.15)',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.5)'
@@ -472,7 +535,6 @@ const Sponsors = () => {
                   overflow: 'hidden',
                   maskImage: 'linear-gradient(to bottom, black 20%, transparent 100%)',
                   WebkitMaskImage: 'linear-gradient(to bottom, black 20%, transparent 100%)',
-                  background: 'radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%)',
                   zIndex: 0
                 }}>
                   {/* Additional tech grid or abstract element could go here */}
@@ -509,16 +571,16 @@ const Sponsors = () => {
                   </p>
 
                   {/* Footer Line */}
-                  <div style={{ 
-                    marginTop: 'auto', 
+                  <div style={{
+                    marginTop: 'auto',
                     paddingTop: '24px',
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '12px', 
-                    color: 'rgba(255,255,255,0.15)', 
-                    fontSize: '0.7rem', 
-                    fontWeight: 800, 
-                    letterSpacing: '2px' 
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontSize: '0.7rem',
+                    fontWeight: 800,
+                    letterSpacing: '2px'
                   }}>
                     <div style={{ width: '24px', height: '1px', background: 'currentColor' }} />
                     HAEVTHON 2026
@@ -531,8 +593,15 @@ const Sponsors = () => {
       </section>
 
       {/* ── CONTACT FORM ── */}
-      <section id="contact" style={{ padding: '80px 40px 120px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '40px', alignItems: 'start' }}>
+      <section id="contact" style={{ padding: isMobile ? '60px 24px 100px' : '80px 40px 120px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto', 
+          display: 'grid', 
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(400px, 1fr))', 
+          gap: isMobile ? '40px' : '40px', 
+          alignItems: 'start' 
+        }}>
 
           {/* Left: Info */}
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
@@ -575,7 +644,7 @@ const Sponsors = () => {
               border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px'
             }}>
               {submitted ? (
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   style={{ textAlign: 'center', padding: '20px 0' }}
@@ -588,7 +657,7 @@ const Sponsors = () => {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  
+
                   <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                     <div style={{ flex: '1 1 180px' }}>
                       <label style={{
@@ -605,7 +674,7 @@ const Sponsors = () => {
                         className="compact-input"
                       />
                     </div>
-                    
+
                     <div style={{ flex: '1 1 180px' }}>
                       <label style={{
                         display: 'block', fontSize: '0.72rem', fontWeight: 800,
@@ -680,7 +749,8 @@ const Sponsors = () => {
         </div>
       </section>
 
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .sponsor-card:hover .sponsor-logo {
           opacity: 1 !important;
         }
@@ -718,6 +788,14 @@ const Sponsors = () => {
         .compact-input:focus {
           border-color: rgba(255,255,255,0.5);
           background-color: rgba(255,255,255,0.05);
+        }
+        @keyframes scroll-org {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-100% / 5)); }
+        }
+        
+        .organizer-marquee-track {
+          animation: scroll-org 20s linear infinite;
         }
       `}} />
     </motion.div>

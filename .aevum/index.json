@@ -33,12 +33,6 @@
           ]
         },
         {
-          "id": "timeline-page",
-          "name": "Timeline Page",
-          "path": ".aevum/domains/public_site/features/timeline-page",
-          "plans": []
-        },
-        {
           "id": "timeline_page",
           "name": "Timeline Page",
           "path": ".aevum/domains/public_site/features/timeline_page",
@@ -71,6 +65,26 @@
           ]
         }
       ]
+    },
+    {
+      "id": "responsive-ux-experience",
+      "name": "Responsive Ux Experience",
+      "path": ".aevum/domains/responsive-ux-experience",
+      "plans": [],
+      "features": [
+        {
+          "id": "mobile-first-design-overhaul",
+          "name": "Mobile First Design Overhaul",
+          "path": ".aevum/domains/responsive-ux-experience/features/mobile-first-design-overhaul",
+          "plans": [
+            {
+              "name": "responsive_design_overhaul_plan_plan.md",
+              "status": "todo",
+              "updatedAt": "2026-05-04T11:03:00.885Z"
+            }
+          ]
+        }
+      ]
     }
   ],
   "global": {
@@ -91,7 +105,7 @@
       "name": "An",
       "capability": "Context Optimization",
       "level": 4,
-      "knowledgePath": ".aevum/global/personas/an/knowledge"
+      "knowledgePath": ".aevum/global/personas/eng_an_7b9f1d/knowledge"
     }
   ]
 }

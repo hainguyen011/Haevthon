@@ -4,6 +4,15 @@ import { useLanguage } from '../context/LanguageContext';
 
 const LanguageToggle = () => {
   const { language, toggleLanguage } = useLanguage();
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  if (isMobile) return null;
 
   return (
     <motion.div

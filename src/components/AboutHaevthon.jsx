@@ -5,9 +5,17 @@ import { useLanguage } from '../context/LanguageContext';
 
 const AboutHaevthon = () => {
   const { t } = useLanguage();
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section style={{
-      padding: '120px 20px',
+      padding: isMobile ? '80px 20px' : '120px 20px',
       backgroundColor: '#000',
       color: '#fff',
       overflow: 'hidden',
@@ -20,13 +28,17 @@ const AboutHaevthon = () => {
         right: '-10%',
         width: '600px',
         height: '600px',
-        background: 'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)',
         filter: 'blur(80px)',
         zIndex: 0
       }} />
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '80px', alignItems: 'center' }}>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: isMobile ? '1fr' : '1.2fr 1fr', 
+          gap: isMobile ? '40px' : '80px', 
+          alignItems: 'center' 
+        }}>
 
           {/* Left Side: Content */}
           <motion.div
@@ -115,7 +127,13 @@ const AboutHaevthon = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-            style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            style={{ 
+              position: 'relative', 
+              display: 'flex', 
+              flexDirection: 'column',
+              justifyContent: 'center', 
+              alignItems: 'center' 
+            }}
           >
             <div style={{
               borderRadius: '24px',
@@ -143,16 +161,17 @@ const AboutHaevthon = () => {
             {/* Floating Card - Now with True Glassmorphism and No Animation */}
             <div
               style={{
-                position: 'absolute',
-                bottom: '24px',
-                right: '24px',
+                position: isMobile ? 'relative' : 'absolute',
+                bottom: isMobile ? '0' : '24px',
+                right: isMobile ? '0' : '24px',
+                marginTop: isMobile ? '20px' : '0',
                 padding: '28px',
                 backgroundColor: 'rgba(255, 255, 255, 0.03)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
                 borderRadius: '20px',
                 border: '1px solid rgba(255,255,255,0.12)',
-                width: '300px',
+                width: isMobile ? '100%' : '300px',
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
                 zIndex: 2
               }}

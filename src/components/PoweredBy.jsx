@@ -6,8 +6,16 @@ const PoweredBy = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const { t, language } = useLanguage();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
@@ -24,6 +32,8 @@ const PoweredBy = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
+
+  if (isMobile) return null;
 
   return (
     <motion.div
