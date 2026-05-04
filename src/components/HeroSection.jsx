@@ -60,7 +60,6 @@ const HeroSection = () => {
         <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
           <svg 
             width="clamp(2.5rem, 10vw, 6rem)" 
-            height="auto"
             viewBox="0 0 48 46" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg"
@@ -169,6 +168,7 @@ const HeroSection = () => {
           {t(hero.cta_secondary_key)}
         </button>
       </motion.div>
+      
 
       {/* Event Details Grid */}
       <motion.div

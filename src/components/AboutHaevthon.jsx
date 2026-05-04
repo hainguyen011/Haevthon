@@ -102,7 +102,6 @@ const AboutHaevthon = () => {
             </div>
 
             <motion.button
-              whileHover={{ x: 10 }}
               style={{
                 marginTop: '48px',
                 background: 'transparent',

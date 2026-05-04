@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { homeData } from '../data/homeData.jsx';
 
@@ -30,32 +30,27 @@ const FeatureShowcase = () => {
     "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800"  // 8 - Bio-inspired Logic
   ];
 
+  const cardWidth = isMobile ? 300 : 382; // width + gap
+  const maxIndex = Math.ceil(width / cardWidth);
+
   useEffect(() => {
     const updateWidth = () => {
       if (carousel.current) {
         setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
       }
     };
-    
+
     updateWidth();
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
-  }, []);
+  }, [features.length]);
 
   const nextSlide = () => {
-    if (index < features.length - 1) {
-      setIndex(prev => prev + 1);
-    } else {
-      setIndex(0);
-    }
+    setIndex(prev => (prev < maxIndex ? prev + 1 : 0));
   };
 
   const prevSlide = () => {
-    if (index > 0) {
-      setIndex(prev => prev - 1);
-    } else {
-      setIndex(features.length - 1);
-    }
+    setIndex(prev => (prev > 0 ? prev - 1 : maxIndex));
   };
 
   return (
@@ -94,50 +89,44 @@ const FeatureShowcase = () => {
               lineHeight: 1,
               color: '#fff'
             }}>
-              THE AEVUM
+              THE AEVUM EVO
             </h2>
           </motion.div>
 
           {/* Navigation Controls - Hidden on Mobile to prioritize dragging */}
           {!isMobile && (
-            <div style={{ display: 'flex', gap: '16px' }}>
+            <div style={{ display: 'flex', gap: '24px' }}>
               <button
                 onClick={prevSlide}
                 style={{
-                  width: '56px',
-                  height: '56px',
-                  borderRadius: '50%',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  backgroundColor: 'rgba(255,255,255,0.02)',
-                  color: 'white',
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'rgba(255,255,255,0.4)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.3s'
+                  padding: 0,
+                  transition: 'opacity 0.2s ease'
                 }}
-                className="nav-btn"
+                className="nav-btn-icon"
               >
-                <ChevronLeft size={24} />
+                <ArrowLeft size={32} />
               </button>
               <button
                 onClick={nextSlide}
                 style={{
-                  width: '56px',
-                  height: '56px',
-                  borderRadius: '50%',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  backgroundColor: 'rgba(255,255,255,0.02)',
-                  color: 'white',
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'rgba(255,255,255,0.4)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.3s'
+                  padding: 0,
+                  transition: 'opacity 0.2s ease'
                 }}
-                className="nav-btn"
+                className="nav-btn-icon"
               >
-                <ChevronRight size={24} />
+                <ArrowRight size={32} />
               </button>
             </div>
           )}
@@ -156,7 +145,7 @@ const FeatureShowcase = () => {
           drag="x"
           dragConstraints={{ right: 0, left: -width }}
           whileTap={{ cursor: 'grabbing' }}
-          animate={{ x: isMobile ? -index * 300 : -index * 382 }}
+          animate={{ x: -index * cardWidth }}
           transition={{ type: 'spring', damping: 25, stiffness: 120 }}
           style={{
             display: 'flex',
@@ -252,23 +241,6 @@ const FeatureShowcase = () => {
                 </div>
               </div>
 
-              {/* ID Badge */}
-              <div style={{
-                position: 'absolute',
-                top: '24px',
-                right: '24px',
-                padding: '6px 12px',
-                backgroundColor: 'rgba(255,255,255,0.05)',
-                backdropFilter: 'blur(10px)',
-                borderRadius: '8px',
-                border: '1px solid rgba(255,255,255,0.1)',
-                fontSize: '0.7rem',
-                color: 'rgba(255,255,255,0.6)',
-                fontWeight: 900,
-                letterSpacing: '1px'
-              }}>
-                {feature.id.toString().padStart(2, '0')}
-              </div>
             </motion.div>
           ))}
         </motion.div>
@@ -283,10 +255,9 @@ const FeatureShowcase = () => {
         .feature-card-hover:hover .feature-img {
           opacity: 0.8 !important;
         }
-        .nav-btn:hover {
-          background-color: #fff !important;
-          color: #000 !important;
-          border-color: #fff !important;
+        .nav-btn-icon:hover {
+          color: #fff !important;
+          opacity: 1 !important;
         }
       `}} />
     </section>
