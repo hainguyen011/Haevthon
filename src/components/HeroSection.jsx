@@ -23,201 +23,242 @@ const HeroSection = () => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center',
-      padding: isMobile ? '100px 20px 60px' : '120px 20px',
-      textAlign: 'center',
+      alignItems: 'flex-start',
+      padding: isMobile ? '120px 24px 60px' : '120px 8%',
+      textAlign: 'left',
       position: 'relative',
-      backgroundColor: '#000000'
+      backgroundColor: '#000000',
+      overflow: 'hidden'
     }}>
-      {/* Integrated Logo Headline (Logo replaces 'V') */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        style={{ 
-          display: 'flex', 
-          flexDirection: 'row',
-          alignItems: 'center', 
-          justifyContent: 'center',
-          gap: isMobile ? '0.5rem' : 'clamp(0.5rem, 2vw, 1.5rem)',
-          marginBottom: isMobile ? '16px' : '32px',
-        }}
-      >
-        <h1
-          style={{
-            fontSize: isMobile ? 'clamp(1.8rem, 9vw, 3rem)' : 'clamp(2.5rem, 12vw, 8.5rem)',
-            fontWeight: 900,
-            margin: 0,
-            letterSpacing: isMobile ? '-1px' : '-2px',
-            lineHeight: 1,
-            textAlign: isMobile ? 'right' : 'right'
-          }}
-          className="metallic-text"
-        >
-          HAE
-        </h1>
+      {/* Dynamic Grid Overlay */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), 
+                          linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)`,
+        backgroundSize: '40px 40px',
+        maskImage: 'radial-gradient(circle at 20% 50%, black, transparent 80%)',
+        pointerEvents: 'none'
+      }} />
 
-        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-          <svg 
-            width="clamp(2.5rem, 10vw, 6rem)" 
-            viewBox="0 0 48 46" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ 
-              marginTop: '0.1em',
-              filter: 'brightness(1.2)'
+      {/* Floating Particles (Subtle) */}
+      {[...Array(15)].map((_, i) => (
+        <motion.div
+          key={i}
+          animate={{
+            y: [-20, 20],
+            opacity: [0.1, 0.3, 0.1],
+          }}
+          transition={{
+            duration: 4 + Math.random() * 4,
+            repeat: Infinity,
+            delay: Math.random() * 5
+          }}
+          style={{
+            position: 'absolute',
+            width: '2px',
+            height: '2px',
+            backgroundColor: '#fff',
+            borderRadius: '50%',
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            pointerEvents: 'none'
+          }}
+        />
+      ))}
+
+      {/* Background Radial Glow */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '20%',
+        transform: 'translate(-50%, -50%)',
+        width: '100%',
+        height: '100%',
+        background: 'radial-gradient(circle at center, rgba(134, 59, 255, 0.02) 0%, transparent 60%)',
+        pointerEvents: 'none'
+      }} />
+
+      {/* Main Content Container */}
+      <div style={{ 
+        maxWidth: '1200px',
+        width: '100%',
+        zIndex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start'
+      }}>
+        {/* Massive Typographic Stack */}
+        <div style={{ position: 'relative', marginBottom: '40px' }}>
+          {/* Background Rotating Logo */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '35%', // Slightly more to the left to balance the long word
+              transform: 'translate(-50%, -50%)',
+              width: isMobile ? '130%' : '150%',
+              height: isMobile ? '130%' : '150%',
+              opacity: 0.05, // Softer for better readability
+              pointerEvents: 'none',
+              zIndex: -1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
-            <path 
-              fill="#863BFF" 
-              d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z" 
+            <img 
+              src="/favicon.svg" 
+              alt="Rotating Logo" 
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
             />
-            <path 
-              d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z" 
-              fill="url(#logo-gradient-v)" 
-              fillOpacity="0.4"
-            />
-            <defs>
-              <linearGradient id="logo-gradient-v" x1="24" y1="0" x2="24" y2="46" gradientUnits="userSpaceOnUse">
-                <stop stopColor="white" />
-                <stop offset="1" stopColor="white" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
+          </motion.div>
+
+          {/* Line 1: HAEVTHON */}
+          <motion.h1 
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontSize: isMobile ? 'clamp(3rem, 15vw, 6rem)' : 'clamp(6rem, 20vw, 15rem)',
+              fontWeight: 950,
+              margin: 0,
+              letterSpacing: isMobile ? '-2px' : '-8px',
+              lineHeight: 0.85,
+              color: '#fff',
+              position: 'relative'
+            }}
+          >
+            <span className="shimmer-text">HAEVTHON</span>
+          </motion.h1>
+
+          {/* Line 2: AGENTIC HACKATHON 2026 (Refined Small Style) */}
+          <motion.div 
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            style={{
+              fontSize: 'clamp(0.85rem, 1.8vw, 1.1rem)',
+              fontWeight: 800,
+              margin: '24px 0 0 4px', // More breathing room below Line 1
+              letterSpacing: '10px', // Even more editorial
+              color: 'rgba(255,255,255,0.9)',
+              position: 'relative',
+              textTransform: 'uppercase',
+            }}
+          >
+            <span className="shimmer-text">AGENTIC HACKATHON 2026</span>
+          </motion.div>
         </div>
 
-        <h1
+        {/* Mission Statement */}
+        <motion.p
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
           style={{
-            fontSize: isMobile ? 'clamp(1.8rem, 9vw, 3rem)' : 'clamp(2.5rem, 12vw, 8.5rem)',
-            fontWeight: 900,
-            margin: 0,
-            letterSpacing: isMobile ? '-1px' : '-2px',
-            lineHeight: 1,
-            textAlign: isMobile ? 'left' : 'left'
-          }}
-          className="metallic-text"
-        >
-          THON
-        </h1>
-      </motion.div>
-
-      {/* Mission Statement */}
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        style={{
-          fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-          maxWidth: '750px',
-          margin: '0 auto 48px',
-          color: 'rgba(255,255,255,0.6)',
-          fontWeight: 400,
-          lineHeight: 1.5,
-          letterSpacing: '0.5px'
-        }}
-      >
-        {t(hero.subtitleKey)}
-      </motion.p>
-
-      {/* Call to Actions */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        style={{
-          display: 'flex',
-          gap: '20px',
-          flexWrap: 'wrap',
-          justifyContent: 'center'
-        }}
-      >
-        <button
-          onClick={() => navigate('/register')}
-          style={{
-            padding: '16px 44px',
-            fontSize: '0.95rem',
-            fontWeight: 800,
-            backgroundColor: 'var(--primary-white)',
-            color: '#000000',
-            border: 'none',
-            cursor: 'pointer',
-            borderRadius: '12px',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            transition: 'all 0.3s',
+            fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+            maxWidth: '700px',
+            marginBottom: '64px',
+            color: 'rgba(255,255,255,0.4)',
+            fontWeight: 400,
+            lineHeight: 1.8,
+            letterSpacing: '0.5px',
+            textAlign: 'left'
           }}
         >
-          {t(hero.cta_primary_key)}
-        </button>
-        <button
-          style={{
-            padding: '16px 44px',
-            fontSize: '0.95rem',
-            fontWeight: 800,
-            backgroundColor: 'transparent',
-            color: 'var(--primary-white)',
-            border: '1px solid rgba(255,255,255,0.2)',
-            cursor: 'pointer',
-            borderRadius: '12px',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            transition: 'all 0.3s'
-          }}
-          className="secondary-btn-hover"
-        >
-          {t(hero.cta_secondary_key)}
-        </button>
-      </motion.div>
-      
+          {t(hero.subtitleKey)}
+        </motion.p>
 
-      {/* Event Details Grid */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-        style={{
-          marginTop: isMobile ? '40px' : '100px',
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr 1fr' : '1fr 1.5fr 1fr',
-          gap: isMobile ? '24px' : '20px',
-          width: '100%',
-          maxWidth: '1000px',
-          padding: isMobile ? '32px 10px' : '40px 20px',
-          borderTop: '1px solid rgba(255,255,255,0.05)'
-        }}
-      >
-        {hero.stats.map((stat, index) => (
-          <div key={index} style={{ 
-            textAlign: 'center',
-            gridColumn: (isMobile && index === 2) ? 'span 2' : 'span 1'
-          }}>
-            <span style={{ 
-              display: 'block', 
-              color: 'rgba(255,255,255,0.3)', 
-              fontSize: isMobile ? '0.6rem' : '0.75rem', 
-              fontWeight: 700, 
-              textTransform: 'uppercase', 
-              letterSpacing: '2px', 
-              marginBottom: isMobile ? '4px' : '12px' 
-            }}>
-              {t(stat.labelKey)}
-            </span>
-            <span style={{ 
-              fontSize: isMobile ? '1.1rem' : '1.5rem', 
-              fontWeight: 900, 
-              color: 'var(--primary-white)',
-              letterSpacing: '-0.5px'
-            }}>
-              {stat.valueKey ? t(stat.valueKey) : stat.value}
-            </span>
-          </div>
-        ))}
-      </motion.div>
+        {/* Call to Actions */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          style={{
+            display: 'flex',
+            gap: '20px',
+            flexWrap: 'wrap',
+            justifyContent: 'flex-start'
+          }}
+        >
+          <button
+            onClick={() => navigate('/register')}
+            className="hero-btn-primary"
+            style={{
+              padding: '22px 64px',
+              fontSize: '0.85rem',
+              fontWeight: 800,
+              backgroundColor: '#ffffff',
+              color: '#000000',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '100px',
+              textTransform: 'uppercase',
+              letterSpacing: '3px',
+              transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+            }}
+          >
+            {t(hero.cta_primary_key)}
+          </button>
+          <button
+            className="hero-btn-secondary"
+            style={{
+              padding: '22px 64px',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              backgroundColor: 'rgba(255,255,255,0.02)',
+              color: '#ffffff',
+              border: '1px solid rgba(255,255,255,0.08)',
+              cursor: 'pointer',
+              borderRadius: '100px',
+              textTransform: 'uppercase',
+              letterSpacing: '3px',
+              transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+              backdropFilter: 'blur(12px)'
+            }}
+          >
+            {t(hero.cta_secondary_key)}
+          </button>
+        </motion.div>
+      </div>
 
       <style dangerouslySetInnerHTML={{
         __html: `
-        .secondary-btn-hover:hover {
-          border-color: var(--primary-white) !important;
+        .shimmer-text {
+          background: linear-gradient(
+            to right,
+            #fff 20%,
+            #888 40%,
+            #888 60%,
+            #fff 80%
+          );
+          background-size: 200% auto;
+          color: #000;
+          background-clip: text;
+          text-fill-color: transparent;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: shimmer 5s linear infinite;
+        }
+
+        @keyframes shimmer {
+          to {
+            background-position: 200% center;
+          }
+        }
+
+        .hero-btn-primary:hover {
+          transform: translateY(-3px) scale(1.02);
+          filter: brightness(0.9);
+          box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+        .hero-btn-secondary:hover {
+          background-color: rgba(255,255,255,0.06) !important;
+          border-color: rgba(255,255,255,0.2) !important;
+          transform: translateY(-3px);
         }
       `}} />
     </section>

@@ -23,8 +23,16 @@ const Home = () => {
       <ScrollTimeline />
       <div id="hero"><HeroSection /></div>
       <div id="about"><AboutHaevthon /></div>
-      <div id="video"><VideoShowcase /></div>
+      
+      {/* Visual Separator */}
+      <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.05)' }} />
+      
       <div id="partners"><PartnersMarquee /></div>
+      
+      {/* Visual Separator */}
+      <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.05)' }} />
+      
+      <div id="video"><VideoShowcase /></div>
       <div id="intro"><AevumIntro /></div>
       <div id="features"><FeatureShowcase /></div>
       <div id="innovation"><InnovationSection /></div>

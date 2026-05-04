@@ -25,7 +25,11 @@ const VisionSection = () => {
   ];
 
   return (
-    <section style={{ padding: '100px 20px', backgroundColor: 'rgba(255,255,255,0.02)' }}>
+    <section style={{ 
+      padding: '100px 20px', 
+      backgroundColor: '#000000',
+      borderTop: '1px solid rgba(255,255,255,0.05)'
+    }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px', alignItems: 'center' }}>
           <motion.div
