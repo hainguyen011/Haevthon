@@ -24,38 +24,33 @@ export const sponsorsData = [
     url: 'https://i2flabs.unikorn.vn/',
     tier: 'DIAMOND',
     industry: 'Venture Studio',
-    description: 'Empowering the next generation of builders.'
+    description: 'Our Spiritual Sponsor. Empowering the next generation of builders through interaction and community insight.'
   },
   {
-    id: 'partner-a',
-    name: 'Partner Alpha',
-    logo: null,
-    url: '#',
-    tier: 'GOLD',
-    industry: 'Cloud Computing'
+    id: 'cursor',
+    name: 'Cursor',
+    logo: 'https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/cursor.png',
+    url: 'https://cursor.com',
+    tier: 'PARTNER',
+    industry: 'AI Code Editor',
+    description: 'The AI-first code editor built for pair programming with AI.'
   },
   {
-    id: 'partner-b',
-    name: 'Partner Beta',
-    logo: null,
-    url: '#',
-    tier: 'GOLD',
-    industry: 'AI Research'
+    id: 'claude',
+    name: 'Claude',
+    logo: 'https://img.icons8.com/ios_filled/512/FFFFFF/claude-ai.png',
+    url: 'https://anthropic.com',
+    tier: 'PARTNER',
+    industry: 'LLM Provider',
+    description: 'Next-generation AI assistant by Anthropic.'
   },
   {
-    id: 'partner-c',
-    name: 'Partner Gamma',
-    logo: null,
-    url: '#',
-    tier: 'SILVER',
-    industry: 'Cybersecurity'
+    id: 'antigravity',
+    name: 'Antigravity',
+    logo: 'https://antigravity.google/assets/image/brand/antigravity-icon__white.png',
+    url: 'https://antigravity.google',
+    tier: 'PARTNER',
+    industry: 'Agentic AI',
+    description: 'The powerful agentic AI coding assistant from Google Deepmind.'
   },
-  {
-    id: 'partner-d',
-    name: 'Partner Delta',
-    logo: null,
-    url: '#',
-    tier: 'COMMUNITY',
-    industry: 'Education'
-  }
 ];

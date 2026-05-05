@@ -37,24 +37,25 @@ const PoweredBy = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0 }}
       animate={{
         opacity: 1,
-        y: 0,
         width: isExpanded ? 240 : 42,
       }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
       style={{
         position: 'fixed',
-        bottom: '28px',
+        bottom: 0,
         right: '40px',
         zIndex: 2000,
-        height: '42px',
+        height: '80px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'transparent',
         border: 'none',
-        borderRadius: '100px',
+        borderRadius: '0',
+        padding: '0',
         cursor: 'pointer',
         overflow: 'hidden',
       }}

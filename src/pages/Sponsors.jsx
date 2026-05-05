@@ -32,6 +32,7 @@ const itemVariants = {
 };
 
 const SponsorCard = ({ sponsor, tier }) => {
+  const { t } = useLanguage();
   const isDiamond = tier === 'DIAMOND';
   const isGold = tier === 'GOLD';
   
@@ -98,7 +99,24 @@ const SponsorCard = ({ sponsor, tier }) => {
           {sponsor.name}
         </span>
         
-        {sponsor.industry && (
+        {sponsor.id === 'unikorn' && (
+          <div style={{
+            padding: '4px 12px',
+            backgroundColor: 'rgba(255,255,255,0.05)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '100px',
+            fontSize: '0.6rem',
+            fontWeight: 900,
+            color: '#fff',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            marginTop: '8px'
+          }}>
+            {t('spiritual_sponsor')}
+          </div>
+        )}
+        
+        {sponsor.industry && sponsor.id !== 'unikorn' && (
           <span style={{
             fontSize: '0.6rem',
             fontWeight: 800,
@@ -152,12 +170,10 @@ const Sponsors = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
       style={{ 
-        paddingLeft: isMobile ? '0' : '80px', 
         backgroundColor: '#000', 
         color: '#fff', 
         minHeight: '100vh', 
-        overflowX: 'hidden',
-        paddingBottom: '80px' // Space for fixed marquee
+        paddingBottom: '80px'
       }}
     >
       {/* ── HERO ── */}
@@ -190,22 +206,31 @@ const Sponsors = () => {
             <h1 style={{
               fontSize: isMobile ? '2.8rem' : 'clamp(3.5rem, 8vw, 7rem)', 
               fontWeight: 900,
-              lineHeight: 1, 
+              lineHeight: 1.15, 
               letterSpacing: '-1.5px', 
               marginBottom: '24px',
               textTransform: 'uppercase',
               textAlign: 'left'
             }}>
-              <span style={{ display: 'block', whiteSpace: 'nowrap' }}>{t('sponsors_hero_title1')}</span>
+              <span style={{ display: 'block', whiteSpace: 'nowrap', padding: '0.05em 0' }}>{t('sponsors_hero_title1')}</span>
               <span style={{
                 display: 'block',
                 whiteSpace: 'nowrap',
                 background: 'linear-gradient(to right, #fff, rgba(255,255,255,0.3))',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
+                backgroundClip: 'text',
+                padding: '0.05em 0'
               }}>{t('sponsors_hero_title2')}</span>
-              <span style={{ display: 'block', whiteSpace: 'nowrap' }}>{t('sponsors_hero_title3')}</span>
+              <span style={{ 
+                display: 'block', 
+                whiteSpace: 'nowrap',
+                background: 'linear-gradient(to right, #A855F7, #6366F1)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                padding: '0.05em 0'
+              }}>{t('sponsors_hero_title3')}</span>
             </h1>
 
             <p style={{
@@ -258,105 +283,61 @@ const Sponsors = () => {
         )}
       </section>
 
-      {/* ── SPONSOR TIERS ── */}
-      <section style={{ padding: isMobile ? '60px 24px' : '100px 60px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          
-          {/* DIAMOND TIER */}
-          <div style={{ marginBottom: '80px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
-              <div style={{ height: '1px', flex: 1, background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.1))' }} />
-              <h3 style={{ fontSize: '0.8rem', fontWeight: 900, letterSpacing: '5px', color: '#fff', textTransform: 'uppercase' }}>{t('sponsors_tier_diamond')}</h3>
-              <div style={{ height: '1px', flex: 1, background: 'linear-gradient(to left, transparent, rgba(255,255,255,0.1))' }} />
-            </div>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-              gap: '24px'
-            }}>
-              {sponsorsData.filter(s => s.tier === 'DIAMOND').map(sponsor => (
-                <SponsorCard key={sponsor.id} sponsor={sponsor} tier="DIAMOND" />
-              ))}
-            </div>
-          </div>
-
-          {/* GOLD & SILVER */}
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr', 
-            gap: '80px' 
-          }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '32px' }}>
-                <h3 style={{ fontSize: '0.7rem', fontWeight: 900, letterSpacing: '4px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>{t('sponsors_tier_gold')}</h3>
-                <div style={{ height: '1px', flex: 1, background: 'linear-gradient(to right, rgba(255,255,255,0.1), transparent)' }} />
-              </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(2, 1fr)',
-                gap: '16px'
-              }}>
-                {sponsorsData.filter(s => s.tier === 'GOLD').map(sponsor => (
-                  <SponsorCard key={sponsor.id} sponsor={sponsor} tier="GOLD" />
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '32px' }}>
-                <h3 style={{ fontSize: '0.7rem', fontWeight: 900, letterSpacing: '4px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>{t('sponsors_tier_silver')}</h3>
-                <div style={{ height: '1px', flex: 1, background: 'linear-gradient(to right, rgba(255,255,255,0.1), transparent)' }} />
-              </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr',
-                gap: '16px'
-              }}>
-                {sponsorsData.filter(s => s.tier === 'SILVER').map(sponsor => (
-                  <SponsorCard key={sponsor.id} sponsor={sponsor} tier="SILVER" />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* COMMUNITY & ECOSYSTEM */}
-          <div style={{ marginTop: '80px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '32px' }}>
-              <div style={{ height: '1px', width: '40px', background: 'rgba(255,255,255,0.1)' }} />
-              <h3 style={{ fontSize: '0.7rem', fontWeight: 900, letterSpacing: '4px', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase' }}>{t('sponsors_tier_community')}</h3>
-            </div>
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '12px'
-            }}>
-              {sponsorsData.filter(s => s.tier === 'COMMUNITY').map(sponsor => (
-                <motion.a
-                  key={sponsor.id}
-                  href={sponsor.url}
-                  whileHover={{ backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.2)' }}
-                  style={{
-                    padding: '12px 24px',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(255,255,255,0.05)',
-                    backgroundColor: 'transparent',
-                    color: 'rgba(255,255,255,0.5)',
-                    fontSize: '0.8rem',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    letterSpacing: '1px'
-                  }}
-                >
-                  {sponsor.name}
-                </motion.a>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </section>
-
       {/* ── ORGANIZERS & HOSTS ── */}
+      {/* ── STICKY MARQUEE ── */}
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '80px',
+        backgroundColor: 'rgba(0,0,0,0.95)',
+        backdropFilter: 'blur(15px)',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        display: 'flex',
+        alignItems: 'center',
+        overflow: 'hidden',
+        zIndex: 1000
+      }}>
+        <div 
+          className="sponsor-marquee-track"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '80px',
+            padding: 0,
+            whiteSpace: 'nowrap'
+          }}
+        >
+          {[...sponsorsData, ...sponsorsData, ...sponsorsData, ...sponsorsData].map((sponsor, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <img 
+                src={sponsor.logo} 
+                alt={sponsor.name} 
+                style={{ 
+                  height: '40px', 
+                  opacity: 0.6, 
+                  filter: ['i2flabs', 'cursor'].includes(sponsor.id) ? 'brightness(0) invert(1)' : 'none',
+                  transition: 'opacity 0.3s ease'
+                }} 
+              />
+              <span style={{ 
+                fontSize: '0.9rem', 
+                fontWeight: 300, 
+                color: 'rgba(255,255,255,0.6)', 
+                letterSpacing: '3px',
+                textTransform: 'uppercase'
+              }}>
+                {sponsor.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ paddingLeft: isMobile ? '0' : '80px' }}>
+        {/* All content below is padded to make room for sidebar */}
+
       <section style={{ padding: isMobile ? '60px 24px 0' : '100px 60px 0' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <motion.div
@@ -429,7 +410,7 @@ const Sponsors = () => {
                   }}
                 />
                 <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '12px' }}>UNIKORN</h3>
-                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300 }}>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.6, fontWeight: 300, marginBottom: '20px' }}>
                   {t('sponsors_unikorn_desc')}
                 </p>
               </motion.div>
@@ -833,6 +814,7 @@ const Sponsors = () => {
           </motion.div>
         </div>
       </section>
+    </div>
 
       <style dangerouslySetInnerHTML={{
         __html: `
