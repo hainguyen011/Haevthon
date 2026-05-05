@@ -124,7 +124,7 @@ const IncentivesSection = () => {
               transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
               style={{ 
                 display: isMobile ? 'flex' : 'grid', 
-                gridTemplateColumns: isMobile ? 'none' : 'repeat(auto-fit, minmax(320px, 1fr))', 
+                gridTemplateColumns: isMobile ? 'none' : 'repeat(3, 1fr)', 
                 gap: isMobile ? '16px' : '24px',
                 overflowX: isMobile ? 'auto' : 'visible',
                 paddingBottom: isMobile ? '20px' : '0',
@@ -143,68 +143,123 @@ const IncentivesSection = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05, duration: 0.5 }}
-                  whileHover={{ 
-                    background: 'rgba(255,255,255,0.06)',
-                    borderColor: 'rgba(255,255,255,0.15)'
-                  }}
                   style={{ 
                     flex: isMobile ? '0 0 280px' : '1',
                     scrollSnapAlign: 'center',
-                    padding: isMobile ? '32px 20px' : '40px 24px', 
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%)',
+                    padding: isMobile ? '60px 20px 50px' : '70px 24px 60px', 
+                    background: 'rgba(255, 255, 255, 0.03)', 
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',
-                    borderRadius: '24px',
-                    border: '1px solid rgba(255,255,255,0.08)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     textAlign: 'center',
                     position: 'relative',
                     overflow: 'hidden',
-                    boxShadow: `
-                      0 10px 30px rgba(0, 0, 0, 0.2),
-                      inset 0 0 0 1px rgba(255,255,255,0.03)
-                    `,
+                    borderRadius: 0,
+                    border: 'none',
+                    '--prize-color': prize.color
                   }}
                 >
-                  {/* Watermark Logo SVG - Revived and Centered */}
+                    {/* Full Card Background Logo */}
                   <div style={{
                     position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    width: '120px',
-                    opacity: 0.06,
-                    pointerEvents: 'none',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     zIndex: 0,
-                    transform: 'translate(-50%, -50%) rotate(-15deg)',
-                    filter: `drop-shadow(0 0 15px ${prize.color}11)`
+                    pointerEvents: 'none',
+                    overflow: 'hidden'
                   }}>
-                    <svg viewBox="0 0 48 46" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto' }}>
-                      <path fill={prize.color} d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0-3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z" />
-                    </svg>
+                    <img 
+                      src="/favicon.svg" 
+                      alt="" 
+                      style={{ 
+                        width: '160px', 
+                        height: '160px', 
+                        opacity: 0.1, 
+                        objectFit: 'contain',
+                        transform: 'rotate(-15deg) translate(15%, 15%)',
+                      }} 
+                    />
                   </div>
+
+                  {/* Bottom Accent Line */}
+                  {/* Bottom Branded Footer */}
+                  <div style={{ 
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    background: 'rgba(168, 85, 247, 0.4)',
+                    color: 'rgba(255, 255, 255, 0.6)',
+                    fontSize: '8px', 
+                    letterSpacing: '3px', 
+                    padding: '8px 0',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    textAlign: 'center',
+                    zIndex: 2,
+                    borderRadius: 0
+                  }}>
+                    Certified by Haevthon Foundation
+                  </div>
+                  
+                  {/* Top Branded Bar */}
+                  <div style={{ 
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    background: '#A855F7',
+                    color: '#fff',
+                    fontSize: '10px', 
+                    letterSpacing: '2px', 
+                    padding: '8px 0',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    textAlign: 'center',
+                    zIndex: 2,
+                    borderRadius: 0
+                  }}>
+                    Haevthon Agentic Hackathon 2026
+                  </div>
+
                   <div style={{ position: 'relative', zIndex: 1 }}>
                     <h3 style={{ 
-                      fontSize: isMobile ? '1rem' : '1.2rem', 
-                      fontWeight: 800, 
-                      marginBottom: isMobile ? '12px' : '16px', 
+                      fontFamily: "'Outfit', 'Inter', sans-serif",
+                      fontSize: isMobile ? '1.1rem' : '1.3rem', 
+                      fontWeight: 900, 
+                      marginBottom: isMobile ? '8px' : '10px', 
                       color: '#fff',
                       textTransform: 'uppercase',
-                      letterSpacing: '1.5px'
+                      letterSpacing: '1px',
+                      textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                      textAlign: 'center'
                     }}>
                       {prize.title}
                     </h3>
                     <p style={{ 
-                      color: 'rgba(255,255,255,0.5)', 
-                      fontSize: isMobile ? '0.8rem' : '0.9rem', 
-                      lineHeight: 1.6 
+                      color: 'rgba(255,255,255,0.7)', 
+                      fontSize: isMobile ? '0.75rem' : '0.85rem', 
+                      fontWeight: 300,
+                      lineHeight: 1.5,
+                      textAlign: 'center',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
                     }}>
                       {prize.desc}
                     </p>
                   </div>
                 </motion.div>
-              ))}
+            ))}
             </motion.div>
           </AnimatePresence>
         </div>
