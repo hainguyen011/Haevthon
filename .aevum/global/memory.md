@@ -25,3 +25,45 @@ The zig-zag layout with a central axis significantly enhances the visual narrati
 ### [LEARN] - 5/4/2026, 5:13:28 AM
 [LEARNING FROM DASHBOARD_OPTIMIZATION_FINAL]
 When refactoring huge React components into high-density grids, use a single source of truth for layout constants (like gap and padding) to ensure visual consistency. Avoid partial rewrites that can break syntax; full variable rewrites are safer when structural changes are major.
+
+
+### [LEARN] - 5/5/2026, 9:23:17 AM
+[LEARNING FROM Bổ sung ngày vào Timeline]
+- Luôn chú ý đến định dạng ngày tháng đầy đủ (Full Date) khi làm việc với các mốc thời gian sự kiện.
+- Kiểm tra kỹ các lỗi typo nhỏ trong chuỗi thời gian (ví dụ: missing :00).
+- Sử dụng pipe (|) hoặc dot (•) một cách nhất quán trong thiết kế tech/agentic.
+
+
+### [LEARN] - 5/5/2026, 9:26:56 AM
+[LEARNING FROM Cập nhật lộ trình đăng ký Đợt 1 & 2]
+- Luôn xác nhận trạng thái hiện tại (đang diễn ra hay đã kết thúc) của các sự kiện quan trọng.
+- Cấu trúc timeline linh hoạt cho phép thêm các đợt sự kiện con (Phase 1, Phase 2) dễ dàng.
+
+
+### [LEARN] - 5/5/2026, 9:29:23 AM
+[LEARNING FROM Thêm nút đăng ký vào Timeline]
+- Có thể tích hợp logic điều hướng vào timeline bằng cách thêm các thuộc tính điều kiện (như showRegisterBtn) vào data source.
+- Sử dụng e.stopPropagation() khi click vào nút bên trong một item có sự kiện click riêng (như accordion) để tránh xung đột hành vi.
+
+
+### [LEARN] - 5/5/2026, 9:29:54 AM
+[LEARNING FROM Loại bỏ hiệu ứng hover nút Đăng ký]
+- Một số thiết kế minimalist/pure yêu cầu các nút bấm tĩnh (static) để tránh gây xao nhãng hoặc giữ tính trang trọng.
+
+
+### [LEARN] - 5/5/2026, 9:31:52 AM
+[LEARNING FROM Đồng bộ múi giờ khu vực cho Timeline]
+- Việc bổ sung múi giờ (Timezone) giúp người dùng ở các khu vực khác nhau nắm bắt chính xác thời gian diễn ra sự kiện.
+- Sử dụng localization cho cả các ký hiệu kỹ thuật (như ICT/Giờ VN) giúp giao diện thân thiện hơn với người bản địa.
+
+
+### [LEARN] - 5/5/2026, 9:33:42 AM
+[LEARNING FROM Làm nổi bật ngày và đổi dấu ngăn cách thành gạch ngang]
+- Dấu gạch ngang (—) thường tạo cảm giác chuyên nghiệp và hiện đại hơn dấu chấm trong các thiết kế tech/hackathon.
+- Độ đậm (fontWeight: 700) và màu sắc tương phản cao giúp thông tin quan trọng (như ngày tháng) không bị chìm giữa các thông tin phụ.
+
+
+### [LEARN] - 5/5/2026, 9:37:55 AM
+[LEARNING FROM Chuyển màu đường viền chạy sang tím Haevthon]
+- Việc sử dụng màu sắc thương hiệu (Brand Color) cho các hiệu ứng động giúp tăng tính nhận diện và đồng nhất cho ứng dụng.
+- Hiệu ứng conic-gradient kết hợp với animation tạo ra cảm giác công nghệ cao (High-tech) rất phù hợp với chủ đề Agentic Hackathon.

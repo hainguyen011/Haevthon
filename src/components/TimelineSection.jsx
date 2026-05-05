@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 import { homeData } from '../data/homeData.jsx';
 import { CheckCircle2, MapPin, Zap, ChevronDown, Sparkles } from 'lucide-react';
 
@@ -75,6 +76,7 @@ const MarqueeTitle = ({ title, isSpecial, isActive, isDone, isExpanded }) => {
 
 const TimelineSection = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const { timeline } = homeData;
   const [expandedItem, setExpandedItem] = useState(null); // format: "phaseIndex-itemIndex"
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -124,7 +126,8 @@ const TimelineSection = () => {
       padding: '100px 20px',
       backgroundColor: '#000',
       position: 'relative',
-      overflow: 'visible'
+      overflow: 'visible',
+      backgroundImage: 'radial-gradient(circle at 80% 20%, rgba(134, 59, 255, 0.03) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(134, 59, 255, 0.02) 0%, transparent 50%)'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
 
@@ -179,7 +182,7 @@ const TimelineSection = () => {
                         inset: 0,
                         borderRadius: '24px',
                         padding: '2px',
-                        background: 'conic-gradient(from var(--angle), transparent 40%, #ffffff, #666666, #ffffff, transparent 100%)',
+                        background: 'conic-gradient(from var(--angle), transparent 40%, #A855F7, #863BFF, #A855F7, transparent 100%)',
                         WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                         WebkitMaskComposite: 'xor',
                         maskComposite: 'exclude',
@@ -246,18 +249,32 @@ const TimelineSection = () => {
                             onClick={() => toggleExpand(phaseIdx, itemIdx)}
                             style={{ cursor: 'pointer' }}
                           >
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                               <div style={{ 
-                                fontSize: '0.95rem', 
-                                color: (item.status === 'active') ? '#ffffff' : 'rgba(255,255,255,0.15)', 
-                                fontWeight: 800,
-                                fontFamily: 'monospace',
-                                letterSpacing: '2px',
-                                textTransform: 'uppercase',
-                                marginBottom: '4px',
-                                transition: 'color 0.3s ease'
+                                display: 'flex',
+                                alignItems: 'baseline',
+                                gap: '8px',
+                                marginBottom: '2px'
                               }}>
-                                {item.time}
+                                <span style={{ 
+                                  fontSize: '1.1rem', 
+                                  fontWeight: 900, 
+                                  color: (item.status === 'active') ? '#ffffff' : 'rgba(255,255,255,0.6)',
+                                  letterSpacing: '0.5px',
+                                  transition: 'color 0.3s ease'
+                                }}>
+                                  {item.date || t('not_announced')}
+                                </span>
+                                <span style={{ 
+                                  fontSize: '0.75rem', 
+                                  color: (item.status === 'active') ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.15)', 
+                                  fontWeight: 700,
+                                  fontFamily: 'monospace',
+                                  letterSpacing: '1px',
+                                  textTransform: 'uppercase'
+                                }}>
+                                  {item.time} {t('timezone')}
+                                </span>
                               </div>
 
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
@@ -324,6 +341,36 @@ const TimelineSection = () => {
                                   maxWidth: '600px'
                                 }}>
                                   {item.detail}
+                                  
+                                  {item.showRegisterBtn && (
+                                    <motion.div
+                                      initial={{ opacity: 0, y: 10 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{ delay: 0.2 }}
+                                      style={{ marginTop: '24px' }}
+                                    >
+                                      <button
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          navigate('/register');
+                                        }}
+                                        style={{
+                                          padding: '12px 32px',
+                                          backgroundColor: '#fff',
+                                          color: '#000',
+                                          border: 'none',
+                                          borderRadius: '100px',
+                                          fontSize: '0.75rem',
+                                          fontWeight: 800,
+                                          letterSpacing: '1px',
+                                          cursor: 'pointer',
+                                          textTransform: 'uppercase'
+                                        }}
+                                      >
+                                        {t('hero_cta_register')}
+                                      </button>
+                                    </motion.div>
+                                  )}
                                 </div>
                               </motion.div>
                             )}

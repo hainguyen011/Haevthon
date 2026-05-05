@@ -33,6 +33,12 @@
           ]
         },
         {
+          "id": "timeline-page",
+          "name": "Timeline Page",
+          "path": ".aevum/domains/public_site/features/timeline-page",
+          "plans": []
+        },
+        {
           "id": "timeline_page",
           "name": "Timeline Page",
           "path": ".aevum/domains/public_site/features/timeline_page",
