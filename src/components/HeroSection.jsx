@@ -80,7 +80,7 @@ const HeroSection = () => {
       }} />
 
       {/* Main Content Container */}
-      <div style={{ 
+      <div style={{
         maxWidth: '1200px',
         width: '100%',
         zIndex: 1,
@@ -109,15 +109,15 @@ const HeroSection = () => {
               justifyContent: 'center'
             }}
           >
-            <img 
-              src="/favicon.svg" 
-              alt="Rotating Logo" 
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+            <img
+              src="/favicon.svg"
+              alt="Rotating Logo"
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
             />
           </motion.div>
 
           {/* Line 1: HAEVTHON */}
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -135,7 +135,7 @@ const HeroSection = () => {
           </motion.h1>
 
           {/* Line 2: AGENTIC HACKATHON 2026 (Refined Small Style) */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
@@ -217,7 +217,6 @@ const HeroSection = () => {
               textTransform: 'uppercase',
               letterSpacing: '3px',
               transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-              backdropFilter: 'blur(12px)'
             }}
           >
             {t(hero.cta_secondary_key)}

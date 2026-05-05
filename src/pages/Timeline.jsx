@@ -19,7 +19,7 @@ const Timeline = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      style={{ 
+      style={{
         paddingTop: isMobile ? '80px' : '0px',
         backgroundColor: '#000',
         minHeight: '100vh',
@@ -59,18 +59,16 @@ const Timeline = () => {
           right: 0,
           height: '220px',
           background: 'linear-gradient(to bottom, transparent, #000)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
           zIndex: 1
         }} />
       </div>
 
-      <div style={{ 
-        position: 'relative', 
-        zIndex: 1, 
-        textAlign: 'center', 
+      <div style={{
+        position: 'relative',
+        zIndex: 1,
+        textAlign: 'center',
         padding: isMobile ? '40px 20px' : '120px 20px 100px',
-        marginBottom: isMobile ? '40px' : '60px', 
+        marginBottom: isMobile ? '40px' : '60px',
         paddingLeft: '20px',
         paddingRight: '20px'
       }}>
@@ -96,8 +94,8 @@ const Timeline = () => {
             <span style={{ width: '20px', height: '1px', backgroundColor: 'currentColor' }} />
           </div>
 
-          <h1 className="metallic-text" style={{ 
-            fontSize: isMobile ? '2.8rem' : 'clamp(3.5rem, 9vw, 7.5rem)', 
+          <h1 className="metallic-text" style={{
+            fontSize: isMobile ? '2.8rem' : 'clamp(3.5rem, 9vw, 7.5rem)',
             fontWeight: 900,
             lineHeight: 1.4, // Increased significantly for Vietnamese diacritics
             marginBottom: '16px',
@@ -108,11 +106,11 @@ const Timeline = () => {
           }}>
             {t('timeline_page_title')}
           </h1>
-          
-          <p style={{ 
-            color: 'rgba(255,255,255,0.5)', 
-            textTransform: 'uppercase', 
-            letterSpacing: '4px', 
+
+          <p style={{
+            color: 'rgba(255,255,255,0.5)',
+            textTransform: 'uppercase',
+            letterSpacing: '4px',
             fontSize: isMobile ? '0.7rem' : '1rem',
             fontWeight: 400,
             maxWidth: '600px',
@@ -127,7 +125,8 @@ const Timeline = () => {
         <TimelineSection />
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .metallic-text {
           background: linear-gradient(to bottom, #fff 30%, rgba(255,255,255,0.4) 100%);
           -webkit-background-clip: text;

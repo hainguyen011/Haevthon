@@ -25,8 +25,8 @@ const TracksSection = () => {
   ];
 
   return (
-    <section style={{ 
-      padding: isMobile ? '80px 20px' : '120px 20px', 
+    <section style={{
+      padding: isMobile ? '80px 20px' : '120px 20px',
       backgroundColor: '#000000',
       position: 'relative'
     }}>
@@ -37,19 +37,19 @@ const TracksSection = () => {
           viewport={{ once: true }}
           style={{ textAlign: 'center', marginBottom: isMobile ? '48px' : '80px' }}
         >
-          <div style={{ 
-            color: 'rgba(255,255,255,0.4)', 
-            fontSize: '0.8rem', 
-            fontWeight: 800, 
+          <div style={{
+            color: 'rgba(255,255,255,0.4)',
+            fontSize: '0.8rem',
+            fontWeight: 800,
             letterSpacing: '5px',
             textTransform: 'uppercase',
             marginBottom: '16px'
           }}>
             Discovery Paths
           </div>
-          <h2 style={{ 
-            fontSize: isMobile ? '2.2rem' : 'clamp(2.5rem, 6vw, 4rem)', 
-            fontWeight: 900, 
+          <h2 style={{
+            fontSize: isMobile ? '2.2rem' : 'clamp(2.5rem, 6vw, 4rem)',
+            fontWeight: 900,
             marginBottom: isMobile ? '16px' : '24px',
             letterSpacing: '-2px',
             color: '#fff'
@@ -58,7 +58,7 @@ const TracksSection = () => {
           </h2>
           <div style={{ height: '1px', width: '80px', backgroundColor: 'rgba(255,255,255,0.2)', margin: '0 auto' }}></div>
         </motion.div>
-        
+
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -71,7 +71,7 @@ const TracksSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              style={{ 
+              style={{
                 backgroundColor: 'rgba(255,255,255,0.01)',
                 backdropFilter: 'blur(10px)',
                 borderRadius: '24px',
@@ -84,28 +84,28 @@ const TracksSection = () => {
                 flexDirection: 'column',
                 boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
               }}
-              whileHover={{ 
+              whileHover={{
                 backgroundColor: 'rgba(255,255,255,0.03)',
                 borderColor: 'rgba(255,255,255,0.15)',
                 boxShadow: '0 30px 60px rgba(0,0,0,0.8)'
               }}
             >
               {/* Image Container with Sophisticated Blur/Fade Blend */}
-              <div style={{ 
-                width: '100%', 
-                height: '240px', 
+              <div style={{
+                width: '100%',
+                height: '240px',
                 overflow: 'hidden',
                 position: 'relative',
                 maskImage: 'linear-gradient(to bottom, black 40%, transparent 95%)',
                 WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 95%)',
                 backgroundColor: 'rgba(255,255,255,0.03)' // Placeholder color if image fails
               }}>
-                <img 
-                  src={trackImages[index] || trackImages[0]} 
+                <img
+                  src={trackImages[index] || trackImages[0]}
                   alt={track.titleKey}
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
+                  style={{
+                    width: '100%',
+                    height: '100%',
                     objectFit: 'cover',
                     opacity: 0.7,
                     transition: 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)'
@@ -115,45 +115,26 @@ const TracksSection = () => {
                     e.target.style.opacity = 0; // Hide broken image icon
                   }}
                 />
-                
+
                 {/* Secondary Gradient for color blending */}
                 <div style={{
                   position: 'absolute',
                   top: 0, left: 0, width: '100%', height: '100%',
                   background: 'linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.4) 100%)'
                 }} />
-                
-                {/* Track Number Badge */}
-                <div style={{
-                  position: 'absolute',
-                  top: '24px',
-                  right: '24px',
-                  padding: '6px 14px',
-                  backgroundColor: 'rgba(255,255,255,0.05)',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                  borderRadius: '100px',
-                  fontSize: '0.75rem',
-                  fontWeight: 900,
-                  color: 'rgba(255,255,255,0.8)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  zIndex: 3,
-                  letterSpacing: '1px'
-                }}>
-                  #{index + 1}
-                </div>
+
               </div>
 
               {/* Content Area */}
-              <div style={{ 
-                padding: isMobile ? '0 24px 24px' : '0 32px 32px', 
-                position: 'relative', 
+              <div style={{
+                padding: isMobile ? '0 24px 24px' : '0 32px 32px',
+                position: 'relative',
                 zIndex: 2,
-                marginTop: isMobile ? '-10px' : '-20px' 
+                marginTop: isMobile ? '-10px' : '-20px'
               }}>
-                <h3 style={{ 
-                  marginBottom: isMobile ? '12px' : '16px', 
-                  fontSize: isMobile ? '1.25rem' : '1.5rem', 
+                <h3 style={{
+                  marginBottom: isMobile ? '12px' : '16px',
+                  fontSize: isMobile ? '1.25rem' : '1.5rem',
                   fontWeight: 900,
                   letterSpacing: '-0.5px',
                   textTransform: 'uppercase',
@@ -162,9 +143,9 @@ const TracksSection = () => {
                 }}>
                   {t(track.titleKey)}
                 </h3>
-                <p style={{ 
-                  color: 'rgba(255,255,255,0.4)', 
-                  fontSize: isMobile ? '0.85rem' : '1rem', 
+                <p style={{
+                  color: 'rgba(255,255,255,0.4)',
+                  fontSize: isMobile ? '0.85rem' : '1rem',
                   lineHeight: 1.6,
                   fontWeight: 300,
                   maxWidth: isMobile ? '100%' : '90%'
@@ -174,7 +155,7 @@ const TracksSection = () => {
               </div>
 
               {/* Interactive Indicator */}
-              <div style={{ 
+              <div style={{
                 marginTop: 'auto',
                 padding: isMobile ? '0 24px 24px' : '0 32px 32px',
                 display: 'flex',
@@ -186,7 +167,6 @@ const TracksSection = () => {
                 letterSpacing: '2px',
                 textTransform: 'uppercase'
               }}>
-                <div style={{ width: '24px', height: '1px', backgroundColor: 'currentColor' }} />
                 EXPLORE TRACK
               </div>
             </motion.div>
@@ -194,7 +174,8 @@ const TracksSection = () => {
         </div>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .card-image { transform: scale(1); filter: grayscale(20%); }
         div:hover > div > .card-image { filter: grayscale(0%); opacity: 0.9 !important; }
       `}} />

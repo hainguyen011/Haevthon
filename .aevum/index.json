@@ -21,6 +21,11 @@
           "path": ".aevum/domains/public_site/features/landing_page",
           "plans": [
             {
+              "name": "finalize_incentive_tech_card_aesthetic_plan.md",
+              "status": "todo",
+              "updatedAt": "2026-05-05T13:44:07.586Z"
+            },
+            {
               "name": "initialize_landing_page_with_vite_and_react_plan.md",
               "status": "todo",
               "updatedAt": "2026-05-03T13:41:06.022Z"
