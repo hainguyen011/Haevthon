@@ -127,17 +127,16 @@ const TimelineSection = () => {
       backgroundColor: '#000',
       position: 'relative',
       overflow: 'visible',
-      backgroundImage: 'radial-gradient(circle at 80% 20%, rgba(134, 59, 255, 0.03) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(134, 59, 255, 0.02) 0%, transparent 50%)'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
 
 
 
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
           gap: isMobile ? '80px' : '150px',
-          overflow: 'visible' 
+          overflow: 'visible'
         }}>
           {timeline.phases.map((phase, phaseIdx) => {
             const isActive = phase.status === 'active';
@@ -250,24 +249,24 @@ const TimelineSection = () => {
                             style={{ cursor: 'pointer' }}
                           >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                              <div style={{ 
+                              <div style={{
                                 display: 'flex',
                                 alignItems: 'baseline',
                                 gap: '8px',
                                 marginBottom: '2px'
                               }}>
-                                <span style={{ 
-                                  fontSize: '1.1rem', 
-                                  fontWeight: 900, 
+                                <span style={{
+                                  fontSize: '1.1rem',
+                                  fontWeight: 900,
                                   color: (item.status === 'active') ? '#ffffff' : 'rgba(255,255,255,0.6)',
                                   letterSpacing: '0.5px',
                                   transition: 'color 0.3s ease'
                                 }}>
                                   {item.date || t('not_announced')}
                                 </span>
-                                <span style={{ 
-                                  fontSize: '0.75rem', 
-                                  color: (item.status === 'active') ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.15)', 
+                                <span style={{
+                                  fontSize: '0.75rem',
+                                  color: (item.status === 'active') ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.15)',
                                   fontWeight: 700,
                                   fontFamily: 'monospace',
                                   letterSpacing: '1px',
@@ -277,50 +276,50 @@ const TimelineSection = () => {
                                 </span>
                               </div>
 
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-                                  <h4 style={{
-                                    fontSize: isMobile ? '1.1rem' : '1.4rem',
-                                    color: (item.status === 'active') ? '#fff' : 'rgba(255,255,255,0.3)',
-                                    fontWeight: 700,
-                                    letterSpacing: '-0.5px',
-                                    transition: 'color 0.3s ease'
-                                  }}>
-                                    {item.title}
-                                  </h4>
-                                  
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    {item.status && (
-                                      <div style={{
-                                        fontSize: '0.65rem',
-                                        fontFamily: 'monospace',
-                                        fontWeight: 800,
-                                        color: item.status === 'active' ? '#fff' : 'rgba(255,255,255,0.3)',
-                                        letterSpacing: '1px',
-                                        padding: '2px 6px',
-                                        border: `1px solid ${item.status === 'active' ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)'}`,
-                                        borderRadius: '2px',
-                                        textTransform: 'uppercase'
-                                      }}>
-                                        {t(`status_${item.status}`)}
-                                      </div>
-                                    )}
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+                                <h4 style={{
+                                  fontSize: isMobile ? '1.1rem' : '1.4rem',
+                                  color: (item.status === 'active') ? '#fff' : 'rgba(255,255,255,0.3)',
+                                  fontWeight: 700,
+                                  letterSpacing: '-0.5px',
+                                  transition: 'color 0.3s ease'
+                                }}>
+                                  {item.title}
+                                </h4>
 
-                                    {isSpecial && (
-                                      <div style={{
-                                        padding: '4px 8px',
-                                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                                        borderRadius: '4px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        opacity: (item.status === 'active') ? 1 : 0.3,
-                                        transition: 'opacity 0.3s ease'
-                                      }}>
-                                        <span style={{ fontSize: '0.6rem', fontWeight: 900, color: '#ffffff', letterSpacing: '1px' }}>SPECIAL</span>
-                                      </div>
-                                    )}
-                                  </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                  {item.status && (
+                                    <div style={{
+                                      fontSize: '0.65rem',
+                                      fontFamily: 'monospace',
+                                      fontWeight: 800,
+                                      color: item.status === 'active' ? '#fff' : 'rgba(255,255,255,0.3)',
+                                      letterSpacing: '1px',
+                                      padding: '2px 6px',
+                                      border: `1px solid ${item.status === 'active' ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)'}`,
+                                      borderRadius: '2px',
+                                      textTransform: 'uppercase'
+                                    }}>
+                                      {t(`status_${item.status}`)}
+                                    </div>
+                                  )}
+
+                                  {isSpecial && (
+                                    <div style={{
+                                      padding: '4px 8px',
+                                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                                      borderRadius: '4px',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      opacity: (item.status === 'active') ? 1 : 0.3,
+                                      transition: 'opacity 0.3s ease'
+                                    }}>
+                                      <span style={{ fontSize: '0.6rem', fontWeight: 900, color: '#ffffff', letterSpacing: '1px' }}>SPECIAL</span>
+                                    </div>
+                                  )}
                                 </div>
+                              </div>
                             </div>
                           </motion.div>
 
@@ -341,7 +340,7 @@ const TimelineSection = () => {
                                   maxWidth: '600px'
                                 }}>
                                   {item.detail}
-                                  
+
                                   {item.showRegisterBtn && (
                                     <motion.div
                                       initial={{ opacity: 0, y: 10 }}

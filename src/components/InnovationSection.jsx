@@ -27,7 +27,7 @@ const InnovationSection = () => {
       alignItems: 'center'
     }}>
       {/* Immersive Background Flag */}
-      <div 
+      <div
         style={{
           position: 'absolute',
           top: 0,
@@ -36,10 +36,10 @@ const InnovationSection = () => {
           height: '100%',
           backgroundImage: `url("https://st4.depositphotos.com/2397649/23813/i/450/depositphotos_238135506-stock-photo-flag-vietnam-copy-space-your.jpg")`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: '25% center',
           backgroundAttachment: isMobile ? 'scroll' : 'fixed',
           opacity: 0.2,
-          filter: 'contrast(1.1) brightness(0.5) saturate(0.8)',
+          filter: 'contrast(1.1) brightness(2.0) saturate(0.8)',
           zIndex: 0
         }}
       />
@@ -48,18 +48,17 @@ const InnovationSection = () => {
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.4) 50%, #000000 100%)',
         zIndex: 1
       }} />
 
-      <div style={{ 
-        width: '100%', 
-        padding: isMobile ? '0 20px' : '0 80px', 
-        position: 'relative', 
-        zIndex: 2 
+      <div style={{
+        width: '100%',
+        padding: isMobile ? '0 20px' : '0 80px',
+        position: 'relative',
+        zIndex: 2
       }}>
-        <div style={{ 
-          maxWidth: '1400px', 
+        <div style={{
+          maxWidth: '1400px',
           margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',
@@ -73,11 +72,11 @@ const InnovationSection = () => {
             transition={{ duration: 1 }}
             style={{ maxWidth: '900px' }}
           >
-            
-            <h2 style={{ 
-              fontSize: isMobile ? '2.5rem' : 'clamp(3.5rem, 7vw, 5.5rem)', 
-              fontWeight: 950, 
-              lineHeight: 1.1, 
+
+            <h2 style={{
+              fontSize: isMobile ? '2.5rem' : 'clamp(3.5rem, 7vw, 5.5rem)',
+              fontWeight: 950,
+              lineHeight: 1.1,
               marginBottom: '40px',
               letterSpacing: '-3px',
               color: '#ffffff',
@@ -85,11 +84,11 @@ const InnovationSection = () => {
             }}>
               {t('innovation_title_part1')} <span style={{ color: 'rgba(255,255,255,0.2)' }}>{t('innovation_title_part2')}</span> {t('innovation_title_part3')}
             </h2>
-            
-            <p style={{ 
-              fontSize: isMobile ? '1.1rem' : '1.4rem', 
-              color: 'rgba(255,255,255,0.6)', 
-              lineHeight: 1.6, 
+
+            <p style={{
+              fontSize: isMobile ? '1.1rem' : '1.4rem',
+              color: 'rgba(255,255,255,0.6)',
+              lineHeight: 1.6,
               fontWeight: 300,
               maxWidth: '750px'
             }}>
@@ -97,9 +96,9 @@ const InnovationSection = () => {
             </p>
           </motion.div>
 
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', 
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
             gap: isMobile ? '60px' : '80px',
             marginTop: '40px'
           }}>
@@ -108,15 +107,15 @@ const InnovationSection = () => {
               { titleKey: "innovation_item2_title", descKey: "innovation_item2_desc", index: "02" },
               { titleKey: "innovation_item3_title", descKey: "innovation_item3_desc", index: "03" }
             ].map((item, index) => (
-              <motion.div 
-                key={index} 
+              <motion.div
+                key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
                   gap: '32px',
                   paddingTop: '32px',
                   borderTop: '1px solid rgba(255,255,255,0.1)'
@@ -132,20 +131,20 @@ const InnovationSection = () => {
                 </div>
 
                 <div>
-                  <h4 style={{ 
-                    fontSize: '1.5rem', 
-                    fontWeight: 900, 
-                    marginBottom: '16px', 
-                    letterSpacing: '-1px', 
+                  <h4 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: 900,
+                    marginBottom: '16px',
+                    letterSpacing: '-1px',
                     textTransform: 'uppercase',
                     color: '#ffffff',
                     lineHeight: 1.2
                   }}>
                     {t(item.titleKey)}
                   </h4>
-                  <p style={{ 
-                    fontSize: '1rem', 
-                    color: 'rgba(255,255,255,0.4)', 
+                  <p style={{
+                    fontSize: '1rem',
+                    color: 'rgba(255,255,255,0.4)',
                     lineHeight: 1.6,
                     fontWeight: 300
                   }}>

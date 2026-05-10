@@ -64,7 +64,6 @@ const SponsorCard = ({ sponsor, tier }) => {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(circle at center, rgba(134, 59, 255, 0.05) 0%, transparent 70%)',
           pointerEvents: 'none'
         }} />
       )}
@@ -289,8 +288,6 @@ const Sponsors = () => {
                 opacity: 0.85,
                 transform: 'scale(1.3)',
                 transformOrigin: 'center center',
-                WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)',
-                maskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)'
               }}
             />
           </motion.div>
@@ -624,17 +621,17 @@ const Sponsors = () => {
 
 
                   <div style={{ padding: '40px', flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 2 }}>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '16px' }}>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
                       {item.label}
                     </div>
-                    <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.6, fontWeight: 300 }}>
+                    <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6, fontWeight: 300 }}>
                       {item.desc}
                     </p>
 
                     {/* Moderate Centered Text (Fills the gap) */}
                     <div style={{
                       margin: 'auto 0',
-                      fontSize: '4rem',
+                      fontSize: '5rem',
                       fontWeight: 900,
                       letterSpacing: '-2px',
                       lineHeight: 1,
@@ -643,7 +640,7 @@ const Sponsors = () => {
                       userSelect: 'none',
                       pointerEvents: 'none',
                       fontFamily: 'Outfit, sans-serif',
-                      opacity: 0.15,
+                      opacity: 0.3,
                       transition: 'all 0.5s ease'
                     }} className="card-bg-text">
                       {item.num}
@@ -671,7 +668,7 @@ const Sponsors = () => {
         </section>
 
         {/* ── MEDIA & REACH ── */}
-        <section style={{ padding: isMobile ? '80px 24px' : '120px 60px', background: 'radial-gradient(circle at 50% 50%, rgba(134, 59, 255, 0.03) 0%, transparent 70%)' }}>
+        <section style={{ padding: isMobile ? '80px 24px' : '120px 60px' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -687,10 +684,10 @@ const Sponsors = () => {
               </h2>
             </motion.div>
 
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', 
-              gap: '40px' 
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+              gap: '40px'
             }}>
               {[
                 { num: t('sponsors_media_stat1_num'), label: t('sponsors_media_stat1_label'), desc: t('sponsors_media_stat1_desc') },
@@ -723,13 +720,13 @@ const Sponsors = () => {
         {/* ── TALENT PIPELINE (Large Bento Grid Redesign) ── */}
         <section style={{ padding: isMobile ? '80px 24px' : '140px 60px', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', 
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
               gridAutoRows: isMobile ? 'auto' : '320px',
-              gap: '24px' 
+              gap: '24px'
             }}>
-              
+
               {/* Card 1: Main Title & Description (Large 2x2) */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -749,21 +746,21 @@ const Sponsors = () => {
                   overflow: 'hidden'
                 }}
               >
-                <div style={{ 
-                  color: 'rgba(255,255,255,0.3)', 
-                  fontSize: '0.7rem', 
-                  fontWeight: 800, 
-                  letterSpacing: '5px', 
-                  textTransform: 'uppercase', 
+                <div style={{
+                  color: 'rgba(255,255,255,0.3)',
+                  fontSize: '0.7rem',
+                  fontWeight: 800,
+                  letterSpacing: '5px',
+                  textTransform: 'uppercase',
                   marginBottom: '24px',
                   fontFamily: "'Be Vietnam Pro', sans-serif"
                 }}>
                   {t('sponsors_talent_title')}
                 </div>
-                <h2 style={{ 
-                  fontSize: 'clamp(2.5rem, 5vw, 4.2rem)', 
-                  fontWeight: 900, 
-                  letterSpacing: '-2px', 
+                <h2 style={{
+                  fontSize: 'clamp(2.5rem, 5vw, 4.2rem)',
+                  fontWeight: 900,
+                  letterSpacing: '-2px',
                   lineHeight: 1,
                   marginBottom: '32px',
                   fontFamily: "'Be Vietnam Pro', sans-serif",
@@ -771,10 +768,10 @@ const Sponsors = () => {
                 }}>
                   {t('sponsors_talent_heading')}
                 </h2>
-                <p style={{ 
-                  fontSize: '1.1rem', 
-                  color: 'rgba(255,255,255,0.4)', 
-                  lineHeight: 1.7, 
+                <p style={{
+                  fontSize: '1.1rem',
+                  color: 'rgba(255,255,255,0.4)',
+                  lineHeight: 1.7,
                   fontWeight: 300,
                   maxWidth: '500px',
                   fontFamily: "'Be Vietnam Pro', sans-serif"
@@ -884,11 +881,11 @@ const Sponsors = () => {
               <div style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '32px', position: 'relative', zIndex: 10 }}>
                 {t('sponsors_quote_title')}
               </div>
-              
+
               <div style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {/* Left Control */}
                 {!isMobile && (
-                  <button 
+                  <button
                     onClick={() => setActiveQuote((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
                     style={{
                       position: 'absolute',
@@ -917,9 +914,9 @@ const Sponsors = () => {
                     transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
                     style={{ position: 'relative', zIndex: 5, width: '100%' }}
                   >
-                    <blockquote style={{ 
-                      fontSize: 'clamp(1.1rem, 2.5vw, 2rem)', 
-                      fontWeight: 500, 
+                    <blockquote style={{
+                      fontSize: 'clamp(1.1rem, 2.5vw, 2rem)',
+                      fontWeight: 500,
                       fontStyle: 'normal',
                       lineHeight: 1.5,
                       color: 'rgba(255,255,255,0.9)',
@@ -939,7 +936,7 @@ const Sponsors = () => {
 
                 {/* Right Control */}
                 {!isMobile && (
-                  <button 
+                  <button
                     onClick={() => setActiveQuote((prev) => (prev + 1) % testimonials.length)}
                     style={{
                       position: 'absolute',
@@ -961,10 +958,10 @@ const Sponsors = () => {
               </div>
 
               {/* Slider Navigation Dots */}
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                gap: '8px', 
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '8px',
                 marginTop: '48px',
                 position: 'relative',
                 zIndex: 10

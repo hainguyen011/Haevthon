@@ -90,8 +90,13 @@
           "plans": [
             {
               "name": "responsive_design_overhaul_plan_plan.md",
-              "status": "todo",
-              "updatedAt": "2026-05-04T11:03:00.885Z"
+              "status": "done",
+              "updatedAt": "2026-05-05T14:59:51.763Z"
+            },
+            {
+              "name": "standardize_fluid_typography_and_spacing_planmd_plan.md",
+              "status": "in-progress",
+              "updatedAt": "2026-05-05T14:57:17.301Z"
             }
           ]
         }

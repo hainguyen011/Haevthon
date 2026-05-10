@@ -2,9 +2,11 @@ import HeroSection from '../components/HeroSection';
 import AboutHaevthon from '../components/AboutHaevthon';
 import PartnersMarquee from '../components/PartnersMarquee';
 import AevumIntro from '../components/AevumIntro';
+import TimelineSection from '../components/TimelineSection';
 import FeatureShowcase from '../components/FeatureShowcase';
 import VideoShowcase from '../components/VideoShowcase';
 import InnovationSection from '../components/InnovationSection';
+import ProductShowcase from '../components/ProductShowcase';
 import VisionSection from '../components/VisionSection';
 import TracksSection from '../components/TracksSection';
 import TestimonialsSection from '../components/TestimonialsSection';
@@ -36,6 +38,7 @@ const Home = () => {
       <div id="intro"><AevumIntro /></div>
       <div id="features"><FeatureShowcase /></div>
       <div id="innovation"><InnovationSection /></div>
+      <div id="showcase"><ProductShowcase /></div>
       <div id="vision"><VisionSection /></div>
       <div id="tracks"><TracksSection /></div>
       <div id="testimonials"><TestimonialsSection /></div>

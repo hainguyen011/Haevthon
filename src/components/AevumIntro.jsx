@@ -85,7 +85,7 @@ const AevumIntro = () => {
         key={item.id}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        whileHover={{ 
+        whileHover={{
           backgroundColor: isMain ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.03)',
           borderColor: 'rgba(255,255,255,0.2)'
         }}
@@ -117,12 +117,11 @@ const AevumIntro = () => {
               right: 0,
               width: '100%',
               height: '100%',
-              backgroundImage: 'radial-gradient(circle at top right, rgba(255,255,255,0.04) 0%, transparent 70%)',
               pointerEvents: 'none'
             }} />
-            <img 
-              src="/assets/unikorn-logo.png" 
-              alt="Unikorn Background" 
+            <img
+              src="/assets/unikorn-logo.png"
+              alt="Unikorn Background"
               style={{
                 position: 'absolute',
                 bottom: '-20px',
@@ -133,7 +132,7 @@ const AevumIntro = () => {
                 filter: 'grayscale(1) brightness(2)',
                 pointerEvents: 'none',
                 userSelect: 'none'
-              }} 
+              }}
             />
           </>
         )}
@@ -195,34 +194,38 @@ const AevumIntro = () => {
 
         {/* Badges for Main Card */}
         {isMain && (
-          <div style={{ 
-            display: 'flex', 
-            gap: '12px', 
-            marginTop: '40px', 
+          <div style={{
+            display: 'flex',
+            gap: '16px',
+            marginTop: '40px',
             flexWrap: 'wrap',
             position: 'relative',
             zIndex: 1
           }}>
-            <motion.a 
-              href="https://unikorn.vn/p/aevum?ref=embed-aevum" 
-              target="_blank" 
+            <motion.a
+              href="https://unikorn.vn/p/aevum?ref=embed-aevum"
+              target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <img 
-                src="https://unikorn.vn/api/widgets/badge/aevum?theme=light" 
-                alt="Unikorn" 
-                style={{ height: '38px', width: 'auto', borderRadius: '4px', filter: 'grayscale(1) contrast(1.2)' }} 
+              <img
+                src="https://unikorn.vn/api/widgets/badge/aevum?theme=light"
+                alt="Unikorn"
+                style={{ height: '48px', width: 'auto', borderRadius: '6px', filter: 'grayscale(1) contrast(1.2)', transition: 'all 0.2s ease' }}
               />
             </motion.a>
-            <motion.a 
-              href="https://unikorn.vn/p/aevum?ref=embed-aevum" 
-              target="_blank" 
+            <motion.a
+              href="https://unikorn.vn/p/aevum?ref=embed-aevum"
+              target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <img 
-                src="https://unikorn.vn/api/widgets/badge/aevum/rank?theme=light&type=daily" 
-                alt="Rank" 
-                style={{ height: '38px', width: 'auto', borderRadius: '4px', filter: 'grayscale(1) contrast(1.2)' }} 
+              <img
+                src="https://unikorn.vn/api/widgets/badge/aevum/rank?theme=light&type=daily"
+                alt="Rank"
+                style={{ height: '48px', width: 'auto', borderRadius: '6px', filter: 'grayscale(1) contrast(1.2)', transition: 'all 0.2s ease' }}
               />
             </motion.a>
           </div>
@@ -232,7 +235,7 @@ const AevumIntro = () => {
   };
 
   return (
-    <section 
+    <section
       style={{
         padding: isMobile ? '60px 20px' : '100px 40px',
         backgroundColor: '#000',

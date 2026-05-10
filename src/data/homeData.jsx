@@ -201,5 +201,50 @@ export const homeData = {
         itemsKey: 'timeline_phase5_items'
       }
     ]
+  },
+
+  showcase: {
+    header: {
+      badgeKey: 'showcase_badge',
+      titleKey: 'showcase_title'
+    },
+    settings: {
+      cardWidth: '450px',
+      cardHeight: '560px',
+      borderRadius: '32px',
+      parallaxRange: [40, -40],
+      dragRange: -1400,
+      poweredByText: 'POWERED BY AEVUM'
+    },
+    items: [
+      {
+        id: 'nexus',
+        titleKey: 'showcase_nexus_title',
+        descKey: 'showcase_nexus_desc',
+        image: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=1200',
+        tag: 'Orchestration'
+      },
+      {
+        id: 'ghost',
+        titleKey: 'showcase_ghost_title',
+        descKey: 'showcase_ghost_desc',
+        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200',
+        tag: 'Development'
+      },
+      {
+        id: 'vibe',
+        titleKey: 'showcase_vibe_title',
+        descKey: 'showcase_vibe_desc',
+        image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=1200',
+        tag: 'Experience'
+      },
+      {
+        id: 'sentient',
+        titleKey: 'showcase_sentient_title',
+        descKey: 'showcase_sentient_desc',
+        image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200',
+        tag: 'Infrastructure'
+      }
+    ]
   }
 };

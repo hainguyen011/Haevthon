@@ -1,41 +1,67 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useAnimationFrame } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const TestimonialsSection = () => {
   const { t } = useLanguage();
 
+  const getInitials = (name) => {
+    return name
+      .split(' ')
+      .filter(n => n.length > 0)
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   const reviews = [
-    {
-      quote: t('testimonial1_quote'),
-      author: t('testimonial1_author'),
-      initials: 'AA'
-    },
-    {
-      quote: t('testimonial2_quote'),
-      author: t('testimonial2_author'),
-      initials: 'SB'
-    },
-    {
-      quote: t('testimonial3_quote'),
-      author: t('testimonial3_author'),
-      initials: 'DS'
-    },
-    {
-      quote: t('testimonial4_quote'),
-      author: t('testimonial4_author'),
-      initials: 'OC'
-    }
-  ];
+    { quote: t('testimonial1_quote'), author: t('testimonial1_author') },
+    { quote: t('testimonial2_quote'), author: t('testimonial2_author') },
+    { quote: t('testimonial3_quote'), author: t('testimonial3_author') },
+    { quote: t('testimonial4_quote'), author: t('testimonial4_author') },
+    { quote: t('testimonial5_quote'), author: t('testimonial5_author') },
+    { quote: t('testimonial6_quote'), author: t('testimonial6_author') },
+    { quote: t('testimonial7_quote'), author: t('testimonial7_author') },
+    { quote: t('testimonial8_quote'), author: t('testimonial8_author') }
+  ].map(r => ({ ...r, initials: getInitials(r.author) }));
 
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+  const [isPaused, setIsPaused] = React.useState(false);
+  
+  const x = useMotionValue(0);
+  const containerRef = React.useRef(null);
+  const [containerWidth, setContainerWidth] = React.useState(0);
 
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
+    
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.scrollWidth / 2);
+    }
+
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [reviews]);
+
+  useAnimationFrame(() => {
+    if (isPaused || !containerWidth) return;
+    
+    let moveBy = -0.8; // Base speed
+    if (isMobile) moveBy = -1.2;
+    
+    let currentX = x.get() + moveBy;
+    
+    // Infinite loop logic
+    if (currentX <= -containerWidth) {
+      currentX = 0;
+    } else if (currentX > 0) {
+      currentX = -containerWidth;
+    }
+    
+    x.set(currentX);
+  });
 
   // Duplicating for seamless loop
   const duplicatedReviews = [...reviews, ...reviews];
@@ -67,7 +93,13 @@ const TestimonialsSection = () => {
         </motion.div>
       </div>
 
-      <div style={{ position: 'relative' }}>
+      <div 
+        style={{ position: 'relative', cursor: isPaused ? 'grabbing' : 'grab' }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onMouseDown={() => setIsPaused(true)}
+        onMouseUp={() => setIsPaused(false)}
+      >
         {/* Side Gradients */}
         <div style={{
           position: 'absolute',
@@ -91,21 +123,20 @@ const TestimonialsSection = () => {
         }} />
 
         <motion.div
-          animate={{
-            x: ['0%', '-50%']
+          ref={containerRef}
+          drag="x"
+          dragConstraints={{ 
+            left: -containerWidth * 2, 
+            right: 0 
           }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: isMobile ? 30 : 50,
-              ease: "linear",
-            },
-          }}
+          onDragStart={() => setIsPaused(true)}
+          onDragEnd={() => setIsPaused(false)}
           style={{
             display: 'flex',
             gap: isMobile ? '16px' : '30px',
-            padding: isMobile ? '20px 0' : '40px 0'
+            padding: isMobile ? '20px 0' : '40px 0',
+            width: 'max-content',
+            x: x // Linking to motion value
           }}
         >
           {duplicatedReviews.map((review, index) => (
@@ -117,7 +148,8 @@ const TestimonialsSection = () => {
                 backgroundColor: 'rgba(255,255,255,0.02)',
                 borderRadius: '24px',
                 border: '1px solid rgba(255,255,255,0.05)',
-                position: 'relative'
+                position: 'relative',
+                userSelect: 'none'
               }}
             >
               <Quote 

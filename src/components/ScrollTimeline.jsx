@@ -14,9 +14,11 @@ const ScrollTimeline = () => {
     { id: 'about', label: '02', title: t('timeline_nav_about') },
     { id: 'features', label: '03', title: t('timeline_nav_features') },
     { id: 'innovation', label: '04', title: t('timeline_nav_innovation') },
-    { id: 'vision', label: '05', title: t('timeline_nav_vision') },
-    { id: 'tracks', label: '06', title: t('timeline_nav_tracks') },
-    { id: 'incentives', label: '07', title: t('timeline_nav_incentives') }
+    { id: 'showcase', label: '05', title: t('timeline_nav_showcase') },
+    { id: 'vision', label: '06', title: t('timeline_nav_vision') },
+    { id: 'tracks', label: '07', title: t('timeline_nav_tracks') },
+    { id: 'testimonials', label: '08', title: t('timeline_nav_community') },
+    { id: 'incentives', label: '09', title: t('timeline_nav_incentives') }
   ], [t]);
 
   useEffect(() => {

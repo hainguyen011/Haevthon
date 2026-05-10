@@ -32,7 +32,7 @@
   "is_default": true,
   "user_modified": true,
   "level": 5,
-  "exp": 160,
+  "exp": 270,
   "energy": {
     "provider": "Groq",
     "model": "openai/gpt-oss-120b",
@@ -116,6 +116,12 @@
       "timestamp": "2026-05-05T02:37:55.586Z",
       "note": "Gained 50 EXP.",
       "reason": "Completed plan: Chuyển màu đường viền chạy sang tím Haevthon"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-05T14:59:51.785Z",
+      "note": "Gained 110 EXP.",
+      "reason": "Completed plan: responsive_design_overhaul_plan_plan.md"
     }
   ],
   "skills_matrix": {}

@@ -30,16 +30,6 @@ const HeroSection = () => {
       backgroundColor: '#000000',
       overflow: 'hidden'
     }}>
-      {/* Dynamic Grid Overlay */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        backgroundImage: `linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), 
-                          linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)`,
-        backgroundSize: '40px 40px',
-        maskImage: 'radial-gradient(circle at 20% 50%, black, transparent 80%)',
-        pointerEvents: 'none'
-      }} />
 
       {/* Floating Particles (Subtle) */}
       {[...Array(15)].map((_, i) => (
@@ -75,7 +65,6 @@ const HeroSection = () => {
         transform: 'translate(-50%, -50%)',
         width: '100%',
         height: '100%',
-        background: 'radial-gradient(circle at center, rgba(134, 59, 255, 0.02) 0%, transparent 60%)',
         pointerEvents: 'none'
       }} />
 

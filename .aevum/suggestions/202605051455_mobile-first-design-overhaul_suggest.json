@@ -1,0 +1,18 @@
+{
+  "ref": "mobile-first-design-overhaul",
+  "type": "PLANS",
+  "domain": "responsive-ux-experience",
+  "feature": "mobile-first-design-overhaul",
+  "options": [
+    {
+      "title": "optimize_sponsors_bento_grid_mobile_plan.md",
+      "description": "Tinh chỉnh bố cục Bento Grid và Slider 'Partner Voices' trên di động. Chuyển đổi grid 4 cột thành 1 cột và tối ưu hóa touch-target cho các nút điều hướng.",
+      "priority": "high"
+    },
+    {
+      "title": "implement_responsive_navigation_menu_plan.md",
+      "description": "Xây dựng hệ thống menu Hamburger cho Navbar. Đảm bảo trải nghiệm chuyển hướng mượt mà và tiết kiệm không gian trên màn hình nhỏ.",
+      "priority": "medium"
+    }
+  ]
+}
