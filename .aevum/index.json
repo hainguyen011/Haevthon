@@ -6,7 +6,35 @@
       "id": "builder_resources",
       "name": "Builder Resources",
       "path": ".aevum/domains/builder_resources",
-      "plans": [],
+      "plans": [
+        {
+          "name": "implementation_of_haevthon_participant_handbook_pdf_plan.md",
+          "status": "done",
+          "updatedAt": "2026-05-10T12:02:43.308Z",
+          "assignedTo": [
+            {
+              "agent": "An",
+              "role": "Developer",
+              "intent": "Xây dựng trang Handbook và tính năng xuất PDF cho thí sinh.",
+              "since": "2026-05-10T11:44:29.741Z"
+            }
+          ],
+          "history": [
+            {
+              "timestamp": "2026-05-10T11:44:29.741Z",
+              "status": "assigned",
+              "agent": "An",
+              "summary": "Assigned to An (Developer): Xây dựng trang Handbook và tính năng xuất PDF cho thí sinh."
+            },
+            {
+              "timestamp": "2026-05-10T12:02:43.308Z",
+              "status": "done",
+              "agent": "An",
+              "summary": "Đã hoàn thiện trang Participant Handbook với các cải tiến:\n1. Tích hợp đa ngôn ngữ: Ánh xạ thành công các key dịch thuật cho Timeline và Tracks.\n2. Tối ưu hóa in ấn: Tinh chỉnh CSS Print để xuất PDF sạch đẹp, tương phản cao, phù hợp khổ A4.\n3. Cải thiện độ ổn định: Thêm kiểm tra dữ liệu đầu vào để tránh lỗi hiển thị."
+            }
+          ]
+        }
+      ],
       "features": []
     },
     {

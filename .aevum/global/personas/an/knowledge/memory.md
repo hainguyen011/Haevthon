@@ -67,3 +67,35 @@ When refactoring huge React components into high-density grids, use a single sou
 [LEARNING FROM Chuyển màu đường viền chạy sang tím Haevthon]
 - Việc sử dụng màu sắc thương hiệu (Brand Color) cho các hiệu ứng động giúp tăng tính nhận diện và đồng nhất cho ứng dụng.
 - Hiệu ứng conic-gradient kết hợp với animation tạo ra cảm giác công nghệ cao (High-tech) rất phù hợp với chủ đề Agentic Hackathon.
+
+
+### [LEARN] - 5/10/2026, 7:02:43 PM
+[LEARNING FROM implementation_of_haevthon_participant_handbook_pdf_plan.md]
+- Khi tích hợp dữ liệu từ các trang khác (như Home) vào Handbook, cần chú ý đến hệ thống đa ngôn ngữ (Translation keys).
+- Việc sử dụng inline styles cho @media print giúp kiểm soát tốt hơn các thành phần UI cụ thể của từng trang mà không làm phình to file CSS tổng.
+- Cần có giá trị dự phòng (fallback) khi ánh xạ dữ liệu từ object dùng chung để tránh lỗi runtime.
+
+
+### [LEARN] - 5/10/2026, 10:32:28 PM
+[LEARNING FROM Refine Handbook Content]
+Handbook content should focus on specialized technical advice rather than general marketing info to avoid redundancy. Translation keys (hb_) must be carefully synced with the data structure to ensure multi-language support remains robust during structural refactors.
+
+
+### [LEARN] - 5/10/2026, 10:34:05 PM
+[LEARNING FROM Refine Handbook Content - Essentials Addition]
+Adding 'human' and 'survival' elements to technical documentation increases user engagement. Using icons (lucide-react) for survival tips makes the content more scannable and 'fun'.
+
+
+### [LEARN] - 5/10/2026, 10:35:18 PM
+[LEARNING FROM Move Sidebar to Right]
+When moving a sticky sidebar from left to right, remember to update alignment properties (textAlign, justifyContent) and absolute indicators (left/right offsets) to maintain visual balance and functionality.
+
+
+### [LEARN] - 5/10/2026, 10:37:11 PM
+[LEARNING FROM Optimize Handbook for Readability]
+For content-heavy pages, 'integrated' designs with subtle dividers and optimized vertical rhythm work better than card-based layouts. Using Monospace fonts for structural labels adds a professional, 'system-like' feel to technical documentation.
+
+
+### [LEARN] - 5/10/2026, 10:37:57 PM
+[LEARNING FROM Fix ReferenceError AevumCard]
+When refactoring or removing core components, always search for all occurrences across the file to prevent runtime ReferenceErrors. Grep is your friend.

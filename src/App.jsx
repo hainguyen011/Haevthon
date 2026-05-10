@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Timeline from './pages/Timeline'
 import Register from './pages/Register'
 import Sponsors from './pages/Sponsors'
+import Handbook from './pages/Handbook'
 import { LanguageProvider } from './context/LanguageContext'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/register" element={<Register />} />
             <Route path="/sponsors" element={<Sponsors />} />
+            <Route path="/handbook" element={<Handbook />} />
           </Routes>
         </AnimatePresence>
         <Footer />

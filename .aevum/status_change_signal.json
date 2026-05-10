@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "sc_1778413469753",
+      "type": "STATUS_CHANGE",
+      "timestamp": "2026-05-10T11:44:29.753Z",
+      "source": "mcp",
+      "actor": "agent",
+      "domainId": "builder_resources",
+      "planName": "implementation_of_haevthon_participant_handbook_pdf_plan.md",
+      "previousStatus": "todo",
+      "newStatus": "assigned",
+      "instruction": "Plan [implementation_of_haevthon_participant_handbook_pdf_plan.md] đã được gán cho Agent."
+    }
+  ]
+}

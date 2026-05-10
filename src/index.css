@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;800&family=Be+Vietnam+Pro:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;800&family=Be+Vietnam+Pro:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
   --bg-color: #000000;
@@ -157,4 +157,73 @@ div[whileHover]:hover .card-bg-text {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-white);
+}
+
+/* Print Styles for Handbook & Documents */
+@media print {
+  /* Hide unnecessary elements */
+  nav, 
+  footer, 
+  aside,
+  button:not(.print-visible),
+  .print-hidden {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    width: auto !important;
+  }
+
+  /* Reset all glass effects for paper */
+  .backdrop-blur-xl,
+  .backdrop-blur-md,
+  .bg-white\/5,
+  .bg-white\/10 {
+    background: white !important;
+    backdrop-filter: none !important;
+    border-color: #eee !important;
+  }
+
+  /* Typography optimization for print */
+  h1, h2, h3, h4 {
+    color: black !important;
+    text-transform: none !important; /* Optional: adjust as needed */
+  }
+
+  p, span, div {
+    color: #333 !important;
+  }
+
+  /* Force page breaks */
+  .page-break {
+    page-break-before: always;
+  }
+
+  /* Preserve links but remove underlines */
+  a {
+    text-decoration: none !important;
+    color: black !important;
+  }
+
+  /* A4 optimizations */
+  @page {
+    size: A4;
+    margin: 20mm;
+  }
+
+  /* Image optimization */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Specific brand colors preservation for headers */
+  .text-purple-400, .text-purple-500 {
+    color: #7c3aed !important; /* Solid purple for print */
+  }
 }

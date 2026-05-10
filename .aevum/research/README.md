@@ -13,4 +13,5 @@
 ## 🗂️ Mục Lục Báo Cáo (Research Index)
 
 <!-- Agent tự động thêm link báo cáo mới vào dưới cùng danh sách này -->
-| [evol_eng-an-7b9f1d.md](./evol_eng-an-7b9f1d.md) | Nhật ký tiến hóa của An | 2026-05-05 |
+| [evol_eng-an-7b9f1d.md](./evol_eng-an-7b9f1d.md) | Nhật ký tiến hóa của An | 2026-05-10 | 🔄 UPDATING |
+| [tech_hackathon_handbook_pdf_content_and_design_best_practices_for_a_premium_tech_event_like_haevthon_2026_mission_1778413371627.md](./tech_hackathon_handbook_pdf_content_and_design_best_practices_for_a_premium_tech_event_like_haevthon_2026_mission_1778413371627.md) | Technical research mission regarding Hackathon Handbook PDF content and design best practices for a premium tech event like Haevthon 2026 | 2026-05-10 | ✅ DONE |
