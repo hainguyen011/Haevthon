@@ -1,4 +1,4 @@
-# Dictionary: Haevthon Ubiquitous Language
+# Dictionary: Aevum Ubiquitous Language
 
 | Term | Definition |
 | :--- | :--- |

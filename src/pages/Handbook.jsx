@@ -272,8 +272,8 @@ const Handbook = () => {
                 top: '50%',
                 left: 'calc(50% + 340px)',
                 transform: 'translate(-50%, -50%)',
-                width: '400px', 
-                height: '400px',
+                width: '450px', 
+                height: '450px',
                 opacity: 0.2,
                 zIndex: -1,
                 display: 'flex',
@@ -281,7 +281,7 @@ const Handbook = () => {
                 justifyContent: 'center'
               }}
             >
-              <img src="/favicon.svg" alt="" style={{ width: '300px', height: '300px' }} />
+              <img src="/assets/haevthon-logo.png" alt="" style={{ width: '360px', height: '360px' }} />
             </motion.div>
           </div>
         )}
@@ -351,7 +351,108 @@ const Handbook = () => {
                 </div>
                 <div style={{ padding: '0 0 60px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                   <h3 style={{ fontSize: '2rem', fontWeight: 950, marginBottom: '24px', letterSpacing: '-1.5px', color: '#fff' }}>{t(handbookData.essentials.loop.title)}</h3>
-                  <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '1.2rem', lineHeight: 1.7, margin: 0, maxWidth: '900px' }}>{t(handbookData.essentials.loop.desc)}</p>
+                  
+                  {/* HORIZONTAL STEP WORKFLOW */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: isMobile ? '12px' : '20px',
+                    margin: '40px 0',
+                    overflowX: 'auto',
+                    paddingBottom: '20px',
+                    width: '100%'
+                  }}>
+                    {handbookData.essentials.loop.steps.map((stepKey, idx) => {
+                      const StepIcon = [Target, Code, Zap, ShieldCheck, ClipboardCheck][idx];
+                      return (
+                        <React.Fragment key={idx}>
+                          <motion.div
+                            whileHover={{ opacity: 1, borderColor: 'rgba(255,255,255,0.35)', boxShadow: '0 20px 40px -15px rgba(0,0,0,0.8)' }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
+                            style={{
+                              flex: '1',
+                              minWidth: isMobile ? '240px' : '220px',
+                              minHeight: '180px',
+                              padding: '28px 24px',
+                              background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
+                              border: '1px solid rgba(255,255,255,0.08)',
+                              borderRadius: '16px',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'space-between',
+                              position: 'relative',
+                              backdropFilter: 'blur(12px)',
+                              boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)'
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                              <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '10px',
+                                background: 'rgba(255,255,255,0.06)',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                color: '#fff'
+                              }}>
+                                <StepIcon size={20} />
+                              </div>
+                              <span style={{
+                                fontFamily: "'JetBrains Mono', monospace",
+                                fontSize: '0.9rem',
+                                fontWeight: 900,
+                                color: 'rgba(255,255,255,0.25)',
+                                letterSpacing: '1px'
+                              }}>
+                                0{idx + 1}
+                              </span>
+                            </div>
+                            
+                            <h4 style={{
+                              fontSize: '1.2rem',
+                              fontWeight: 900,
+                              color: '#fff',
+                              margin: '28px 0 0 0',
+                              lineHeight: 1.4,
+                              letterSpacing: '-0.3px'
+                            }}>
+                              {t(stepKey)}
+                            </h4>
+                          </motion.div>
+                          
+                          {idx < handbookData.essentials.loop.steps.length - 1 && (
+                            <div style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '50%',
+                              background: 'rgba(255,255,255,0.02)',
+                              border: '1px solid rgba(255,255,255,0.05)',
+                              flexShrink: 0
+                            }}>
+                              <ArrowRight size={16} style={{ color: 'rgba(255,255,255,0.3)' }} />
+                            </div>
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
+                  </div>
+
+                  <div style={{
+                    padding: '28px 36px',
+                    backgroundColor: 'rgba(255,255,255,0.02)',
+                    borderLeft: '2px solid #fff',
+                    borderRadius: '0 8px 8px 0',
+                    marginTop: '20px'
+                  }}>
+                    <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.15rem', lineHeight: 1.7, margin: 0 }}>
+                      {t(handbookData.essentials.loop.desc)}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -577,11 +678,11 @@ const Handbook = () => {
               {handbookData.finalChecklist.list.map((item, idx) => (
                 <div key={idx} style={{ borderBottom: 'none' }}>
                   <label style={{
-                    display: 'flex', gap: '24px', padding: '24px', backgroundColor: 'rgba(255,255,255,0.01)',
+                    display: 'flex', alignItems: 'flex-start', gap: '24px', padding: '24px', backgroundColor: 'rgba(255,255,255,0.01)',
                     borderRadius: '8px', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.05)',
                     height: '100%'
                   }} className="checklist-item">
-                    <input type="checkbox" style={{ width: '22px', height: '22px', accentColor: '#fff', cursor: 'pointer', marginTop: '4px' }} />
+                    <input type="checkbox" style={{ width: '22px', height: '22px', flexShrink: 0, accentColor: '#fff', cursor: 'pointer', marginTop: '3px' }} />
                     <div>
                       <div style={{ fontWeight: 950, fontSize: '1.15rem', color: '#fff', marginBottom: '6px', letterSpacing: '-0.2px' }}>{t(item.task)}</div>
                       <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.45)', margin: 0, lineHeight: 1.5 }}>{t(item.desc)}</div>

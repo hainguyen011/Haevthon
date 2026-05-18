@@ -88,8 +88,8 @@ const HeroSection = () => {
               top: '50%',
               left: '35%', // Slightly more to the left to balance the long word
               transform: 'translate(-50%, -50%)',
-              width: isMobile ? '130%' : '150%',
-              height: isMobile ? '130%' : '150%',
+              width: isMobile ? '160%' : '180%',
+              height: isMobile ? '160%' : '180%',
               opacity: 0.05, // Softer for better readability
               pointerEvents: 'none',
               zIndex: -1,
@@ -99,7 +99,7 @@ const HeroSection = () => {
             }}
           >
             <img
-              src="/favicon.svg"
+              src="/assets/haevthon-logo.png"
               alt="Rotating Logo"
               style={{ width: '100%', height: '100%', objectFit: 'contain' }}
             />
@@ -117,10 +117,25 @@ const HeroSection = () => {
               letterSpacing: isMobile ? '-2px' : '-8px',
               lineHeight: 0.85,
               color: '#fff',
-              position: 'relative'
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center'
             }}
           >
-            <span className="shimmer-text">HAEVTHON</span>
+            <span className="shimmer-text">H</span>
+            <img
+              src="/assets/haevthon-logo.png"
+              alt="A"
+              style={{
+                height: '1.45em',
+                width: 'auto',
+                margin: '0 -0.24em',
+                objectFit: 'contain',
+                display: 'inline-block',
+                transform: 'translateY(2%) translateX(3%)'
+              }}
+            />
+            <span className="shimmer-text">EVTHON</span>
           </motion.h1>
 
           {/* Line 2: AGENTIC HACKATHON 2026 (Refined Small Style) */}
@@ -193,6 +208,7 @@ const HeroSection = () => {
             {t(hero.cta_primary_key)}
           </button>
           <button
+            onClick={() => navigate('/timeline')}
             className="hero-btn-secondary"
             style={{
               padding: '22px 64px',

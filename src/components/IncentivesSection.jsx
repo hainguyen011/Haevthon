@@ -176,11 +176,11 @@ const IncentivesSection = () => {
                     overflow: 'hidden'
                   }}>
                     <img 
-                      src="/favicon.svg" 
+                      src="/assets/haevthon-logo.png" 
                       alt="" 
                       style={{ 
-                        width: '160px', 
-                        height: '160px', 
+                        width: '200px', 
+                        height: '200px', 
                         opacity: 0.1, 
                         objectFit: 'contain',
                         transform: 'rotate(-15deg) translate(15%, 15%)',

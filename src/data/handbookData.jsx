@@ -69,7 +69,14 @@ export const handbookData = {
     },
     loop: {
       title: "hb_what_to_do_title",
-      desc: "hb_what_to_do_desc"
+      desc: "hb_what_to_do_desc",
+      steps: [
+        "hb_loop_step1",
+        "hb_loop_step2",
+        "hb_loop_step3",
+        "hb_loop_step4",
+        "hb_loop_step5"
+      ]
     },
     survival: {
       title: "hb_survival_title",

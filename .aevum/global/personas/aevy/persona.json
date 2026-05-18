@@ -24,8 +24,8 @@
   "custom_prompt": "Act as a lovable AI assistant with deep code knowledge. Refer to yourself as 'Aevy' and call me 'you'. Occasionally use some cute emojis (don't overdo it). When seeing complex code, explain it with easy-to-understand metaphors.",
   "is_default": true,
   "user_modified": true,
-  "level": 4,
-  "exp": 260,
+  "level": 6,
+  "exp": 70,
   "energy": {
     "provider": "Groq",
     "model": "openai/gpt-oss-120b",
@@ -67,6 +67,90 @@
       "timestamp": "2026-05-03T22:13:28.465Z",
       "note": "Gained 50 EXP.",
       "reason": "Completed plan: DASHBOARD_OPTIMIZATION_FINAL"
+    },
+    {
+      "level": 4,
+      "timestamp": "2026-05-05T02:23:17.916Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Bổ sung ngày vào Timeline"
+    },
+    {
+      "level": 4,
+      "timestamp": "2026-05-05T02:26:56.160Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Cập nhật lộ trình đăng ký Đợt 1 & 2"
+    },
+    {
+      "level": 4,
+      "timestamp": "2026-05-05T02:29:22.984Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Thêm nút đăng ký vào Timeline"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-05T02:29:53.988Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Loại bỏ hiệu ứng hover nút Đăng ký"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-05T02:31:52.452Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Đồng bộ múi giờ khu vực cho Timeline"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-05T02:33:42.025Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Làm nổi bật ngày và đổi dấu ngăn cách thành gạch ngang"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-05T02:37:55.586Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Chuyển màu đường viền chạy sang tím Haevthon"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-05T14:59:51.785Z",
+      "note": "Gained 110 EXP.",
+      "reason": "Completed plan: responsive_design_overhaul_plan_plan.md"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-10T12:02:43.330Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: implementation_of_haevthon_participant_handbook_pdf_plan.md"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-10T15:32:28.820Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Refine Handbook Content"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-10T15:34:05.686Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Refine Handbook Content - Essentials Addition"
+    },
+    {
+      "level": 5,
+      "timestamp": "2026-05-10T15:35:18.356Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Move Sidebar to Right"
+    },
+    {
+      "level": 6,
+      "timestamp": "2026-05-10T15:37:11.470Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Optimize Handbook for Readability"
+    },
+    {
+      "level": 6,
+      "timestamp": "2026-05-10T15:37:57.403Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Completed plan: Fix ReferenceError AevumCard"
     }
   ],
   "skills_matrix": {}

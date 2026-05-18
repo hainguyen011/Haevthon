@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
-import { Home, Clock, Zap, Award, Menu, X, Globe } from 'lucide-react';
+import { Home, Clock, Zap, Award, Menu, X, Globe, BookOpen } from 'lucide-react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -22,6 +22,7 @@ const Navbar = () => {
   const navItems = [
     { to: '/', label: t('nav_home'), icon: <Home size={20} />, active: location.pathname === '/' },
     { to: '/timeline', label: t('nav_timeline'), icon: <Clock size={20} />, active: location.pathname === '/timeline' },
+    { to: '/handbook', label: t('nav_handbook'), icon: <BookOpen size={20} />, active: location.pathname === '/handbook' },
     { to: '/register', label: t('nav_register'), icon: <Zap size={20} />, active: location.pathname === '/register' },
     { to: '/sponsors', label: t('nav_sponsors'), icon: <Award size={20} />, active: location.pathname === '/sponsors' }
   ];
@@ -44,7 +45,7 @@ const Navbar = () => {
           flexDirection: 'column',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '60px 0',
+          padding: '35px 0 35px 0',
           zIndex: 1000,
           backgroundColor: '#000000',
           borderRight: '1px solid rgba(255,255,255,0.1)',
@@ -52,7 +53,7 @@ const Navbar = () => {
       >
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           <motion.div whileHover={{ scale: 1.1 }}>
-            <img src="/favicon.svg" alt="Haevthon Logo" style={{ height: '36px', width: 'auto' }} />
+            <img src="/assets/haevthon-logo.png" alt="Haevthon Logo" style={{ height: '46px', width: 'auto' }} />
           </motion.div>
         </Link>
 
@@ -64,13 +65,15 @@ const Navbar = () => {
               style={{
                 color: item.active ? 'var(--primary-white)' : 'rgba(255,255,255,0.3)',
                 textDecoration: 'none',
-                transform: 'rotate(-90deg)',
+                writingMode: 'vertical-lr',
+                transform: 'rotate(180deg)',
                 whiteSpace: 'nowrap',
                 textTransform: 'uppercase',
-                letterSpacing: '4px',
-                fontSize: '0.75rem',
+                letterSpacing: '3.5px',
+                fontSize: '0.65rem',
                 fontWeight: 800,
-                transition: 'all 0.3s'
+                transition: 'all 0.3s',
+                padding: '10px 0'
               }}
             >
               {item.label}
@@ -78,8 +81,24 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', paddingBottom: '20px' }}>
-          <button onClick={toggleLanguage} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 800 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', paddingBottom: 0 }}>
+          <button 
+            onClick={toggleLanguage} 
+            style={{ 
+              background: 'rgba(255,255,255,0.03)', 
+              border: '1px solid rgba(255,255,255,0.15)', 
+              color: 'var(--primary-white, #ffffff)', 
+              cursor: 'pointer', 
+              fontSize: '0.7rem', 
+              fontWeight: 800,
+              padding: '8px 16px',
+              borderRadius: '8px',
+              transition: 'all 0.3s',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             {language.toUpperCase()}
           </button>
         </div>
@@ -111,7 +130,7 @@ const Navbar = () => {
         }}
       >
         <Link to="/" onClick={() => setIsOpen(false)}>
-          <img src="/favicon.svg" alt="Haevthon Logo" style={{ height: '32px', width: 'auto' }} />
+          <img src="/assets/haevthon-logo.png" alt="Haevthon Logo" style={{ height: '42px', width: 'auto' }} />
         </Link>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>

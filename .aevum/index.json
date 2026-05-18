@@ -1,5 +1,5 @@
 {
-  "version": "1.7.0",
+  "version": "2.1.0",
   "project": "Haevthon",
   "domains": [
     {
@@ -141,7 +141,8 @@
     "developer_profile": "global/developer_profile.md",
     "companion_persona": "global/companion_persona.json",
     "evolution_report": "global/evolution_report.md",
-    "knowledge_rules": "Every active persona has a dedicated knowledge folder in `.aevum/global/personas/<id>/knowledge/`. Log project-specific patterns and agent-exclusive wisdom there."
+    "knowledge_rules": "Every active persona has a dedicated knowledge folder in `.aevum/global/personas/<id>/knowledge/`. Log project-specific patterns and agent-exclusive wisdom there.",
+    "agent_rules_compressed": "global/agent_rules_compressed.md"
   },
   "agents": [
     {
